@@ -1,19 +1,24 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { ThemeToggle } from './ThemeToggle';
 import { renderWithProviders, screen } from '../test/utils';
 
 describe('ThemeToggle', () => {
-  it('toggles the dark class on the document element', async () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+    document.documentElement.classList.remove('dark');
+  });
+
+  it('flips the dark class on the document element when clicked', async () => {
     const user = userEvent.setup();
     renderWithProviders(<ThemeToggle />);
 
-    expect(document.documentElement.classList.contains('dark')).toBe(false);
+    const before = document.documentElement.classList.contains('dark');
 
     await user.click(screen.getByRole('button', { name: /toggle theme/i }));
-    expect(document.documentElement.classList.contains('dark')).toBe(true);
+    expect(document.documentElement.classList.contains('dark')).toBe(!before);
 
     await user.click(screen.getByRole('button', { name: /toggle theme/i }));
-    expect(document.documentElement.classList.contains('dark')).toBe(false);
+    expect(document.documentElement.classList.contains('dark')).toBe(before);
   });
 });

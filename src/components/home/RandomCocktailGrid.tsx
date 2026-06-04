@@ -1,44 +1,109 @@
-import { Shuffle } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowUpRight, Shuffle } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { CocktailDbDrink } from "@/types/cocktail";
-import { RandomCocktailCard } from "./RandomCocktailCard";
+import { cocktailPath } from "@/lib/paths";
+import { SectionHeading } from "./SectionHeading";
 
 interface RandomCocktailGridProps {
   drinks: CocktailDbDrink | null;
   loading: boolean;
+  fetching?: boolean;
   error: string | null;
+  onShuffle?: () => void;
 }
 
 export function RandomCocktailGrid({
   drinks: drink,
   loading,
+  fetching,
   error,
+  onShuffle,
 }: RandomCocktailGridProps) {
-  console.log(drink);
   return (
-    <div>
-      <div className="mb-3 flex items-center gap-2">
-        <Shuffle className="h-5 w-5 text-indigo-500" />
-        <h2 className="text-lg font-semibold">Discover Something New</h2>
-      </div>
+    <section id="random" className="scroll-mt-24 py-8">
+      <SectionHeading
+        num="01"
+        title="Pour Me Something"
+        blurb="Can't decide? Let the bar choose for you."
+      />
 
-      {error && (
-        <p className="text-sm text-destructive">Failed to load cocktails.</p>
-      )}
+      <div className="relative overflow-hidden rounded-[1.6rem] border border-border bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40">
+        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr]">
+          <div className="flex items-center justify-center border-b border-border bg-black/20 p-6 md:border-b-0 md:border-r">
+            {loading || !drink ? (
+              <Skeleton className="aspect-square w-full max-w-[240px] rounded-xl" />
+            ) : (
+              <img
+                src={drink.strDrinkThumb}
+                alt={drink.strDrink}
+                className="aspect-square w-full max-w-[240px] rounded-xl object-cover shadow-lg shadow-black/50"
+              />
+            )}
+          </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        {loading
-          ? Array.from({ length: 6 }, (_, i) => (
-              <div key={i} className="overflow-hidden rounded-lg">
-                <Skeleton className="aspect-square w-full" />
-                <div className="p-3 space-y-1.5">
-                  <Skeleton className="h-4 w-3/4" />
-                  <Skeleton className="h-4 w-1/2" />
-                </div>
-              </div>
-            ))
-          : drink && <RandomCocktailCard key={drink.idDrink} drink={drink} />}
+          <div className="flex flex-col justify-center gap-3 p-8 md:p-10">
+            <span className="text-[0.7rem] uppercase tracking-[0.4em] text-amber">
+              Tonight's Wildcard
+            </span>
+
+            {error ? (
+              <p className="text-sm text-destructive">
+                Couldn't pour a wildcard right now. Try shuffling again.
+              </p>
+            ) : loading || !drink ? (
+              <>
+                <Skeleton className="h-10 w-2/3" />
+                <Skeleton className="h-4 w-1/3" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-5/6" />
+              </>
+            ) : (
+              <>
+                <h3 className="font-serif text-4xl font-normal italic leading-none">
+                  {drink.strDrink}
+                </h3>
+                <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                  {[drink.strCategory, drink.strAlcoholic]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+                {drink.strInstructions && (
+                  <p className="max-w-[48ch] text-sm leading-relaxed text-muted-foreground line-clamp-3">
+                    {drink.strInstructions}
+                  </p>
+                )}
+              </>
+            )}
+
+            <div className="mt-3 flex flex-wrap gap-3">
+              <Button
+                onClick={onShuffle}
+                disabled={fetching}
+                className="group rounded-full"
+              >
+                <Shuffle
+                  className={fetching ? "animate-spin" : "transition-transform group-hover:rotate-180"}
+                />
+                Shuffle Again
+              </Button>
+              {drink && (
+                <Button asChild variant="outline" className="rounded-full">
+                  <Link to={cocktailPath(drink.strDrink)}>
+                    View &amp; Rate
+                    <ArrowUpRight />
+                  </Link>
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(420px_300px_at_16%_50%,#d8a44b24,transparent_60%)]"
+        />
       </div>
-    </div>
+    </section>
   );
 }

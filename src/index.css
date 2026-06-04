@@ -3,49 +3,61 @@
 @tailwind utilities;
 
 @layer base {
+  /*
+   * "Nightcap" palette — a warm, candlelit cocktail-lounge aesthetic.
+   * Light mode is a cream-paper variant; dark mode is the signature ink lounge.
+   */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
+    --background: #f8f4ed;
+    --foreground: #1f1713;
+    --card: #fcfbf8;
+    --card-foreground: #1f1713;
+    --popover: #fcfbf8;
+    --popover-foreground: #1f1713;
+    --primary: #c37822;
+    --primary-foreground: #fbf9f4;
+    --secondary: #eae2d7;
+    --secondary-foreground: #2c211b;
+    --muted: #ede7de;
+    --muted-foreground: #6d6055;
+    --accent: #eadecd;
+    --accent-foreground: #2c211b;
+    --destructive: #ab3c2b;
+    --destructive-foreground: #fbf9f4;
+    --border: #d9cdbf;
+    --input: #d9cdbf;
+    --ring: #c37822;
+    --radius: 0.9rem;
+
+    --amber: #d8a44b;
+    --amber-bright: #efbb61;
+    --cream-dim: #ab9b87;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --background: #0d0908;
+    --foreground: #f0e8db;
+    --card: #1b1613;
+    --card-foreground: #f0e8db;
+    --popover: #1e1815;
+    --popover-foreground: #f0e8db;
+    --primary: #d8a44b;
+    --primary-foreground: #17100c;
+    --secondary: #2b221d;
+    --secondary-foreground: #e8decf;
+    --muted: #27201b;
+    --muted-foreground: #b2a595;
+    --accent: #33271f;
+    --accent-foreground: #daaa58;
+    --destructive: #a73f2f;
+    --destructive-foreground: #f0e8db;
+    --border: #33291f;
+    --input: #33291f;
+    --ring: #d8a44b;
+
+    --amber: #d8a44b;
+    --amber-bright: #efbb61;
+    --cream-dim: #b2a595;
   }
 }
 
@@ -53,7 +65,49 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* candlelight atmosphere + film grain */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(900px 700px at 78% -8%, color-mix(in srgb, var(--amber) 16%, transparent), transparent 60%),
+      radial-gradient(700px 600px at 10% 12%, #ad531f1e, transparent 55%),
+      radial-gradient(1000px 900px at 50% 120%, #85955012, transparent 60%);
+  }
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  #root {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@layer utilities {
+  /* horizontal reel scrollbar styling */
+  .reel-scroll::-webkit-scrollbar {
+    height: 6px;
+  }
+  .reel-scroll::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 8px;
   }
 }

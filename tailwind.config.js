@@ -1,5 +1,13 @@
 import tailwindcssAnimate from 'tailwindcss-animate';
 
+/**
+ * The palette is stored as hex in CSS variables (see src/index.css). Hex can't
+ * carry Tailwind's `<alpha-value>`, so we wrap each token in color-mix() — this
+ * keeps opacity modifiers (e.g. `bg-primary/90`) working across light/dark.
+ */
+const c = (token) =>
+  `color-mix(in srgb, var(${token}) calc(<alpha-value> * 100%), transparent)`;
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: 'class',
@@ -13,39 +21,48 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['"Hanken Grotesk"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['Fraunces', 'Georgia', 'serif'],
+      },
       colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        amber: {
+          DEFAULT: c('--amber'),
+          bright: c('--amber-bright'),
+        },
+        'cream-dim': c('--cream-dim'),
+        border: c('--border'),
+        input: c('--input'),
+        ring: c('--ring'),
+        background: c('--background'),
+        foreground: c('--foreground'),
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: c('--primary'),
+          foreground: c('--primary-foreground'),
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: c('--secondary'),
+          foreground: c('--secondary-foreground'),
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
+          DEFAULT: c('--destructive'),
+          foreground: c('--destructive-foreground'),
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
+          DEFAULT: c('--muted'),
+          foreground: c('--muted-foreground'),
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
+          DEFAULT: c('--accent'),
+          foreground: c('--accent-foreground'),
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
+          DEFAULT: c('--popover'),
+          foreground: c('--popover-foreground'),
         },
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
+          DEFAULT: c('--card'),
+          foreground: c('--card-foreground'),
         },
       },
       borderRadius: {

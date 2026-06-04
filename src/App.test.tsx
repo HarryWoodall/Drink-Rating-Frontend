@@ -5,7 +5,16 @@ import { renderWithProviders, screen } from './test/utils';
 describe('App routing', () => {
   it('renders the home page at /', () => {
     renderWithProviders(<App />, { route: '/' });
-    expect(screen.getByRole('heading', { name: 'Home' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /Pour Me Something/ }),
+    ).toBeInTheDocument();
+  });
+
+  it('renders an individual cocktail page (not a modal)', () => {
+    renderWithProviders(<App />, { route: '/cocktail/Margarita' });
+    expect(
+      screen.getByRole('link', { name: /Back to the index/ }),
+    ).toBeInTheDocument();
   });
 
   it('renders the about page at /about', () => {

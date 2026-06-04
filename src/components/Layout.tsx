@@ -2,42 +2,54 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
-  { to: "/", label: "Home", end: true },
-  { to: "/about", label: "About" },
+  { to: "/#top", label: "Top Rated" },
+  { to: "/#random", label: "Surprise Me" },
+  { to: "/#trending", label: "Trending" },
 ];
 
 export function Layout() {
   return (
-    <div className="min-h-screen bg-white text-gray-900 transition-colors dark:bg-gray-950 dark:text-gray-100">
-      <header className="border-b border-gray-200 dark:border-gray-800">
-        <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
-          <Link to="/" className="text-lg font-bold">
-            Cocktail Rating
+    <div className="min-h-screen">
+      <div className="mx-auto max-w-6xl px-7">
+        <nav className="flex items-center justify-between py-7">
+          <Link to="/" className="flex items-baseline gap-3 no-underline">
+            <span className="font-serif text-3xl italic font-semibold tracking-tight">
+              Night<span className="text-amber">cap</span>
+            </span>
+            <span className="hidden text-[0.62rem] uppercase tracking-[0.42em] text-muted-foreground sm:block">
+              Cocktail Index
+            </span>
           </Link>
-          <nav className="flex items-center gap-4">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.end}
-                className={({ isActive }) =>
-                  `text-sm font-medium transition-colors hover:text-indigo-500 ${
-                    isActive
-                      ? "text-indigo-500"
-                      : "text-gray-600 dark:text-gray-400"
-                  }`
-                }
-              >
-                {item.label}
-              </NavLink>
-            ))}
+
+          <div className="flex items-center gap-8">
+            <div className="hidden gap-8 text-xs uppercase tracking-[0.12em] text-muted-foreground sm:flex">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  className="transition-colors hover:text-amber"
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </div>
             <ThemeToggle />
-          </nav>
-        </div>
-      </header>
-      <main className="mx-auto max-w-4xl px-4 py-8">
+          </div>
+        </nav>
+      </div>
+
+      <main className="mx-auto max-w-6xl px-7">
         <Outlet />
       </main>
+
+      <footer className="mx-auto mt-16 max-w-6xl px-7 pb-16 pt-10 text-center">
+        <div className="mb-2 font-serif text-lg italic text-amber">
+          Drink curiously.
+        </div>
+        <p className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
+          Nightcap — a community cocktail index · please sip responsibly
+        </p>
+      </footer>
     </div>
   );
 }

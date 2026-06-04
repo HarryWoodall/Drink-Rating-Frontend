@@ -23,3 +23,38 @@ export interface CocktailDbDrink {
 export interface EnrichedCocktail extends DbCocktail {
   thumbUrl?: string;
 }
+
+/**
+ * Full CocktailDB drink as returned by the server's `/api/cocktails/id/:id`
+ * lookup. Ingredients and measures are sparse string fields (1..15).
+ */
+export interface CocktailDetail {
+  idDrink: string;
+  strDrink: string;
+  strDrinkThumb: string;
+  strCategory: string;
+  strAlcoholic: string;
+  strGlass: string;
+  strInstructions: string;
+  strTags?: string | null;
+  [key: `strIngredient${number}`]: string | null | undefined;
+  [key: `strMeasure${number}`]: string | null | undefined;
+}
+
+export interface Ingredient {
+  name: string;
+  measure: string | null;
+}
+
+/** Collapse the sparse strIngredientN / strMeasureN pairs into a clean list. */
+export function extractIngredients(drink: CocktailDetail): Ingredient[] {
+  const out: Ingredient[] = [];
+  for (let i = 1; i <= 15; i++) {
+    const name = drink[`strIngredient${i}`];
+    if (name && name.trim()) {
+      const measure = drink[`strMeasure${i}`];
+      out.push({ name: name.trim(), measure: measure?.trim() || null });
+    }
+  }
+  return out;
+}
