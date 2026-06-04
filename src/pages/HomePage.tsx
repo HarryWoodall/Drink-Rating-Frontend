@@ -1,10 +1,22 @@
+import { useTopRated } from "@/hooks/useTopRated";
+import { useRecentlyRated } from "@/hooks/useRecentlyRated";
+import { useRandomCocktails } from "@/hooks/useRandomCocktails";
+import { TopRatedCard } from "@/components/home/TopRatedCard";
+import { RandomCocktailGrid } from "@/components/home/RandomCocktailGrid";
+import { RecentlyRatedList } from "@/components/home/RecentlyRatedList";
+
 export function HomePage() {
+  const { topRated, loading: topLoading, error: topError } = useTopRated();
+  const { randomCocktails, loading: randLoading, error: randError } = useRandomCocktails(6);
+  const { recentCocktails, loading: recentLoading, error: recentError } = useRecentlyRated();
+
   return (
-    <section>
-      <h1 className="mb-2 text-3xl font-bold">Home</h1>
-      <p className="text-gray-600 dark:text-gray-400">
-        Welcome to the Cocktail Rating app boilerplate.
-      </p>
-    </section>
+    <div className="space-y-10">
+      <TopRatedCard cocktail={topRated} loading={topLoading} error={topError} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <RandomCocktailGrid drinks={randomCocktails} loading={randLoading} error={randError} />
+        <RecentlyRatedList cocktails={recentCocktails} loading={recentLoading} error={recentError} />
+      </div>
+    </div>
   );
 }
