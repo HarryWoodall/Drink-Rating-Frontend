@@ -5,9 +5,15 @@ interface StarRatingProps {
   rating: number;
   size?: "sm" | "md";
   showValue?: boolean;
+  numRatings?: number;
 }
 
-export function StarRating({ rating, size = "md", showValue = true }: StarRatingProps) {
+export function StarRating({
+  rating,
+  size = "md",
+  showValue = true,
+  numRatings,
+}: StarRatingProps) {
   const iconSize = size === "sm" ? "h-3.5 w-3.5" : "h-[18px] w-[18px]";
 
   return (
@@ -19,9 +25,7 @@ export function StarRating({ rating, size = "md", showValue = true }: StarRating
             key={i}
             className={cn(
               iconSize,
-              filled
-                ? "fill-amber text-amber"
-                : "fill-none text-amber/25",
+              filled ? "fill-amber text-amber" : "fill-none text-amber/25",
             )}
           />
         );
@@ -34,6 +38,17 @@ export function StarRating({ rating, size = "md", showValue = true }: StarRating
           )}
         >
           {rating.toFixed(1)}
+        </span>
+      )}
+
+      {showValue && numRatings !== undefined && (
+        <span
+          className={cn(
+            "ml-1.5 tabular-nums",
+            size === "sm" ? "text-xs" : "text-sm",
+          )}
+        >
+          ({numRatings})
         </span>
       )}
     </div>

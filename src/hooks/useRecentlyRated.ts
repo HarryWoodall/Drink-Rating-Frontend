@@ -1,17 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchDbCocktails } from "@/services/api";
+import { fetchTrendingDrinks } from "@/services/api";
 
-export function useRecentlyRated(limit = 5) {
+export function useRecentlyRated() {
   const { data, isLoading, error } = useQuery({
     queryKey: ["cocktails"],
-    queryFn: fetchDbCocktails,
+    queryFn: fetchTrendingDrinks,
   });
 
-  const recentCocktails = data
-    ? [...data]
-        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-        .slice(0, limit)
-    : [];
+  const recentCocktails = data ? data : [];
 
   return {
     recentCocktails,

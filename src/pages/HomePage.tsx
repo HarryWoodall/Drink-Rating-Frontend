@@ -2,12 +2,17 @@ import { useTopRated } from "@/hooks/useTopRated";
 import { useRecentlyRated } from "@/hooks/useRecentlyRated";
 import { useRandomCocktails } from "@/hooks/useRandomCocktails";
 import { Hero } from "@/components/home/Hero";
-import { TopRatedCard } from "@/components/home/TopRatedCard";
+import { TopRatedCard } from "@/components/home/TopRated/TopRatedCard";
 import { RandomCocktailGrid } from "@/components/home/RandomCocktailGrid";
 import { TrendingReel } from "@/components/home/TrendingReel";
+import { TopRatedSection } from "@/components/home/TopRated/TopRatedSection";
 
 export function HomePage() {
-  const { topRated, loading: topLoading, error: topError } = useTopRated();
+  const {
+    topDrink: topCocktail,
+    loading: topLoading,
+    error: topError,
+  } = useTopRated();
   const {
     randomCocktails,
     loading: randLoading,
@@ -31,7 +36,11 @@ export function HomePage() {
         error={randError}
         onShuffle={() => shuffle()}
       />
-      <TopRatedCard cocktail={topRated} loading={topLoading} error={topError} />
+      <TopRatedSection
+        cocktail={topCocktail}
+        loading={topLoading}
+        error={topError}
+      />
       <TrendingReel
         cocktails={recentCocktails}
         loading={recentLoading}

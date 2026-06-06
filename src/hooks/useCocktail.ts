@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchCocktailByName } from "@/services/api";
+import { fetchCocktailById } from "@/services/api";
 
-/** Loads the full CocktailDB drink for an individual cocktail page, by name. */
+/** Loads the full CocktailDB drink for an individual cocktail page, by id. */
 export function useCocktail(name: string | undefined) {
   const { data, isLoading, error } = useQuery({
     queryKey: ["cocktail", name],
-    queryFn: () => fetchCocktailByName(name!),
+    queryFn: () => fetchCocktailById(name!),
     enabled: !!name,
   });
 

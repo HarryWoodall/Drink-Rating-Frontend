@@ -1,7 +1,9 @@
 import type {
   CocktailDbDrink,
   CocktailDetail,
+  Comment,
   DbCocktail,
+  TopRatedResponse,
 } from "@/types/cocktail";
 
 const BASE_URL = "http://localhost:3000/api";
@@ -12,18 +14,35 @@ async function get<T>(path: string): Promise<T> {
   return res.json() as Promise<T>;
 }
 
-export async function fetchDbCocktails(): Promise<DbCocktail[]> {
-  return get<DbCocktail[]>("/cocktails");
+async function post<T>(path: string, body: unknown): Promise<T> {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+  return res.json() as Promise<T>;
 }
 
-export async function getRandomCocktail(): Promise<CocktailDbDrink> {
-  const res = await get<CocktailDbDrink>("/cocktails/random");
-  return res;
+export async function fetchDbCocktails(): Promise<DbCocktail[]> {
+  return get<DbCocktail[]>("/drinks");
+}
+
+export async function fetchTopRatedDrinks(): Promise<TopRatedResponse[]> {
+  return get<TopRatedResponse[]>("/drinks/top-rated");
+}
+
+export async function fetchTrendingDrinks(): Promise<TopRatedResponse[]> {
+  return get<TopRatedResponse[]>("/drinks/trending");
+}
+
+export async function getRandomCocktail(): Promise<CocktailDetail> {
+  return get<CocktailDetail>("/drinks/random");
 }
 
 /** Full drink lookup by CocktailDB id. */
 export async function fetchCocktailById(id: string): Promise<CocktailDetail> {
-  return get<CocktailDetail>(`/cocktails/id/${encodeURIComponent(id)}`);
+  return get<CocktailDetail>(`/drinks/id/${encodeURIComponent(id)}`);
 }
 
 /**
@@ -34,7 +53,7 @@ export async function fetchCocktailByName(
   name: string,
 ): Promise<CocktailDetail | null> {
   const drinks = await get<CocktailDetail[] | null>(
-    `/cocktails/name/${encodeURIComponent(name)}`,
+    `/drinks/name/${encodeURIComponent(name)}`,
   );
   return drinks?.[0] ?? null;
 }
@@ -42,14 +61,28 @@ export async function fetchCocktailByName(
 export async function searchCocktailByName(
   name: string,
 ): Promise<CocktailDbDrink | null> {
+  console.log("searching cocktail by name");
   const drinks = await get<CocktailDbDrink[] | null>(
-    `/cocktails/name/${encodeURIComponent(name)}`,
+    `/drinks/name/${encodeURIComponent(name)}`,
   );
   return drinks?.[0] ?? null;
 }
 
 export async function fetchRandomCocktails(
   _count: number,
-): Promise<CocktailDbDrink> {
+): Promise<CocktailDetail> {
   return await getRandomCocktail();
+}
+
+export async function fetchComments(drinkId: string): Promise<Comment[]> {
+  return get<Comment[]>(`/drinks/${encodeURIComponent(drinkId)}/comments`);
+}
+
+export async function postComment(
+  drinkId: string,
+  comment: string,
+): Promise<Comment> {
+  return post<Comment>(`/drinks/${encodeURIComponent(drinkId)}/comments`, {
+    comment,
+  });
 }

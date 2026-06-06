@@ -24,6 +24,20 @@ export interface EnrichedCocktail extends DbCocktail {
   thumbUrl?: string;
 }
 
+export type TopRatedResponse = {
+  drink: CocktailDetail;
+  comments: Comment[];
+  ratings: Rating[];
+  averageRating: AverageRating;
+};
+
+export type TrendingResponse = {
+  drink: CocktailDetail;
+  comments: Comment[];
+  ratings: Rating[];
+  averageRating: AverageRating;
+};
+
 /**
  * Full CocktailDB drink as returned by the server's `/api/cocktails/id/:id`
  * lookup. Ingredients and measures are sparse string fields (1..15).
@@ -58,3 +72,34 @@ export function extractIngredients(drink: CocktailDetail): Ingredient[] {
   }
   return out;
 }
+
+export type User = {
+  id: string;
+  name: string;
+  image: string | null;
+};
+
+export type Comment = {
+  id: number;
+  drinkId: number;
+  userId: string | null;
+  comment: string;
+  createdAt: Date;
+  updatedAt: Date;
+  user: User | null;
+};
+
+export type Rating = {
+  id: number;
+  drinkId: number;
+  userId: string | null;
+  rating: number;
+  createdAt: Date;
+  updatedAt: Date;
+  user: User | null;
+};
+
+export type AverageRating = {
+  avgRating: number;
+  numRatings: number;
+};

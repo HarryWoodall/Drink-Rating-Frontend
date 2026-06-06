@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useCocktail } from "@/hooks/useCocktail";
 import { extractIngredients } from "@/types/cocktail";
 import { cn } from "@/lib/utils";
+import { CommentSection } from "@/components/cocktail/CommentSection";
 
 export function CocktailPage() {
   const { name } = useParams<{ name: string }>();
@@ -47,7 +48,11 @@ export function CocktailPage() {
 
             <div className="p-8 md:p-10">
               <p className="text-[0.7rem] uppercase tracking-[0.24em] text-amber">
-                {[cocktail.strCategory, cocktail.strAlcoholic, cocktail.strGlass]
+                {[
+                  cocktail.strCategory,
+                  cocktail.strAlcoholic,
+                  cocktail.strGlass,
+                ]
                   .filter(Boolean)
                   .join(" · ")}
               </p>
@@ -88,6 +93,7 @@ export function CocktailPage() {
           </div>
 
           <RatingBar />
+          <CommentSection drinkId={cocktail.idDrink} />
         </article>
       )}
     </div>
