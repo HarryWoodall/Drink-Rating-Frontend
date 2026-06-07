@@ -17,7 +17,6 @@ import { register as registerUser } from "./registerService";
 import { authClient } from "@/lib/auth";
 
 export function RegisterPage() {
-  // const auth = useAuth();
   const navigate = useNavigate();
   const [serverError, setServerError] = useState<string | null>(null);
   const { data: session } = authClient.useSession();
@@ -30,7 +29,6 @@ export function RegisterPage() {
   } = useForm<RegisterFormValues>();
 
   if (session) {
-    // TODO logout at this point
     navigate("/", { replace: true });
     return null;
   }

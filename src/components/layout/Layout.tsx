@@ -1,0 +1,26 @@
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { ThemeToggle } from "../ThemeToggle";
+import { loginPath, registerPath } from "@/lib/paths";
+import { authClient } from "@/lib/auth";
+import { Banner } from "./Banner";
+
+export function Layout() {
+  return (
+    <div className="min-h-screen">
+      <Banner />
+
+      <main className="mx-auto max-w-6xl px-7">
+        <Outlet />
+      </main>
+
+      <footer className="mx-auto mt-16 max-w-6xl px-7 pb-16 pt-10 text-center">
+        <div className="mb-2 font-serif text-lg italic text-amber">
+          Drink curiously.
+        </div>
+        <p className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
+          Nightcap — a community cocktail index · please sip responsibly
+        </p>
+      </footer>
+    </div>
+  );
+}

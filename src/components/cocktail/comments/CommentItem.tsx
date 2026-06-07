@@ -1,5 +1,5 @@
+import { UserAvatar } from "@/components/shared/UserAvatar";
 import { Comment } from "@/types/cocktail";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 
 export function CommentItem({ comment }: { comment: Comment }) {
   const name = comment.user?.name ?? "Anonymous";
@@ -18,12 +18,7 @@ export function CommentItem({ comment }: { comment: Comment }) {
 
   return (
     <div className="flex gap-3">
-      <Avatar className="h-8 w-8 shrink-0">
-        {comment.user?.image && (
-          <AvatarImage src={comment.user.image} alt={name} />
-        )}
-        <AvatarFallback className="text-xs">{initials}</AvatarFallback>
-      </Avatar>
+      <UserAvatar user={comment.user} size="xs" />
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2">
           <span className="text-sm font-medium">{name}</span>

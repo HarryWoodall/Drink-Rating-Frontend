@@ -20,13 +20,19 @@ async function post<T>(path: string, body: unknown): Promise<T> {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
+    credentials: "include",
   });
   if (!res.ok) {
     const data = await res.json().catch(() => null);
-    throw new Error((data as { message?: string })?.message ?? `${res.status} ${res.statusText}`);
+    throw new Error(
+      (data as { message?: string })?.message ??
+        `${res.status} ${res.statusText}`,
+    );
   }
   return res.json() as Promise<T>;
 }
+
+// TODO - move these into their own services
 
 export async function fetchDbCocktails(): Promise<DbCocktail[]> {
   return get<DbCocktail[]>("/drinks");
