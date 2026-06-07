@@ -5,6 +5,7 @@ import type {
   DbCocktail,
   TopRatedResponse,
 } from "@/types/cocktail";
+import type { AuthResponse } from "@/types/auth";
 
 const BASE_URL = "http://localhost:3000/api";
 
@@ -20,7 +21,10 @@ async function post<T>(path: string, body: unknown): Promise<T> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+  if (!res.ok) {
+    const data = await res.json().catch(() => null);
+    throw new Error((data as { message?: string })?.message ?? `${res.status} ${res.statusText}`);
+  }
   return res.json() as Promise<T>;
 }
 
@@ -86,4 +90,18 @@ export async function postComment(
   return post<Comment>(`/drinks/${encodeURIComponent(drinkId)}/comments`, {
     comment,
   });
+}
+
+export async function loginUser(
+  email: string,
+  password: string,
+): Promise<AuthResponse> {
+  return post<AuthResponse>("/auth/login", { email, password });
+}
+
+export async function registerUser(
+  email: string,
+  password: string,
+): Promise<AuthResponse> {
+  return post<AuthResponse>("/auth/register", { email, password });
 }

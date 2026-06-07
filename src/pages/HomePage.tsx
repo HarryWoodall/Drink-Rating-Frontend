@@ -2,10 +2,10 @@ import { useTopRated } from "@/hooks/useTopRated";
 import { useRecentlyRated } from "@/hooks/useRecentlyRated";
 import { useRandomCocktails } from "@/hooks/useRandomCocktails";
 import { Hero } from "@/components/home/Hero";
-import { TopRatedCard } from "@/components/home/TopRated/TopRatedCard";
 import { RandomCocktailGrid } from "@/components/home/RandomCocktailGrid";
 import { TrendingReel } from "@/components/home/TrendingReel";
 import { TopRatedSection } from "@/components/home/TopRated/TopRatedSection";
+import { authClient } from "@/lib/auth";
 
 export function HomePage() {
   const {
@@ -25,6 +25,9 @@ export function HomePage() {
     loading: recentLoading,
     error: recentError,
   } = useRecentlyRated();
+  const { data: session } = authClient.useSession();
+
+  console.log(session);
 
   return (
     <div>

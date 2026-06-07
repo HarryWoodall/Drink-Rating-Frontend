@@ -1,5 +1,7 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
+import { useAuth } from "@/context/AuthContext";
+import { loginPath, registerPath } from "@/lib/paths";
 
 const navItems = [
   { to: "/#top", label: "Top Rated" },
@@ -8,6 +10,8 @@ const navItems = [
 ];
 
 export function Layout() {
+  const { isAuthenticated, user, logout } = useAuth();
+
   return (
     <div className="min-h-screen">
       <div className="mx-auto max-w-6xl px-7">
@@ -33,6 +37,32 @@ export function Layout() {
                 </NavLink>
               ))}
             </div>
+            {isAuthenticated ? (
+              <div className="hidden items-center gap-4 sm:flex">
+                <span className="text-xs text-muted-foreground">{user?.name ?? user?.email}</span>
+                <button
+                  onClick={logout}
+                  className="text-xs uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:text-amber"
+                >
+                  Log out
+                </button>
+              </div>
+            ) : (
+              <div className="hidden items-center gap-4 sm:flex">
+                <Link
+                  to={loginPath()}
+                  className="text-xs uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:text-amber"
+                >
+                  Log in
+                </Link>
+                <Link
+                  to={registerPath()}
+                  className="rounded-full bg-amber px-4 py-2 text-xs font-semibold text-background transition-opacity hover:opacity-80"
+                >
+                  Sign up
+                </Link>
+              </div>
+            )}
             <ThemeToggle />
           </div>
         </nav>
