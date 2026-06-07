@@ -78,6 +78,7 @@ export async function fetchComments(drinkId: string): Promise<Comment[]> {
   return get<Comment[]>(`/drinks/${encodeURIComponent(drinkId)}/comments`);
 }
 
+// TODO - move to service
 export async function postComment(
   drinkId: string,
   comment: string,

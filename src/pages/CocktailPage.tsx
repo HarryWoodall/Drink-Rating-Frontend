@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useCocktail } from "@/hooks/useCocktail";
 import { extractIngredients } from "@/types/cocktail";
 import { cn } from "@/lib/utils";
-import { CommentSection } from "@/components/cocktail/CommentSection";
+import { CommentSection } from "@/components/cocktail/comments/CommentSection";
 
 export function CocktailPage() {
   const { name } = useParams<{ name: string }>();

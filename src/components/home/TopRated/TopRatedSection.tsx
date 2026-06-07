@@ -51,7 +51,7 @@ export function TopRatedSection({
       ) : (
         <div>
           <TopRatedCard cocktail={cocktail[0]} />
-          <div className="py-5 grid grid-cols-1 md:grid-cols-2 gap-2">
+          <div className="py-5 grid grid-cols-1 md:grid-cols-2 gap-5">
             <RatedCard cocktail={cocktail[1]} number={2} />
             <RatedCard cocktail={cocktail[2]} number={3} />
             <RatedCard cocktail={cocktail[3]} number={4} />
