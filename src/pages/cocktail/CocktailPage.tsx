@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, Star } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { useCocktail } from "@/hooks/useCocktail";
+import { useCocktail } from "@/pages/cocktail/hooks/useCocktail";
 import { extractIngredients } from "@/types/cocktail";
 import { cn } from "@/lib/utils";
 import { CommentSection } from "@/components/cocktail/comments/CommentSection";

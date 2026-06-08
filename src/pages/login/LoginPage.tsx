@@ -14,7 +14,10 @@ import { Button } from "@/components/ui/button";
 import { registerPath } from "@/lib/paths";
 import type { LoginFormValues } from "@/types/auth";
 import { authClient } from "@/lib/auth";
-import { signIn } from "./loginService";
+import { signIn } from "./services/loginService";
+import { PasswordInput } from "@/components/shared/forms/PasswordInput";
+import { EmailInput } from "@/components/shared/forms/EmailInput";
+import { Field, FieldLabel } from "@/components/ui/field";
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -44,35 +47,29 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+    <div className="min-h-screen flex items-center justify-center bg-transparent px-4">
       <div className="w-full max-w-sm">
-        <div className="mb-8 text-center">
-          <Link
-            to="/"
-            className="font-serif text-3xl italic font-semibold tracking-tight no-underline"
-          >
-            Night<span className="text-amber">cap</span>
-          </Link>
-        </div>
-
         <Card>
           <CardHeader>
-            <CardTitle className="font-serif text-2xl italic">
+            <CardTitle className="font-serif text-5xl italic">
               Welcome back
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-lg">
               Sign in to your account to continue
             </CardDescription>
           </CardHeader>
 
           <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="space-y-1">
-                <label className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+              <Field>
+                <FieldLabel
+                  className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
+                  htmlFor="login-email-input"
+                >
                   Email
-                </label>
-                <input
-                  type="email"
+                </FieldLabel>
+                <EmailInput
+                  id="login-email-input"
                   {...register("email", {
                     required: "Email is required",
                     pattern: {
@@ -80,20 +77,18 @@ export function LoginPage() {
                       message: "Enter a valid email",
                     },
                   })}
-                  placeholder="you@example.com"
-                  className="w-full rounded-xl border border-border bg-card/60 px-4 py-3 text-sm outline-none placeholder:text-muted-foreground focus:ring-1 focus:ring-amber"
                 />
-                {errors.email && (
-                  <p className="text-xs text-red-400">{errors.email.message}</p>
-                )}
-              </div>
+              </Field>
 
-              <div className="space-y-1">
-                <label className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
+              <Field>
+                <FieldLabel
+                  className="text-xs uppercase tracking-[0.1em] text-muted-foreground"
+                  htmlFor="login-password-input"
+                >
                   Password
-                </label>
-                <input
-                  type="password"
+                </FieldLabel>
+                <PasswordInput
+                  id="login-password-input"
                   {...register("password", {
                     required: "Password is required",
                     minLength: {
@@ -101,15 +96,9 @@ export function LoginPage() {
                       message: "At least 4 characters",
                     },
                   })}
-                  placeholder="••••••••"
-                  className="w-full rounded-xl border border-border bg-card/60 px-4 py-3 text-sm outline-none placeholder:text-muted-foreground focus:ring-1 focus:ring-amber"
+                  placeholder="password"
                 />
-                {errors.password && (
-                  <p className="text-xs text-red-400">
-                    {errors.password.message}
-                  </p>
-                )}
-              </div>
+              </Field>
 
               {serverError && (
                 <p className="text-sm text-red-400 text-center">

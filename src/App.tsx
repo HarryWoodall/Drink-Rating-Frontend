@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
-import { HomePage } from "./pages/HomePage";
-import { CocktailPage } from "./pages/CocktailPage";
+import { HomePage } from "./pages/homePage/HomePage";
+import { CocktailPage } from "./pages/cocktail/CocktailPage";
 import { AboutPage } from "./pages/AboutPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import { LoginPage } from "./pages/loginPage/LoginPage";
-import { RegisterPage } from "./pages/registerPage/RegisterPage";
+import { LoginPage } from "./pages/login/LoginPage";
+import { RegisterPage } from "./pages/register/RegisterPage";
 
 export default function App() {
   return (

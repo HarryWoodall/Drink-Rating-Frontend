@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { loginPath } from "@/lib/paths";
 import type { RegisterFormValues } from "@/types/auth";
-import { register as registerUser } from "./registerService";
+import { register as registerUser } from "./services/registerService";
 import { authClient } from "@/lib/auth";
 
 export function RegisterPage() {

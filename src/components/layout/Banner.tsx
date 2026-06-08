@@ -21,9 +21,10 @@ export function Banner() {
           <span className="font-serif text-3xl italic font-semibold tracking-tight">
             Night<span className="text-amber">cap</span>
           </span>
-          <span className="hidden text-[0.62rem] uppercase tracking-[0.42em] text-muted-foreground sm:block">
+          <span className="hidden text-[0.62rem] uppercase tracking-[0.42em] text-muted-foreground sm:block mr-3">
             Cocktail Index
           </span>
+          <ThemeToggle />
         </Link>
 
         <div className="flex items-center gap-8">
@@ -41,9 +42,6 @@ export function Banner() {
           <AuthItems />
         </div>
       </nav>
-      <div className="invisible md:visible absolute right-10 top-8">
-        <ThemeToggle />
-      </div>
     </div>
   );
 }

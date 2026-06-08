@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { useComments } from "@/hooks/useComments";
+import { useComments } from "@/pages/cocktail/hooks/useComments";
 import { CommentItem } from "./CommentItem";
 
 export function CommentList({ drinkId }: { drinkId: string }) {

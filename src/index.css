@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: var(--foreground);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 @layer base {
   /*
    * "Nightcap" palette — a warm, candlelit cocktail-lounge aesthetic.
@@ -82,7 +92,11 @@
     pointer-events: none;
     z-index: 0;
     background:
-      radial-gradient(900px 700px at 78% -8%, color-mix(in srgb, var(--amber) 16%, transparent), transparent 60%),
+      radial-gradient(
+        900px 700px at 78% -8%,
+        color-mix(in srgb, var(--amber) 16%, transparent),
+        transparent 60%
+      ),
       radial-gradient(700px 600px at 10% 12%, #ad531f1e, transparent 55%),
       radial-gradient(1000px 900px at 50% 120%, #85955012, transparent 60%);
   }

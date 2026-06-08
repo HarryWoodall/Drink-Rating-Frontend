@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { usePostComment } from "@/hooks/useComments";
+import { usePostComment } from "@/pages/cocktail/hooks/useComments";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { CommentFormValues } from "./types/CommentFormValues";

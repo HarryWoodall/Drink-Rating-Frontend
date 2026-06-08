@@ -1,7 +1,4 @@
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-import { ThemeToggle } from "../ThemeToggle";
-import { loginPath, registerPath } from "@/lib/paths";
-import { authClient } from "@/lib/auth";
+import { Outlet } from "react-router-dom";
 import { Banner } from "./Banner";
 
 export function Layout() {

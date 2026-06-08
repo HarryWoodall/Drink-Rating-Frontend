@@ -78,6 +78,24 @@ export async function searchCocktailByName(
   return drinks?.[0] ?? null;
 }
 
+export async function searchCocktailsByName(
+  name: string,
+): Promise<CocktailDetail[]> {
+  const drinks = await get<CocktailDetail[] | null>(
+    `/drinks/name/${encodeURIComponent(name)}`,
+  );
+  return drinks ?? [];
+}
+
+export async function searchCocktailsByIngredient(
+  ingredient: string,
+): Promise<CocktailDetail[]> {
+  const drinks = await get<CocktailDetail[] | null>(
+    `/drinks/ingredient/${encodeURIComponent(ingredient)}`,
+  );
+  return drinks ?? [];
+}
+
 export async function fetchRandomCocktails(
   _count: number,
 ): Promise<CocktailDetail> {
