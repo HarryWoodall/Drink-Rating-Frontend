@@ -3,6 +3,7 @@ import type {
   CocktailDetail,
   Comment,
   DbCocktail,
+  Feedback,
   TopRatedResponse,
   TrendingResponse,
 } from "@/types/cocktail";
@@ -101,6 +102,21 @@ export async function fetchRandomCocktails(
   _count: number,
 ): Promise<CocktailDetail> {
   return await getRandomCocktail();
+}
+
+export async function postFeedback(
+  drinkId: string,
+  comment: string,
+  rating: number,
+): Promise<void> {
+  return post<void>(`/drinks/${encodeURIComponent(drinkId)}/feedback`, {
+    comment,
+    rating,
+  });
+}
+
+export async function fetchFeedback(drinkId: string): Promise<Feedback[]> {
+  return get<Feedback[]>(`/drinks/${encodeURIComponent(drinkId)}/feedback`);
 }
 
 export async function fetchComments(drinkId: string): Promise<Comment[]> {

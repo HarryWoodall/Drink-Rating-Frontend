@@ -1,4 +1,3 @@
-import { CommentForm } from "./CommentForm";
 import { CommentList } from "./CommentList";
 
 export function CommentSection({ drinkId }: { drinkId: string }) {
@@ -8,7 +7,6 @@ export function CommentSection({ drinkId }: { drinkId: string }) {
         Comments
       </h2>
       <div className="space-y-8">
-        <CommentForm drinkId={drinkId} />
         <CommentList drinkId={drinkId} />
       </div>
     </section>

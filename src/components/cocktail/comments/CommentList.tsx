@@ -1,9 +1,10 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useComments } from "@/pages/cocktail/hooks/useComments";
 import { CommentItem } from "./CommentItem";
+import { useFeedback } from "@/pages/cocktail/hooks/useFeedback";
 
 export function CommentList({ drinkId }: { drinkId: string }) {
-  const { comments, loading } = useComments(drinkId);
+  const { comments, loading } = useFeedback(drinkId);
 
   if (loading) {
     return (

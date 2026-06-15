@@ -1,14 +1,10 @@
+import { Star } from "lucide-react";
 import { UserAvatar } from "@/components/shared/UserAvatar";
-import { Comment } from "@/types/cocktail";
+import { cn } from "@/lib/utils";
+import type { Feedback } from "@/types/cocktail";
 
-export function CommentItem({ comment }: { comment: Comment }) {
+export function CommentItem({ comment }: { comment: Feedback }) {
   const name = comment.user?.name ?? "Anonymous";
-  const initials = name
-    .split(" ")
-    .map((w) => w[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
 
   const date = new Date(comment.createdAt).toLocaleDateString(undefined, {
     year: "numeric",
@@ -24,6 +20,21 @@ export function CommentItem({ comment }: { comment: Comment }) {
           <span className="text-sm font-medium">{name}</span>
           <span className="text-xs text-muted-foreground">{date}</span>
         </div>
+        {comment.rating !== null && (
+          <div className="mt-1 flex gap-0.5">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <Star
+                key={s}
+                className={cn(
+                  "h-3.5 w-3.5",
+                  s <= comment.rating!
+                    ? "fill-amber text-amber"
+                    : "fill-none text-amber/25",
+                )}
+              />
+            ))}
+          </div>
+        )}
         <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
           {comment.comment}
         </p>

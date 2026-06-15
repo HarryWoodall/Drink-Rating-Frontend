@@ -102,3 +102,14 @@ export type AverageRating = {
   avgRating: number;
   numRatings: number;
 };
+
+export type Feedback = {
+  id: number;
+  drinkId: number;
+  userId: string | null;
+  comment: string;
+  rating: number | null;
+  createdAt: Date;
+  updatedAt: Date;
+  user: User | null;
+};
