@@ -22,6 +22,7 @@ function watchers(c: TrendingResponse): number {
 }
 
 export function TrendingReel({ cocktails, loading, error }: TrendingReelProps) {
+  console.log(cocktails);
   return (
     <section id="trending" className="scroll-mt-24 py-8">
       <SectionHeading

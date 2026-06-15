@@ -26,9 +26,8 @@ export interface EnrichedCocktail extends DbCocktail {
 
 export type TopRatedResponse = {
   drink: CocktailDetail;
-  comments: Comment[];
-  ratings: Rating[];
-  averageRating: AverageRating;
+  avgRating: number;
+  numRatings: number;
 };
 
 export type TrendingResponse = {

@@ -17,6 +17,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
       <InputGroup className="w-full rounded-xl border border-border bg-card/60 dark:bg-card/60 px-2 py-5 focus:ring-1">
         <InputGroupInput
           type={visible ? "text" : "password"}
+          autoComplete="new-password"
           placeholder="Enter password"
           ref={ref}
           className={cn(

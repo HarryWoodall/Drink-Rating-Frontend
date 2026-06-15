@@ -15,6 +15,11 @@ import { loginPath } from "@/lib/paths";
 import type { RegisterFormValues } from "@/types/auth";
 import { register as registerUser } from "./services/registerService";
 import { authClient } from "@/lib/auth";
+import { PasswordInput } from "@/components/shared/forms/PasswordInput";
+import { FormInput } from "@/components/shared/forms/FormInput";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { FormTextInput } from "@/components/shared/forms/FormTextInput";
+import { Input } from "@/components/ui/input";
 
 export function RegisterPage() {
   const navigate = useNavigate();
@@ -33,10 +38,10 @@ export function RegisterPage() {
     return null;
   }
 
-  async function onSubmit({ email, password }: RegisterFormValues) {
+  async function onSubmit({ email, password, name }: RegisterFormValues) {
     setServerError(null);
     try {
-      const { error } = await registerUser(email, password, "Name");
+      const { error } = await registerUser(email, password, name);
 
       if (error) {
         setServerError(error.message ? error.message : "Unknown Error");
@@ -69,12 +74,33 @@ export function RegisterPage() {
           </CardHeader>
 
           <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="space-y-1">
-                <label className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
-                  Email
-                </label>
-                <input
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              autoComplete="off"
+              className="space-y-4"
+            >
+              <FormTextInput
+                label="Username"
+                inputId="register-name-input"
+                errors={errors.name}
+              >
+                <FormInput
+                  id="register-name-input"
+                  type="text"
+                  {...register("name", {
+                    required: "Name is required",
+                  })}
+                />
+              </FormTextInput>
+
+              <FormTextInput
+                label="Email"
+                inputId="register-email-input"
+                errors={errors.email}
+              >
+                <FormInput
+                  id="register-email-input"
+                  placeholder="you@email.com"
                   type="email"
                   {...register("email", {
                     required: "Email is required",
@@ -83,20 +109,15 @@ export function RegisterPage() {
                       message: "Enter a valid email",
                     },
                   })}
-                  placeholder="you@example.com"
-                  className="w-full rounded-xl border border-border bg-card/60 px-4 py-3 text-sm outline-none placeholder:text-muted-foreground focus:ring-1 focus:ring-amber"
                 />
-                {errors.email && (
-                  <p className="text-xs text-red-400">{errors.email.message}</p>
-                )}
-              </div>
+              </FormTextInput>
 
-              <div className="space-y-1">
-                <label className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
-                  Password
-                </label>
-                <input
-                  type="password"
+              <FormTextInput
+                label="Password"
+                inputId="register-password-input"
+                errors={errors.password}
+              >
+                <PasswordInput
                   {...register("password", {
                     required: "Password is required",
                     minLength: {
@@ -104,36 +125,24 @@ export function RegisterPage() {
                       message: "At least 4 characters",
                     },
                   })}
-                  placeholder="••••••••"
-                  className="w-full rounded-xl border border-border bg-card/60 px-4 py-3 text-sm outline-none placeholder:text-muted-foreground focus:ring-1 focus:ring-amber"
+                  placeholder={undefined}
                 />
-                {errors.password && (
-                  <p className="text-xs text-red-400">
-                    {errors.password.message}
-                  </p>
-                )}
-              </div>
+              </FormTextInput>
 
-              <div className="space-y-1">
-                <label className="text-xs uppercase tracking-[0.1em] text-muted-foreground">
-                  Confirm password
-                </label>
-                <input
-                  type="password"
+              <FormTextInput
+                label="Confirm Password"
+                inputId="register-password-confirm-input"
+                errors={errors.confirmPassword}
+              >
+                <PasswordInput
                   {...register("confirmPassword", {
                     required: "Please confirm your password",
                     validate: (value) =>
                       value === watch("password") || "Passwords do not match",
                   })}
-                  placeholder="••••••••"
-                  className="w-full rounded-xl border border-border bg-card/60 px-4 py-3 text-sm outline-none placeholder:text-muted-foreground focus:ring-1 focus:ring-amber"
+                  placeholder={undefined}
                 />
-                {errors.confirmPassword && (
-                  <p className="text-xs text-red-400">
-                    {errors.confirmPassword.message}
-                  </p>
-                )}
-              </div>
+              </FormTextInput>
 
               {serverError && (
                 <p className="text-sm text-red-400 text-center">

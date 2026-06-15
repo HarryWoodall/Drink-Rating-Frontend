@@ -7,22 +7,26 @@ import { SectionHeading } from "../SectionHeading";
 import { StarRating } from "../StarRating";
 
 interface RatedCardProps {
-  cocktail: TopRatedResponse;
+  topRatedResponse: TopRatedResponse;
   number: number;
 }
 
-export function RatedCard({ cocktail, number }: RatedCardProps) {
+export function RatedCard({ topRatedResponse, number }: RatedCardProps) {
+  if (!topRatedResponse) {
+    return null;
+  }
+
   return (
     <Link
-      to={cocktailPath(cocktail.drink.idDrink)}
+      to={cocktailPath(topRatedResponse.drink.idDrink)}
       className="group block overflow-hidden rounded-[1.2rem] border border-border bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40 transition-colors hover:border-amber/45"
     >
       <div className="flex flex-row-reverse md:flex-row">
         <div className="relative h-30 w-20 shrink-0 overflow-hidden md:h-auto md:w-40">
-          {cocktail.drink.strDrinkThumb ? (
+          {topRatedResponse.drink.strDrinkThumb ? (
             <img
-              src={cocktail.drink.strDrinkThumb}
-              alt={cocktail.drink.strDrink}
+              src={topRatedResponse.drink.strDrinkThumb}
+              alt={topRatedResponse.drink.strDrink}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
@@ -36,21 +40,21 @@ export function RatedCard({ cocktail, number }: RatedCardProps) {
           <div className="flex gap-3 items-center">
             <span className="font-serif text-amber text-2xl">{number}.</span>
             <h3 className="font-serif text-xl font-normal italic leading-none">
-              {cocktail.drink.strDrink}
+              {topRatedResponse.drink.strDrink}
             </h3>
           </div>
 
           <div className="flex gap-3">
             <StarRating
               size="sm"
-              rating={cocktail.averageRating.avgRating}
-              numRatings={cocktail.averageRating.numRatings}
+              rating={topRatedResponse.avgRating}
+              numRatings={topRatedResponse.numRatings}
             />
           </div>
 
-          {cocktail.drink.strInstructions && (
+          {topRatedResponse.drink.strInstructions && (
             <p className="max-w-[48ch] text-sm leading-relaxed text-muted-foreground line-clamp-2">
-              {cocktail.drink.strInstructions}
+              {topRatedResponse.drink.strInstructions}
             </p>
           )}
         </div>

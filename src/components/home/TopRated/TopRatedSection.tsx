@@ -6,13 +6,13 @@ import { TopRatedCard } from "./TopRatedCard";
 import { RatedCard } from "./RatedCard";
 
 interface TopRatedSectionProps {
-  cocktail: TopRatedResponse[] | undefined;
+  topRatedResponseList: TopRatedResponse[] | undefined;
   loading: boolean;
   error: string | null;
 }
 
 export function TopRatedSection({
-  cocktail,
+  topRatedResponseList,
   loading,
   error,
 }: TopRatedSectionProps) {
@@ -40,7 +40,7 @@ export function TopRatedSection({
             </div>
           </div>
         </div>
-      ) : !cocktail ? (
+      ) : !topRatedResponseList || topRatedResponseList.length == 0 ? (
         <div className="rounded-[1.6rem] border border-dashed border-border bg-black/15 py-16 text-center">
           <Wine className="mx-auto mb-3 h-9 w-9 text-amber/60" />
           <p className="font-medium">No cocktails rated yet</p>
@@ -50,12 +50,12 @@ export function TopRatedSection({
         </div>
       ) : (
         <div>
-          <TopRatedCard cocktail={cocktail[0]} />
+          <TopRatedCard cocktail={topRatedResponseList[0]} />
           <div className="py-5 grid grid-cols-1 md:grid-cols-2 gap-5">
-            <RatedCard cocktail={cocktail[1]} number={2} />
-            <RatedCard cocktail={cocktail[2]} number={3} />
-            <RatedCard cocktail={cocktail[3]} number={4} />
-            <RatedCard cocktail={cocktail[4]} number={5} />
+            <RatedCard topRatedResponse={topRatedResponseList[1]} number={2} />
+            <RatedCard topRatedResponse={topRatedResponseList[2]} number={3} />
+            <RatedCard topRatedResponse={topRatedResponseList[3]} number={4} />
+            <RatedCard topRatedResponse={topRatedResponseList[4]} number={5} />
           </div>
         </div>
       )}

@@ -16,9 +16,9 @@ function getInitialTheme(): Theme {
   if (typeof window === 'undefined') return 'dark';
   const stored = window.localStorage.getItem(STORAGE_KEY);
   if (stored === 'light' || stored === 'dark') return stored;
-  // The Nightcap aesthetic is designed dark-first; default there unless the
-  // user's OS explicitly prefers light.
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  // The Nightcap aesthetic is designed dark-first; default to dark regardless
+  // of the user's OS preference. They can still switch via the theme toggle.
+  return 'dark';
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {

@@ -8,11 +8,7 @@ import { useRecentlyRated } from "./hooks/useRecentlyRated";
 import { useTopRated } from "./hooks/useTopRated";
 
 export function HomePage() {
-  const {
-    topDrink: topCocktail,
-    loading: topLoading,
-    error: topError,
-  } = useTopRated();
+  const { topDrink, loading: topLoading, error: topError } = useTopRated();
   const {
     randomCocktails,
     loading: randLoading,
@@ -25,9 +21,9 @@ export function HomePage() {
     loading: recentLoading,
     error: recentError,
   } = useRecentlyRated();
-  const { data: session } = authClient.useSession();
+  // const { data: session } = authClient.useSession();
 
-  console.log(session);
+  console.log(recentCocktails);
 
   return (
     <div>
@@ -40,7 +36,7 @@ export function HomePage() {
         onShuffle={() => shuffle()}
       />
       <TopRatedSection
-        cocktail={topCocktail}
+        topRatedResponseList={topDrink}
         loading={topLoading}
         error={topError}
       />

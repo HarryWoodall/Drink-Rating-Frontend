@@ -16,7 +16,7 @@ import type { LoginFormValues } from "@/types/auth";
 import { authClient } from "@/lib/auth";
 import { signIn } from "./services/loginService";
 import { PasswordInput } from "@/components/shared/forms/PasswordInput";
-import { EmailInput } from "@/components/shared/forms/EmailInput";
+import { FormInput } from "@/components/shared/forms/FormInput";
 import { Field, FieldLabel } from "@/components/ui/field";
 
 export function LoginPage() {
@@ -68,7 +68,7 @@ export function LoginPage() {
                 >
                   Email
                 </FieldLabel>
-                <EmailInput
+                <FormInput
                   id="login-email-input"
                   {...register("email", {
                     required: "Email is required",

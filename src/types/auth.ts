@@ -16,6 +16,7 @@ export interface LoginFormValues {
 
 export interface RegisterFormValues {
   email: string;
+  name: string;
   password: string;
   confirmPassword: string;
 }

@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
-import { cocktailPath } from "@/lib/paths";
+import { searchPath } from "@/lib/paths";
 
 const SUGGESTIONS = ["Margarita", "Negroni", "Espresso Martini", "Mojito"];
 
@@ -12,7 +12,7 @@ export function Hero() {
   function submit(e: FormEvent) {
     e.preventDefault();
     const q = query.trim();
-    if (q) navigate(cocktailPath(q));
+    if (q) navigate(searchPath(q));
   }
 
   return (
@@ -58,7 +58,7 @@ export function Hero() {
             <button
               key={s}
               type="button"
-              onClick={() => navigate(cocktailPath(s))}
+              onClick={() => navigate(searchPath(s))}
               className="rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground transition-colors hover:border-amber/40 hover:text-amber"
             >
               {s}

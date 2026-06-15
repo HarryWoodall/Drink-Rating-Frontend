@@ -3,7 +3,7 @@ import { fetchTrendingDrinks } from "@/services/api";
 
 export function useRecentlyRated() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["cocktails"],
+    queryKey: ["trendingCocktails"],
     queryFn: fetchTrendingDrinks,
   });
 

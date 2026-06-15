@@ -4,6 +4,7 @@ import type {
   Comment,
   DbCocktail,
   TopRatedResponse,
+  TrendingResponse,
 } from "@/types/cocktail";
 import type { AuthResponse } from "@/types/auth";
 
@@ -42,8 +43,8 @@ export async function fetchTopRatedDrinks(): Promise<TopRatedResponse[]> {
   return get<TopRatedResponse[]>("/drinks/top-rated");
 }
 
-export async function fetchTrendingDrinks(): Promise<TopRatedResponse[]> {
-  return get<TopRatedResponse[]>("/drinks/trending");
+export async function fetchTrendingDrinks(): Promise<TrendingResponse[]> {
+  return get<TrendingResponse[]>("/drinks/trending");
 }
 
 export async function getRandomCocktail(): Promise<CocktailDetail> {

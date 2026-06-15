@@ -47,8 +47,8 @@ export function TopRatedCard({ cocktail }: TopRatedCardProps) {
 
           <div className="flex gap-3 mb-4">
             <StarRating
-              rating={cocktail.averageRating.avgRating}
-              numRatings={cocktail.averageRating.numRatings}
+              rating={cocktail.avgRating}
+              numRatings={cocktail.numRatings}
             />
           </div>
 
