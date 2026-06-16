@@ -1,10 +1,18 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import { useComments } from "@/pages/cocktail/hooks/useComments";
 import { CommentItem } from "./CommentItem";
 import { useFeedback } from "@/pages/cocktail/hooks/useFeedback";
+import { FeedbackResponse } from "@/types/cocktail";
 
-export function CommentList({ drinkId }: { drinkId: string }) {
-  const { comments, loading } = useFeedback(drinkId);
+export type CommentListProps = {
+  feedback: {
+    data: NoInfer<FeedbackResponse> | null;
+    loading: boolean;
+    error: string | null;
+  };
+};
+
+export function CommentList({ feedback }: CommentListProps) {
+  const { data, loading } = feedback;
 
   if (loading) {
     return (
@@ -22,7 +30,7 @@ export function CommentList({ drinkId }: { drinkId: string }) {
     );
   }
 
-  if (comments.length === 0) {
+  if (!data || data.feedback.length === 0) {
     return (
       <p className="text-sm italic text-muted-foreground">
         No comments yet. Be the first to pour your thoughts.
@@ -32,8 +40,8 @@ export function CommentList({ drinkId }: { drinkId: string }) {
 
   return (
     <div className="space-y-5">
-      {comments.map((c) => (
-        <CommentItem key={c.id} comment={c} />
+      {data.feedback.map((c) => (
+        <CommentItem key={c.id} feedback={c} />
       ))}
     </div>
   );

@@ -3,16 +3,19 @@ import type {
   CocktailDetail,
   Comment,
   DbCocktail,
-  Feedback,
+  FeedbackResponse,
   TopRatedResponse,
   TrendingResponse,
 } from "@/types/cocktail";
 import type { AuthResponse } from "@/types/auth";
+import { HttpError } from "@/lib/errors";
 
 const BASE_URL = "http://localhost:3000/api";
 
 async function get<T>(path: string): Promise<T> {
-  const res = await fetch(`${BASE_URL}${path}`);
+  const res = await fetch(`${BASE_URL}${path}`, {
+    credentials: "include",
+  });
   if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return res.json() as Promise<T>;
 }
@@ -24,13 +27,29 @@ async function post<T>(path: string, body: unknown): Promise<T> {
     body: JSON.stringify(body),
     credentials: "include",
   });
+
   if (!res.ok) {
     const data = await res.json().catch(() => null);
-    throw new Error(
-      (data as { message?: string })?.message ??
-        `${res.status} ${res.statusText}`,
-    );
+    throw new HttpError(res.status, res.statusText, data, res);
   }
+
+  return res.json() as Promise<T>;
+}
+
+// TODO - move common logic with POST into single method
+async function put<T>(path: string, body: unknown): Promise<T> {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => null);
+    throw new HttpError(res.status, res.statusText, data, res);
+  }
+
   return res.json() as Promise<T>;
 }
 
@@ -115,8 +134,27 @@ export async function postFeedback(
   });
 }
 
-export async function fetchFeedback(drinkId: string): Promise<Feedback[]> {
-  return get<Feedback[]>(`/drinks/${encodeURIComponent(drinkId)}/feedback`);
+export async function putFeedback(
+  drinkId: string,
+  feedbackId: number,
+  comment: string,
+  rating: number,
+): Promise<void> {
+  return put<void>(
+    `/drinks/${encodeURIComponent(drinkId)}/feedback/${feedbackId}`,
+    {
+      comment,
+      rating,
+    },
+  );
+}
+
+export async function fetchFeedback(
+  drinkId: string,
+): Promise<FeedbackResponse> {
+  return get<FeedbackResponse>(
+    `/drinks/${encodeURIComponent(drinkId)}/feedback`,
+  );
 }
 
 export async function fetchComments(drinkId: string): Promise<Comment[]> {

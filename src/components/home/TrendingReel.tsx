@@ -18,7 +18,7 @@ interface TrendingReelProps {
  * endpoint, swap this for that field.
  */
 function watchers(c: TrendingResponse): number {
-  return 3 + ((200 * 7 + Math.round(c.averageRating.avgRating * 5)) % 42); // wtf??
+  return 3 + ((200 * 7 + Math.round(c.avgRating * 5)) % 42); // wtf??
 }
 
 export function TrendingReel({ cocktails, loading, error }: TrendingReelProps) {
@@ -59,7 +59,7 @@ export function TrendingReel({ cocktails, loading, error }: TrendingReelProps) {
           cocktails.map((c) => (
             <Link
               key={c.drink.idDrink}
-              to={cocktailPath(c.drink.strDrink)}
+              to={cocktailPath(c.drink.idDrink)}
               className="group w-[200px] shrink-0 overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-amber/45"
             >
               <div
@@ -73,9 +73,9 @@ export function TrendingReel({ cocktails, loading, error }: TrendingReelProps) {
               </div>
               <div className="border-t border-border p-4">
                 <StarRating
-                  rating={c.averageRating.avgRating}
+                  rating={c.avgRating}
                   showValue={false}
-                  numRatings={c.averageRating.numRatings}
+                  numRatings={c.numRatings}
                   size="sm"
                 />
                 <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">

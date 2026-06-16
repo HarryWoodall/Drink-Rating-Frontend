@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useCocktail } from "@/pages/cocktail/hooks/useCocktail";
 import { extractIngredients } from "@/types/cocktail";
 import { CommentSection } from "@/components/cocktail/comments/CommentSection";
-import { ReviewModal } from "@/components/cocktail/ReviewModal";
+import { CreateReviewModal } from "@/components/cocktail/FeedbackModal/FeedbackModal";
 
 export function CocktailPage() {
   const { name } = useParams<{ name: string }>();
@@ -89,18 +89,6 @@ export function CocktailPage() {
                 </>
               )}
             </div>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-between gap-5 border-t border-border bg-black/20 p-8">
-            <div>
-              <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
-                Your verdict
-              </p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Rate this cocktail and leave a comment
-              </p>
-            </div>
-            <ReviewModal drinkId={cocktail.idDrink} />
           </div>
           <CommentSection drinkId={cocktail.idDrink} />
         </article>

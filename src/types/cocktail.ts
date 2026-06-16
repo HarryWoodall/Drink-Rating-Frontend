@@ -32,9 +32,8 @@ export type TopRatedResponse = {
 
 export type TrendingResponse = {
   drink: CocktailDetail;
-  comments: Comment[];
-  ratings: Rating[];
-  averageRating: AverageRating;
+  avgRating: number;
+  numRatings: number;
 };
 
 /**
@@ -101,6 +100,11 @@ export type Rating = {
 export type AverageRating = {
   avgRating: number;
   numRatings: number;
+};
+
+export type FeedbackResponse = {
+  userHasCommented: boolean;
+  feedback: Feedback[];
 };
 
 export type Feedback = {
