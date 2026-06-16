@@ -19,3 +19,7 @@ export function loginPath(): string {
 export function registerPath(): string {
   return "/register";
 }
+
+export function profilePath(): string {
+  return "/profile";
+}

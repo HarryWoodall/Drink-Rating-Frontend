@@ -1,3 +1,5 @@
+import { CocktailDetail } from "./cocktail";
+
 export interface AuthUser {
   id: string;
   email: string;
@@ -19,4 +21,18 @@ export interface RegisterFormValues {
   name: string;
   password: string;
   confirmPassword: string;
+}
+
+export interface UpdateProfileFormValues {
+  name: string;
+  image: string;
+}
+
+export interface UserFeedbackItem {
+  id: number;
+  comment: string;
+  rating: number | null;
+  createdAt: string;
+  updatedAt: string;
+  drink: CocktailDetail;
 }

@@ -1,0 +1,67 @@
+import { Link } from "react-router-dom";
+import { Star } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { cocktailPath } from "@/lib/paths";
+import { useUserFeedback } from "../hooks/useUserFeedback";
+
+export function FeedbackHistory() {
+  const { data, loading, error } = useUserFeedback();
+
+  if (loading) {
+    return (
+      <div className="space-y-3">
+        {[...Array(3)].map((_, i) => (
+          <Skeleton key={i} className="h-20 w-full rounded-lg" />
+        ))}
+      </div>
+    );
+  }
+
+  if (error) {
+    return <p className="text-sm text-red-400">{error}</p>;
+  }
+
+  if (data.length === 0) {
+    return (
+      <p className="text-sm text-muted-foreground">
+        You haven't left any feedback yet.
+      </p>
+    );
+  }
+
+  return (
+    <ul className="space-y-3">
+      {data.map((item) => (
+        <li
+          key={item.id}
+          className="rounded-lg border border-border p-4 space-y-1"
+        >
+          <div className="flex items-center justify-between gap-2">
+            <Link
+              to={cocktailPath(item.drink.idDrink)}
+              className="font-medium hover:text-amber transition-colors truncate"
+            >
+              {item.drink.strDrink}
+            </Link>
+            {item.rating !== null && (
+              <span className="flex items-center gap-1 shrink-0 text-amber text-sm">
+                <Star className="h-3.5 w-3.5 fill-amber" />
+                {item.rating}/5
+              </span>
+            )}
+          </div>
+          <p className="text-sm text-muted-foreground line-clamp-2">
+            {item.comment}
+          </p>
+          <p className="text-xs text-muted-foreground/60">
+            {new Date(item.updatedAt).toLocaleDateString(undefined, {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </p>
+        </li>
+      ))}
+    </ul>
+  );
+}

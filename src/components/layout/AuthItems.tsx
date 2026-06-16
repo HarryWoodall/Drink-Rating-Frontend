@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { loginPath, registerPath } from "@/lib/paths";
+import { loginPath, profilePath, registerPath } from "@/lib/paths";
 import { authClient } from "@/lib/auth";
 import { UserAvatar } from "@/components/shared/UserAvatar";
 import { User } from "@/types/cocktail";
@@ -10,7 +10,7 @@ export function AuthItems() {
 
   if (session) {
     return (
-      <div className="hidden gap-4 sm:flex">
+      <div className="hidden gap-4 sm:flex items-center">
         <button
           onClick={() =>
             authClient.signOut({
@@ -25,7 +25,9 @@ export function AuthItems() {
         >
           Log out
         </button>
-        <UserAvatar user={session.user as User} size="lg" />
+        <Link to={profilePath()}>
+          <UserAvatar user={session.user as User} size="lg" />
+        </Link>
       </div>
     );
   }

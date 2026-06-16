@@ -7,7 +7,7 @@ import type {
   TopRatedResponse,
   TrendingResponse,
 } from "@/types/cocktail";
-import type { AuthResponse } from "@/types/auth";
+import type { AuthResponse, UserFeedbackItem } from "@/types/auth";
 import { HttpError } from "@/lib/errors";
 
 const BASE_URL = "http://localhost:3000/api";
@@ -183,4 +183,8 @@ export async function registerUser(
   password: string,
 ): Promise<AuthResponse> {
   return post<AuthResponse>("/auth/register", { email, password });
+}
+
+export async function fetchUserFeedback(): Promise<UserFeedbackItem[]> {
+  return get<UserFeedbackItem[]>("/users/me/feedback");
 }
