@@ -5,6 +5,7 @@ export function useRandomCocktails(count = 6) {
   const { data, isLoading, isFetching, error, refetch } = useQuery({
     queryKey: ["randomCocktails", count],
     queryFn: () => fetchRandomCocktails(count),
+    refetchOnWindowFocus: false,
   });
 
   return {

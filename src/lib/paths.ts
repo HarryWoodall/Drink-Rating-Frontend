@@ -23,3 +23,7 @@ export function registerPath(): string {
 export function profilePath(): string {
   return "/profile";
 }
+
+export function resetPasswordRequest(): string {
+  return "/reset-password-request";
+}

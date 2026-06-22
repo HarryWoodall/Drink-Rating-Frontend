@@ -2,7 +2,6 @@ import { Hero } from "@/components/home/Hero";
 import { RandomCocktailGrid } from "@/components/home/RandomCocktailGrid";
 import { TrendingReel } from "@/components/home/TrendingReel";
 import { TopRatedSection } from "@/components/home/TopRated/TopRatedSection";
-import { authClient } from "@/lib/auth";
 import { useRandomCocktails } from "./hooks/useRandomCocktails";
 import { useRecentlyRated } from "./hooks/useRecentlyRated";
 import { useTopRated } from "./hooks/useTopRated";
@@ -21,7 +20,6 @@ export function HomePage() {
     loading: recentLoading,
     error: recentError,
   } = useRecentlyRated();
-  // const { data: session } = authClient.useSession();
 
   console.log(recentCocktails);
 

@@ -1,11 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { UserAvatar } from "@/components/shared/UserAvatar";
 import { authClient } from "@/lib/auth";
@@ -13,6 +8,7 @@ import { loginPath } from "@/lib/paths";
 import { UpdateProfileForm } from "./components/UpdateProfileForm";
 import { FeedbackHistory } from "./components/FeedbackHistory";
 import type { User } from "@/types/cocktail";
+import { Button } from "@/components/ui/button";
 
 export function ProfilePage() {
   const { data: session, isPending } = authClient.useSession();
@@ -46,6 +42,21 @@ export function ProfilePage() {
         </CardHeader>
         <CardContent>
           <UpdateProfileForm name={user.name} image={user.image ?? null} />
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Reset Password</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Button
+            onClick={() =>
+              navigate("/reset-password-request", { replace: true })
+            }
+          >
+            Reset Password
+          </Button>
         </CardContent>
       </Card>
 

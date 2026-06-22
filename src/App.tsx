@@ -8,12 +8,19 @@ import { LoginPage } from "./pages/login/LoginPage";
 import { RegisterPage } from "./pages/register/RegisterPage";
 import { SearchPage } from "./pages/searchPage/SearchPage";
 import { ProfilePage } from "./pages/profile/ProfilePage";
+import { ResetPasswordPage } from "./pages/resetPassword/ResetPasswordPage";
+import { ResetPasswordRequestPage } from "./pages/resetPasswordRequest/ResetPasswordRequestPage";
 
 export default function App() {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} />
+      <Route
+        path="/reset-password-request"
+        element={<ResetPasswordRequestPage />}
+      />
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="cocktail/:name" element={<CocktailPage />} />

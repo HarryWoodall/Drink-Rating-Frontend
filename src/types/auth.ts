@@ -23,6 +23,14 @@ export interface RegisterFormValues {
   confirmPassword: string;
 }
 
+export interface ResetPasswordFormValues {
+  password: string;
+}
+
+export interface ResetPasswordRequestFormValues {
+  email: string;
+}
+
 export interface UpdateProfileFormValues {
   name: string;
   image: string;

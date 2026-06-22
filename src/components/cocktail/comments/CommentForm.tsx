@@ -4,6 +4,7 @@ import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { CommentFormValues } from "./types/CommentFormValues";
 
+// Depreciated
 export function CommentForm({ drinkId }: { drinkId: string }) {
   const { mutate, isPending } = usePostComment(drinkId);
   const {

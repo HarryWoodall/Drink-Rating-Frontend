@@ -3,6 +3,7 @@ import { Star } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cocktailPath } from "@/lib/paths";
 import { useUserFeedback } from "../hooks/useUserFeedback";
+import { StarRating } from "@/components/home/StarRating";
 
 export function FeedbackHistory() {
   const { data, loading, error } = useUserFeedback();
@@ -44,10 +45,7 @@ export function FeedbackHistory() {
               {item.drink.strDrink}
             </Link>
             {item.rating !== null && (
-              <span className="flex items-center gap-1 shrink-0 text-amber text-sm">
-                <Star className="h-3.5 w-3.5 fill-amber" />
-                {item.rating}/5
-              </span>
+              <StarRating rating={item.rating} showValue={false} />
             )}
           </div>
           <p className="text-sm text-muted-foreground line-clamp-2">

@@ -1,31 +1,22 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Loader2 } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { loginPath } from "@/lib/paths";
-import type { RegisterFormValues } from "@/types/auth";
-import { register as registerUser } from "./services/registerService";
+import type { RegisterFormValues, ResetPasswordFormValues } from "@/types/auth";
 import { authClient } from "@/lib/auth";
 import { PasswordInput } from "@/components/shared/forms/PasswordInput";
-import { FormInput } from "@/components/shared/forms/FormInput";
-import { Field, FieldLabel } from "@/components/ui/field";
 import { FormTextInput } from "@/components/shared/forms/FormTextInput";
-import { Input } from "@/components/ui/input";
+import { resetPassword } from "./services/resetPasswordService";
 import { FormPage } from "@/components/shared/layouts/FormPage";
 
-export function RegisterPage() {
+export function ResetPasswordPage() {
   const navigate = useNavigate();
   const [serverError, setServerError] = useState<string | null>(null);
-  const { data: session } = authClient.useSession();
+  const [searchParams] = useSearchParams();
+
+  const token = searchParams.get("token");
 
   const {
     register,
@@ -34,31 +25,40 @@ export function RegisterPage() {
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormValues>();
 
-  if (session) {
-    navigate("/", { replace: true });
+  if (token === null) {
+    navigate("/404", { replace: true });
     return null;
   }
 
-  async function onSubmit({ email, password, name }: RegisterFormValues) {
+  async function onSubmit({ password }: ResetPasswordFormValues) {
     setServerError(null);
     try {
-      const { error } = await registerUser(email, password, name);
+      const { error } = await resetPassword(
+        password,
+        searchParams.get("token")!,
+      );
 
       if (error) {
         setServerError(error.message ? error.message : "Unknown Error");
+        return;
       }
+
+      authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            navigate("/login");
+          },
+        },
+      });
     } catch (err) {
       setServerError(
-        err instanceof Error ? err.message : "Registration failed",
+        err instanceof Error ? err.message : "Reset Password failed",
       );
     }
   }
 
   return (
-    <FormPage
-      title=" Create an account"
-      description="Join the Nightcap community"
-    >
+    <FormPage title="Reset Password">
       <CardContent>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -66,41 +66,8 @@ export function RegisterPage() {
           className="space-y-4"
         >
           <FormTextInput
-            label="Username"
-            inputId="register-name-input"
-            errors={errors.name}
-          >
-            <FormInput
-              id="register-name-input"
-              type="text"
-              {...register("name", {
-                required: "Name is required",
-              })}
-            />
-          </FormTextInput>
-
-          <FormTextInput
-            label="Email"
-            inputId="register-email-input"
-            errors={errors.email}
-          >
-            <FormInput
-              id="register-email-input"
-              placeholder="you@email.com"
-              type="email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /\S+@\S+\.\S+/,
-                  message: "Enter a valid email",
-                },
-              })}
-            />
-          </FormTextInput>
-
-          <FormTextInput
             label="Password"
-            inputId="register-password-input"
+            inputId="reset-password-input"
             errors={errors.password}
           >
             <PasswordInput
@@ -117,7 +84,7 @@ export function RegisterPage() {
 
           <FormTextInput
             label="Confirm Password"
-            inputId="register-password-confirm-input"
+            inputId="reset-password-confirm-input"
             errors={errors.confirmPassword}
           >
             <PasswordInput
@@ -142,19 +109,10 @@ export function RegisterPage() {
             {isSubmitting && (
               <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
             )}
-            Create account
+            Reset Password
           </Button>
         </form>
       </CardContent>
-
-      <CardFooter className="justify-center">
-        <p className="text-xs text-muted-foreground">
-          Already have an account?{" "}
-          <Link to={loginPath()} className="text-amber hover:underline">
-            Log in
-          </Link>
-        </p>
-      </CardFooter>
     </FormPage>
   );
 }
