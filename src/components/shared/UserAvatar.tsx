@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
+import { cn, imagePath } from "@/lib/utils";
 import { User } from "@/types/cocktail";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar"; // TODO -- move these to in house components!!
 
 export type UserAvatarProps = {
   user: User | null;
@@ -29,11 +29,17 @@ export function UserAvatar({ user, size = "sm" }: UserAvatarProps) {
   return (
     <Avatar
       className={cn(
-        "shrink-0 bg-gray-500 rounded-full flex justify-center items-center",
+        "shrink-0 bg-gray-500 rounded-full flex justify-center items-center overflow-hidden",
         avatarContainerSize[size],
       )}
     >
-      {user?.image && <AvatarImage src={user.image} alt={name} />}
+      {user?.image && (
+        <AvatarImage
+          src={imagePath(user.image)}
+          alt={name}
+          className="object-cover h-full w-full"
+        />
+      )}
       <AvatarFallback className={`text-${size}`}>{initials}</AvatarFallback>
     </Avatar>
   );

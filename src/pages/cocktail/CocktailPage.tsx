@@ -5,22 +5,37 @@ import { Button } from "@/components/ui/button";
 import { useCocktail } from "@/pages/cocktail/hooks/useCocktail";
 import { extractIngredients } from "@/types/cocktail";
 import { CommentSection } from "@/components/cocktail/comments/CommentSection";
-import { CreateReviewModal } from "@/components/cocktail/FeedbackModal/FeedbackModal";
+import { useRoomEvents } from "@/pages/cocktail/hooks/useEvents";
+import { cocktailPageEvents } from "@/lib/paths";
 
 export function CocktailPage() {
   const { name } = useParams<{ name: string }>();
   const decoded = name ? decodeURIComponent(name) : undefined;
   const { cocktail, loading, error } = useCocktail(decoded);
+  const [users] = useRoomEvents(cocktailPageEvents(decoded));
 
   return (
     <div className="py-8">
-      <Link
-        to="/"
-        className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-amber"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to the index
-      </Link>
+      <div className="flex justify-between mb-8 ">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-amber"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to the index
+        </Link>
+        {users.length > 1 ? (
+          <div className="flex justify-center items-center gap-1.5 animate-in fade-in zoom-in fade-out zoom-out">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-amber" />
+            </span>
+            <p className="text-sm text-primary m-0 p-0">
+              {users.length} watching now
+            </p>
+          </div>
+        ) : null}
+      </div>
 
       {loading ? (
         <LoadingState />

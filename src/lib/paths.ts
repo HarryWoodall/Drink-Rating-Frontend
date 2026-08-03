@@ -27,3 +27,13 @@ export function profilePath(): string {
 export function resetPasswordRequest(): string {
   return "/reset-password-request";
 }
+
+export function cocktailPageEvents(id: string | undefined): string | undefined {
+  if (!id) return;
+
+  return `/api/events/cocktail/${id}`;
+}
+
+export function baseImageStore(): string {
+  return "https://blobs.harry-woodall-development.uk/public/image";
+}

@@ -33,7 +33,6 @@ export interface ResetPasswordRequestFormValues {
 
 export interface UpdateProfileFormValues {
   name: string;
-  image: string;
 }
 
 export interface UserFeedbackItem {

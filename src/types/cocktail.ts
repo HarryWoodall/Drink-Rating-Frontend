@@ -34,6 +34,7 @@ export type TrendingResponse = {
   drink: CocktailDetail;
   avgRating: number;
   numRatings: number;
+  numClients: number;
 };
 
 /**

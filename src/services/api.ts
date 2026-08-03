@@ -20,6 +20,25 @@ async function get<T>(path: string): Promise<T> {
   return res.json() as Promise<T>;
 }
 
+export async function postWithFormData<T>(
+  path: string,
+  formData: FormData,
+): Promise<T> {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method: "POST",
+    body: formData,
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => null);
+    throw new HttpError(res.status, res.statusText, data, res);
+  }
+
+  const text = await res.text();
+  return (text ? JSON.parse(text) : undefined) as T;
+}
+
 export async function post<T>(path: string, body: unknown): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
     method: "POST",
@@ -188,4 +207,18 @@ export async function registerUser(
 
 export async function fetchUserFeedback(): Promise<UserFeedbackItem[]> {
   return get<UserFeedbackItem[]>("/users/me/feedback");
+}
+
+export async function uploadProfileImage(file: File): Promise<string> {
+  const formData = new FormData();
+  formData.append("image", file);
+
+  console.log(formData);
+
+  const data = await postWithFormData<{ imageUrl: string }>(
+    "/users/me/profile/image",
+    formData,
+  );
+
+  return data.imageUrl;
 }

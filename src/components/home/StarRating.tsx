@@ -16,6 +16,16 @@ export function StarRating({
 }: StarRatingProps) {
   const iconSize = size === "sm" ? "h-3.5 w-3.5" : "h-[18px] w-[18px]";
 
+  if (numRatings === 0) {
+    return (
+      <div className="flex items-center gap-0.5">
+        <p className="ml-1.5 text-sm italic tabular-nums text-muted-foreground">
+          Not yet rated
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex items-center gap-0.5">
       {Array.from({ length: 5 }, (_, i) => {

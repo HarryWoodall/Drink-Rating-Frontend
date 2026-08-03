@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { Flame } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { DbCocktail, TrendingResponse } from "@/types/cocktail";
+import type { TrendingResponse } from "@/types/cocktail";
 import { cocktailPath } from "@/lib/paths";
 import { SectionHeading } from "./SectionHeading";
 import { StarRating } from "./StarRating";
@@ -10,15 +9,6 @@ interface TrendingReelProps {
   cocktails: TrendingResponse[];
   loading: boolean;
   error: string | null;
-}
-
-/**
- * Derive a stable "people watching now" count from the cocktail so the reel
- * reads like a live trending feed. When the backend exposes a real view-count
- * endpoint, swap this for that field.
- */
-function watchers(c: TrendingResponse): number {
-  return 3 + ((200 * 7 + Math.round(c.avgRating * 5)) % 42); // wtf??
 }
 
 export function TrendingReel({ cocktails, loading, error }: TrendingReelProps) {
@@ -83,7 +73,7 @@ export function TrendingReel({ cocktails, loading, error }: TrendingReelProps) {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber opacity-60" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-amber" />
                   </span>
-                  {watchers(c)} watching now
+                  {c.numClients} watching now
                 </div>
               </div>
             </Link>
