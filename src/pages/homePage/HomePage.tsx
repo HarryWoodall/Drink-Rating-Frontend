@@ -5,6 +5,8 @@ import { TopRatedSection } from "@/components/home/TopRated/TopRatedSection";
 import { useRandomCocktails } from "./hooks/useRandomCocktails";
 import { useRecentlyRated } from "./hooks/useRecentlyRated";
 import { useTopRated } from "./hooks/useTopRated";
+import { useRouteHistoryStore } from "@/store/routeHistoryStore";
+import { useEffect } from "react";
 
 export function HomePage() {
   const { topDrink, loading: topLoading, error: topError } = useTopRated();
@@ -21,7 +23,11 @@ export function HomePage() {
     error: recentError,
   } = useRecentlyRated();
 
-  console.log(recentCocktails);
+  const { resetPath } = useRouteHistoryStore((state) => state);
+
+  useEffect(() => {
+    resetPath(location.pathname, "Home");
+  }, [resetPath]);
 
   return (
     <div>

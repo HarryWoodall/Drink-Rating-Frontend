@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 // import { AuthProvider } from './context/AuthContext';
 import App from "./App";
 import "./index.css";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +17,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <ThemeProvider>
         <Toaster />
         <BrowserRouter>
-          <App />
+          <TooltipProvider>
+            <App />
+          </TooltipProvider>
         </BrowserRouter>
       </ThemeProvider>
     </QueryClientProvider>

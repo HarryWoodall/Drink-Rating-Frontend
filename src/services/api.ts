@@ -56,6 +56,21 @@ export async function post<T>(path: string, body: unknown): Promise<T> {
   return (text ? JSON.parse(text) : undefined) as T;
 }
 
+async function del<T>(path: string): Promise<T> {
+  const res = await fetch(`${BASE_URL}${path}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    const data = await res.json().catch(() => null);
+    throw new HttpError(res.status, res.statusText, data, res);
+  }
+
+  const text = await res.text();
+  return (text ? JSON.parse(text) : undefined) as T;
+}
+
 // TODO - move common logic with POST into single method
 async function put<T>(path: string, body: unknown): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
@@ -167,6 +182,14 @@ export async function putFeedback(
       rating,
     },
   );
+}
+
+export async function addFavourite(drinkId: string): Promise<void> {
+  return post<void>(`/drinks/${encodeURIComponent(drinkId)}/favourite`, {});
+}
+
+export async function removeFavourite(drinkId: string): Promise<void> {
+  return del<void>(`/drinks/${encodeURIComponent(drinkId)}/favourite`);
 }
 
 export async function fetchFeedback(

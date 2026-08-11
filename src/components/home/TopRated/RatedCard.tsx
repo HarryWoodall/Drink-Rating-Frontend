@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Wine } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Wine } from "lucide-react";
 import type { TopRatedResponse } from "@/types/cocktail";
 import { cocktailPath } from "@/lib/paths";
-import { SectionHeading } from "../SectionHeading";
 import { StarRating } from "../StarRating";
+import { FavouriteButton } from "@/components/cocktail/FavouriteButton";
 
 interface RatedCardProps {
   topRatedResponse: TopRatedResponse;
@@ -22,7 +21,7 @@ export function RatedCard({ topRatedResponse, number }: RatedCardProps) {
       className="group block overflow-hidden rounded-[1.2rem] border border-border bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40 transition-colors hover:border-amber/45"
     >
       <div className="flex flex-row-reverse md:flex-row">
-        <div className="relative h-30 w-20 shrink-0 overflow-hidden md:h-auto md:w-40">
+        <div className="relative h-30 w-20 shrink-0 overflow-hidden md:h-auto md:w-40 relative">
           {topRatedResponse.drink.strDrinkThumb ? (
             <img
               src={topRatedResponse.drink.strDrinkThumb}
@@ -34,6 +33,13 @@ export function RatedCard({ topRatedResponse, number }: RatedCardProps) {
               <Wine className="h-12 w-12 text-amber/60" />
             </div>
           )}
+          <div className="absolute top-0 right-0 m-2">
+            <FavouriteButton
+              cocktail={topRatedResponse.drink}
+              readonly
+              size="sm"
+            />
+          </div>
         </div>
 
         <div className="flex flex-col justify-center gap-3 p-5 md:p-6">

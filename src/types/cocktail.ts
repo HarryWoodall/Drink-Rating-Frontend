@@ -52,6 +52,7 @@ export interface CocktailDetail {
   strTags?: string | null;
   [key: `strIngredient${number}`]: string | null | undefined;
   [key: `strMeasure${number}`]: string | null | undefined;
+  favourite?: boolean | undefined;
 }
 
 export interface Ingredient {

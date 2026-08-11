@@ -7,6 +7,7 @@ import { cocktailPath } from "@/lib/paths";
 import { SectionHeading } from "./SectionHeading";
 import { DrinkDescription } from "./DrinkDescription";
 import { DrinkIngredients } from "./DrinkIngredients";
+import { FavouriteButton } from "../cocktail/FavouriteButton";
 
 interface RandomCocktailGridProps {
   drinks: CocktailDetail | null;
@@ -26,6 +27,8 @@ export function RandomCocktailGrid({
   if (!drink) {
     return null;
   }
+
+  // drink.favourite = true;
 
   return (
     <section id="random" className="scroll-mt-24 py-8">
@@ -104,11 +107,16 @@ export function RandomCocktailGrid({
             {loading || !drink ? (
               <Skeleton className="aspect-square w-full max-w-[360px] rounded-xl" />
             ) : (
-              <img
-                src={drink.strDrinkThumb}
-                alt={drink.strDrink}
-                className="aspect-square w-full max-w-[360px] rounded-xl object-cover shadow-lg shadow-black/50"
-              />
+              <div className="absolute">
+                <img
+                  src={drink.strDrinkThumb}
+                  alt={drink.strDrink}
+                  className="aspect-square w-full max-w-[360px] rounded-xl object-cover shadow-lg shadow-black/50"
+                />
+                <div className="absolute top-0 right-0 m-2">
+                  <FavouriteButton cocktail={drink} readonly />
+                </div>
+              </div>
             )}
           </div>
         </div>

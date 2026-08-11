@@ -8,6 +8,8 @@ import {
   type AlcoholicFilter,
   type SearchType,
 } from "./hooks/useSearchResults";
+import { useRouteHistoryStore } from "@/store/routeHistoryStore";
+import { useEffect } from "react";
 
 export function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,14 +18,18 @@ export function SearchPage() {
   const type = (searchParams.get("type") ?? "name") as SearchType;
   const filter = (searchParams.get("filter") ?? "all") as AlcoholicFilter;
 
-  function updateParams(
-    patch: Record<string, string>,
-    replace = false,
-  ) {
+  const { setPath } = useRouteHistoryStore((state) => state);
+
+  useEffect(() => {
+    setPath(location.pathname, "Back to search", location.search);
+  }, [setPath, searchParams]);
+
+  function updateParams(patch: Record<string, string>, replace = false) {
     setSearchParams(
       (prev) => {
         const next = new URLSearchParams(prev);
         Object.entries(patch).forEach(([k, v]) => next.set(k, v));
+        console.log(next);
         return next;
       },
       { replace },
@@ -43,10 +49,7 @@ export function SearchPage() {
         Find your next pour.
       </h1>
 
-      <SearchBar
-        defaultValue={query}
-        onSubmit={(q) => updateParams({ q, type: "name", filter: "all" })}
-      />
+      <SearchBar defaultValue={query} onSubmit={(q) => updateParams({ q })} />
 
       {query ? (
         <>

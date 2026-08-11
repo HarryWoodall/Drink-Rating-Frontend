@@ -7,16 +7,22 @@ import { UserInfoCard } from "./components/UserInfoCard";
 import { FeedbackHistory } from "./components/FeedbackHistory";
 import type { User } from "@/types/cocktail";
 import { Button } from "@/components/ui/button";
+import { useRouteHistoryStore } from "@/store/routeHistoryStore";
 
 export function ProfilePage() {
   const { data: session, isPending } = authClient.useSession();
   const navigate = useNavigate();
+  const setPath = useRouteHistoryStore((state) => state.setPath);
 
   useEffect(() => {
     if (!isPending && !session) {
       navigate(loginPath(), { replace: true });
     }
   }, [session, isPending, navigate]);
+
+  useEffect(() => {
+    setPath(location.pathname + location.search, "Back to profile");
+  }, [setPath]);
 
   if (isPending || !session) return null;
 

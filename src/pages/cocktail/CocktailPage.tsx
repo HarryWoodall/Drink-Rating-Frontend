@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { useCocktail } from "@/pages/cocktail/hooks/useCocktail";
@@ -7,23 +6,26 @@ import { extractIngredients } from "@/types/cocktail";
 import { CommentSection } from "@/components/cocktail/comments/CommentSection";
 import { useRoomEvents } from "@/pages/cocktail/hooks/useEvents";
 import { cocktailPageEvents } from "@/lib/paths";
+import { BackLink } from "@/components/shared/BackLink";
+import { useRouteHistoryStore } from "@/store/routeHistoryStore";
+import { useEffect } from "react";
+import { FavouriteButton } from "@/components/cocktail/FavouriteButton";
 
 export function CocktailPage() {
   const { name } = useParams<{ name: string }>();
   const decoded = name ? decodeURIComponent(name) : undefined;
   const { cocktail, loading, error } = useCocktail(decoded);
   const [users] = useRoomEvents(cocktailPageEvents(decoded));
+  const { setPath } = useRouteHistoryStore((state) => state);
+
+  useEffect(() => {
+    setPath(location.pathname, "Back to cocktail");
+  }, [setPath]);
 
   return (
     <div className="py-8">
       <div className="flex justify-between mb-8 ">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-amber"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to the index
-        </Link>
+        <BackLink />
         {users.length > 1 ? (
           <div className="flex justify-center items-center gap-1.5 animate-in fade-in zoom-in fade-out zoom-out">
             <span className="relative flex h-2 w-2">
@@ -70,9 +72,12 @@ export function CocktailPage() {
                   .filter(Boolean)
                   .join(" · ")}
               </p>
-              <h1 className="mt-2 font-serif text-5xl font-normal italic leading-none">
-                {cocktail.strDrink}
-              </h1>
+              <div className="flex justify-between items-center">
+                <h1 className="mt-2 font-serif text-5xl font-normal italic leading-none">
+                  {cocktail.strDrink}
+                </h1>
+                <FavouriteButton cocktail={cocktail} />
+              </div>
 
               <h2 className="mt-8 mb-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
                 Ingredients
