@@ -1,8 +1,8 @@
 import type {
-  CocktailDbDrink,
-  CocktailDetail,
+  DbDrinkDetails,
+  DrinkDetail,
   Comment,
-  DbCocktail,
+  DbDrink,
   FeedbackResponse,
   TopRatedResponse,
   TrendingResponse,
@@ -90,8 +90,8 @@ async function put<T>(path: string, body: unknown): Promise<T> {
 
 // TODO - move these into their own services
 
-export async function fetchDbCocktails(): Promise<DbCocktail[]> {
-  return get<DbCocktail[]>("/drinks");
+export async function fetchDbCocktails(): Promise<DbDrink[]> {
+  return get<DbDrink[]>("/drinks");
 }
 
 export async function fetchTopRatedDrinks(): Promise<TopRatedResponse[]> {
@@ -102,13 +102,13 @@ export async function fetchTrendingDrinks(): Promise<TrendingResponse[]> {
   return get<TrendingResponse[]>("/drinks/trending");
 }
 
-export async function getRandomCocktail(): Promise<CocktailDetail> {
-  return get<CocktailDetail>("/drinks/random");
+export async function getRandomCocktail(): Promise<DrinkDetail> {
+  return get<DrinkDetail>("/drinks/random");
 }
 
 /** Full drink lookup by CocktailDB id. */
-export async function fetchCocktailById(id: string): Promise<CocktailDetail> {
-  return get<CocktailDetail>(`/drinks/id/${encodeURIComponent(id)}`);
+export async function fetchCocktailById(id: string): Promise<DrinkDetail> {
+  return get<DrinkDetail>(`/drinks/id/${encodeURIComponent(id)}`);
 }
 
 /**
@@ -117,8 +117,8 @@ export async function fetchCocktailById(id: string): Promise<CocktailDetail> {
  */
 export async function fetchCocktailByName(
   name: string,
-): Promise<CocktailDetail | null> {
-  const drinks = await get<CocktailDetail[] | null>(
+): Promise<DrinkDetail | null> {
+  const drinks = await get<DrinkDetail[] | null>(
     `/drinks/name/${encodeURIComponent(name)}`,
   );
   return drinks?.[0] ?? null;
@@ -126,9 +126,9 @@ export async function fetchCocktailByName(
 
 export async function searchCocktailByName(
   name: string,
-): Promise<CocktailDbDrink | null> {
+): Promise<DbDrinkDetails | null> {
   console.log("searching cocktail by name");
-  const drinks = await get<CocktailDbDrink[] | null>(
+  const drinks = await get<DbDrinkDetails[] | null>(
     `/drinks/name/${encodeURIComponent(name)}`,
   );
   return drinks?.[0] ?? null;
@@ -136,8 +136,8 @@ export async function searchCocktailByName(
 
 export async function searchCocktailsByName(
   name: string,
-): Promise<CocktailDetail[]> {
-  const drinks = await get<CocktailDetail[] | null>(
+): Promise<DrinkDetail[]> {
+  const drinks = await get<DrinkDetail[] | null>(
     `/drinks/name/${encodeURIComponent(name)}`,
   );
   return drinks ?? [];
@@ -145,14 +145,14 @@ export async function searchCocktailsByName(
 
 export async function searchCocktailsByIngredient(
   ingredient: string,
-): Promise<CocktailDetail[]> {
-  const drinks = await get<CocktailDetail[] | null>(
+): Promise<DrinkDetail[]> {
+  const drinks = await get<DrinkDetail[] | null>(
     `/drinks/ingredient/${encodeURIComponent(ingredient)}`,
   );
   return drinks ?? [];
 }
 
-export async function fetchRandomDrink(): Promise<CocktailDetail> {
+export async function fetchRandomDrink(): Promise<DrinkDetail> {
   return await getRandomCocktail();
 }
 
@@ -191,8 +191,8 @@ export async function removeFavourite(drinkId: string): Promise<void> {
 }
 
 /** Every drink the signed-in user has favourited. */
-export async function fetchFavourites(): Promise<CocktailDbDrink[]> {
-  return get<CocktailDbDrink[]>("/drinks/favourites");
+export async function fetchFavourites(): Promise<DbDrinkDetails[]> {
+  return get<DbDrinkDetails[]>("/drinks/favourites");
 }
 
 export async function fetchFeedback(

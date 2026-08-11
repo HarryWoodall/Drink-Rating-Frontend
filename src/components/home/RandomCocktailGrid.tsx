@@ -2,28 +2,28 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight, Shuffle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { CocktailDbDrink, CocktailDetail } from "@/types/cocktail";
+import type { DrinkDetail } from "@/types/cocktail";
 import { cocktailPath } from "@/lib/paths";
 import { SectionHeading } from "./SectionHeading";
 import { DrinkDescription } from "./DrinkDescription";
 import { DrinkIngredients } from "./DrinkIngredients";
 import { FavouriteButton } from "../cocktail/favouriteButton/FavouriteButton";
 
-interface RandomCocktailGridProps {
-  drinks: CocktailDetail | null;
+interface RandomDrinkProps {
+  drink: DrinkDetail | null;
   loading: boolean;
   fetching?: boolean;
   error: string | null;
   onShuffle?: () => void;
 }
 
-export function RandomCocktailGrid({
-  drinks: drink,
+export function RandomDrink({
+  drink: drink,
   loading,
   fetching,
   error,
   onShuffle,
-}: RandomCocktailGridProps) {
+}: RandomDrinkProps) {
   if (!drink) {
     return null;
   }

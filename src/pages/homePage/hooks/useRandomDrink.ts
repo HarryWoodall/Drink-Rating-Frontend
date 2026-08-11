@@ -9,7 +9,7 @@ export function useRandomDrink() {
   });
 
   return {
-    randomCocktails: data ?? null,
+    randomDrink: data ?? null,
     loading: isLoading,
     fetching: isFetching,
     error: error ? (error as Error).message : null,

@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CocktailSummary } from "@/types/cocktail";
+import { DrinkSummary } from "@/types/cocktail";
 import { useToggleFavourite } from "@/pages/cocktail/hooks/useFavourite";
 import { authClient } from "@/lib/auth";
 import {
@@ -14,7 +14,7 @@ import { FavouriteIcon } from "./FavouriteIcon";
 type Size = keyof typeof sizeMap;
 
 type FavouriteButtonProps = {
-  cocktail: CocktailSummary;
+  cocktail: DrinkSummary;
   readonly?: boolean;
   size?: Size;
 };

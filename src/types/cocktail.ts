@@ -1,4 +1,4 @@
-export interface DbCocktail {
+export interface DbDrink {
   id: number;
   name: string;
   description: string;
@@ -6,7 +6,7 @@ export interface DbCocktail {
   createdAt: string;
 }
 
-export interface CocktailDbDrink {
+export interface DbDrinkDetails {
   idDrink: string;
   strDrink: string;
   strDrinkThumb: string;
@@ -25,23 +25,23 @@ export interface CocktailDbDrink {
  * The fields a cocktail card / favourite toggle needs — the common ground
  * between CocktailDbDrink and CocktailDetail, both of which satisfy it.
  */
-export type CocktailSummary = Pick<
-  CocktailDbDrink,
+export type DrinkSummary = Pick<
+  DbDrinkDetails,
   "idDrink" | "strDrink" | "strDrinkThumb" | "strCategory" | "strAlcoholic"
 > & { favourite?: boolean };
 
-export interface EnrichedCocktail extends DbCocktail {
+export interface EnrichedCocktail extends DbDrink {
   thumbUrl?: string;
 }
 
 export type TopRatedResponse = {
-  drink: CocktailDetail;
+  drink: DrinkDetail;
   avgRating: number;
   numRatings: number;
 };
 
 export type TrendingResponse = {
-  drink: CocktailDetail;
+  drink: DrinkDetail;
   avgRating: number;
   numRatings: number;
   numClients: number;
@@ -51,7 +51,7 @@ export type TrendingResponse = {
  * Full CocktailDB drink as returned by the server's `/api/cocktails/id/:id`
  * lookup. Ingredients and measures are sparse string fields (1..15).
  */
-export interface CocktailDetail {
+export interface DrinkDetail {
   idDrink: string;
   strDrink: string;
   strDrinkThumb: string;
@@ -71,7 +71,7 @@ export interface Ingredient {
 }
 
 /** Collapse the sparse strIngredientN / strMeasureN pairs into a clean list. */
-export function extractIngredients(drink: CocktailDetail): Ingredient[] {
+export function extractIngredients(drink: DrinkDetail): Ingredient[] {
   const out: Ingredient[] = [];
   for (let i = 1; i <= 15; i++) {
     const name = drink[`strIngredient${i}`];

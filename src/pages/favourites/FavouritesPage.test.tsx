@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { FavouritesPage } from "./FavouritesPage";
 import { renderWithProviders, screen } from "@/test/utils";
 import { fetchFavourites } from "@/services/api";
-import type { CocktailDbDrink } from "@/types/cocktail";
+import type { DbDrinkDetails } from "@/types/cocktail";
 
 vi.mock("@/services/api", () => ({
   fetchFavourites: vi.fn(),
@@ -22,7 +22,7 @@ vi.mock("@/lib/auth", () => ({
 
 const mockFetchFavourites = vi.mocked(fetchFavourites);
 
-function drink(id: string, name: string): CocktailDbDrink {
+function drink(id: string, name: string): DbDrinkDetails {
   return {
     idDrink: id,
     strDrink: name,

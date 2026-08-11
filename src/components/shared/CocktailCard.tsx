@@ -2,10 +2,10 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Wine } from "lucide-react";
 import { cocktailPath } from "@/lib/paths";
-import type { CocktailSummary } from "@/types/cocktail";
+import type { DrinkSummary } from "@/types/cocktail";
 
 interface CocktailCardProps {
-  drink: CocktailSummary;
+  drink: DrinkSummary;
   /**
    * Optional control pinned to the top-right of the thumbnail. Rendered as a
    * sibling of the link rather than inside it, so an interactive action (a

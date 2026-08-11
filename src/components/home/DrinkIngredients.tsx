@@ -1,7 +1,7 @@
-import { CocktailDetail, extractIngredients } from "@/types/cocktail";
+import { DrinkDetail, extractIngredients } from "@/types/cocktail";
 
 interface DrinkIngredientsProps {
-  cocktail: CocktailDetail;
+  cocktail: DrinkDetail;
 }
 
 export function DrinkIngredients({ cocktail }: DrinkIngredientsProps) {

@@ -1,4 +1,4 @@
-import { CocktailDetail } from "./cocktail";
+import { DrinkDetail } from "./cocktail";
 
 export interface AuthUser {
   id: string;
@@ -41,5 +41,5 @@ export interface UserFeedbackItem {
   rating: number | null;
   createdAt: string;
   updatedAt: string;
-  drink: CocktailDetail;
+  drink: DrinkDetail;
 }

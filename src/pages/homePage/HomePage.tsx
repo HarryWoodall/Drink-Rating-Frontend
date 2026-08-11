@@ -1,8 +1,8 @@
 import { Hero } from "@/components/home/Hero";
-import { RandomCocktailGrid } from "@/components/home/RandomCocktailGrid";
+import { RandomDrink } from "@/components/home/RandomCocktailGrid";
 import { TrendingReel } from "@/components/home/TrendingReel";
 import { TopRatedSection } from "@/components/home/TopRated/TopRatedSection";
-import { useRandomDrink } from "./hooks/useRandomCocktails";
+import { useRandomDrink } from "./hooks/useRandomDrink";
 import { useRecentlyRated } from "./hooks/useRecentlyRated";
 import { useTopRated } from "./hooks/useTopRated";
 import { useRouteHistoryStore } from "@/store/routeHistoryStore";
@@ -11,12 +11,12 @@ import { useEffect } from "react";
 export function HomePage() {
   const { topDrink, loading: topLoading, error: topError } = useTopRated();
   const {
-    randomCocktails,
+    randomDrink: randomDrink,
     loading: randLoading,
     fetching: randFetching,
     error: randError,
     shuffle,
-  } = useRandomDrink(6);
+  } = useRandomDrink();
   const {
     recentCocktails,
     loading: recentLoading,
@@ -32,8 +32,8 @@ export function HomePage() {
   return (
     <div>
       <Hero />
-      <RandomCocktailGrid
-        drinks={randomCocktails}
+      <RandomDrink
+        drink={randomDrink}
         loading={randLoading}
         fetching={randFetching}
         error={randError}

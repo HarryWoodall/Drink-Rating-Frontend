@@ -1,7 +1,7 @@
 import { FavouriteButton } from "@/components/cocktail/favouriteButton/FavouriteButton";
 import { CocktailCard } from "@/components/shared/CocktailCard";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CocktailDbDrink } from "@/types/cocktail";
+import { DbDrinkDetails } from "@/types/cocktail";
 
 export function FavouritesSection({
   favourites,
@@ -9,7 +9,7 @@ export function FavouritesSection({
   error,
   query = "",
 }: {
-  favourites: CocktailDbDrink[];
+  favourites: DbDrinkDetails[];
   loading: boolean;
   error: Error | null;
   /** Active filter text, used to tell "no matches" apart from "none saved". */
