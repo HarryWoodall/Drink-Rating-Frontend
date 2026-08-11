@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SearchBar } from "./components/SearchBar";
 import { SearchFilters } from "./components/SearchFilters";
-import { SearchResultCard } from "./components/SearchResultCard";
+import { CocktailCard } from "@/components/shared/CocktailCard";
 import {
   useSearchResults,
   type AlcoholicFilter,
@@ -128,7 +128,7 @@ function ResultsSection({
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
       {results.map((drink) => (
-        <SearchResultCard key={drink.idDrink} drink={drink} />
+        <CocktailCard key={drink.idDrink} drink={drink} />
       ))}
     </div>
   );

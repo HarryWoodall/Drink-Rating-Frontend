@@ -3,7 +3,7 @@ import { Wine } from "lucide-react";
 import type { TopRatedResponse } from "@/types/cocktail";
 import { cocktailPath } from "@/lib/paths";
 import { StarRating } from "../StarRating";
-import { FavouriteButton } from "@/components/cocktail/FavouriteButton";
+import { FavouriteButton } from "@/components/cocktail/favouriteButton/FavouriteButton";
 
 interface RatedCardProps {
   topRatedResponse: TopRatedResponse;

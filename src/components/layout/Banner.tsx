@@ -1,6 +1,6 @@
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { ThemeToggle } from "../ThemeToggle";
-import { loginPath, registerPath } from "@/lib/paths";
+import { favouritesPath } from "@/lib/paths";
 import { authClient } from "@/lib/auth";
 import { AuthItems } from "./AuthItems";
 
@@ -8,11 +8,11 @@ const navItems = [
   { to: "/#top", label: "Top Rated" },
   { to: "/#random", label: "Surprise Me" },
   { to: "/#trending", label: "Trending" },
+  { to: favouritesPath(), label: "Favourites", authOnly: true },
 ];
 
 export function Banner() {
   const { data: session } = authClient.useSession();
-  const navigate = useNavigate();
 
   return (
     <div className="mx-auto max-w-6xl px-7">
@@ -29,15 +29,17 @@ export function Banner() {
 
         <div className="flex items-center gap-8">
           <div className="hidden gap-8 text-xs uppercase tracking-[0.12em] text-muted-foreground sm:flex">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className="transition-colors hover:text-amber"
-              >
-                {item.label}
-              </NavLink>
-            ))}
+            {navItems
+              .filter((item) => !item.authOnly || session)
+              .map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  className="transition-colors hover:text-amber"
+                >
+                  {item.label}
+                </NavLink>
+              ))}
           </div>
           <AuthItems />
         </div>

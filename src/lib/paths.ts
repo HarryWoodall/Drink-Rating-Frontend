@@ -24,6 +24,10 @@ export function profilePath(): string {
   return "/profile";
 }
 
+export function favouritesPath(): string {
+  return "/favourites";
+}
+
 export function resetPasswordRequest(): string {
   return "/reset-password-request";
 }

@@ -7,7 +7,7 @@ import { cocktailPath } from "@/lib/paths";
 import { SectionHeading } from "./SectionHeading";
 import { DrinkDescription } from "./DrinkDescription";
 import { DrinkIngredients } from "./DrinkIngredients";
-import { FavouriteButton } from "../cocktail/FavouriteButton";
+import { FavouriteButton } from "../cocktail/favouriteButton/FavouriteButton";
 
 interface RandomCocktailGridProps {
   drinks: CocktailDetail | null;

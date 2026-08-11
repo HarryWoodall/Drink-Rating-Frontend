@@ -5,7 +5,7 @@ import { cocktailPath } from "@/lib/paths";
 import { StarRating } from "../StarRating";
 import { DrinkDescription } from "../DrinkDescription";
 import { DrinkIngredients } from "../DrinkIngredients";
-import { FavouriteButton } from "@/components/cocktail/FavouriteButton";
+import { FavouriteButton } from "@/components/cocktail/favouriteButton/FavouriteButton";
 
 interface TopRatedCardProps {
   cocktail: TopRatedResponse;

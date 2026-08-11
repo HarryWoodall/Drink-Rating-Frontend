@@ -192,6 +192,11 @@ export async function removeFavourite(drinkId: string): Promise<void> {
   return del<void>(`/drinks/${encodeURIComponent(drinkId)}/favourite`);
 }
 
+/** Every drink the signed-in user has favourited. */
+export async function fetchFavourites(): Promise<CocktailDbDrink[]> {
+  return get<CocktailDbDrink[]>("/drinks/favourites");
+}
+
 export async function fetchFeedback(
   drinkId: string,
 ): Promise<FeedbackResponse> {

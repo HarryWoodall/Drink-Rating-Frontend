@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { addFavourite, removeFavourite } from "@/services/api";
-import type { CocktailDetail } from "@/types/cocktail";
+import type { CocktailDbDrink, CocktailDetail } from "@/types/cocktail";
 
 /**
  * Toggles a drink's favourite flag. The star flips immediately and rolls back
@@ -15,16 +15,33 @@ export function useToggleFavourite(drinkId: string) {
       favourite ? addFavourite(drinkId) : removeFavourite(drinkId),
 
     onMutate: async (favourite) => {
-      await queryClient.cancelQueries({ queryKey: ["cocktail"] });
+      await Promise.all([
+        queryClient.cancelQueries({ queryKey: ["cocktail"] }),
+        queryClient.cancelQueries({ queryKey: ["favourites"] }),
+      ]);
 
-      const previous = queryClient.getQueriesData<CocktailDetail>({
-        queryKey: ["cocktail"],
-      });
+      const previous = [
+        ...queryClient.getQueriesData<CocktailDetail>({
+          queryKey: ["cocktail"],
+        }),
+        ...queryClient.getQueriesData<CocktailDbDrink[]>({
+          queryKey: ["favourites"],
+        }),
+      ];
 
       queryClient.setQueriesData<CocktailDetail>(
         { queryKey: ["cocktail"] },
+        (old) => (old && old.idDrink === drinkId ? { ...old, favourite } : old),
+      );
+
+      // Flip the flag in place rather than dropping the drink, so a card on the
+      // favourites page stays put and the click can be undone.
+      queryClient.setQueriesData<CocktailDbDrink[]>(
+        { queryKey: ["favourites"] },
         (old) =>
-          old && old.idDrink === drinkId ? { ...old, favourite } : old,
+          old?.map((drink) =>
+            drink.idDrink === drinkId ? { ...drink, favourite } : drink,
+          ),
       );
 
       return { previous };
@@ -39,6 +56,9 @@ export function useToggleFavourite(drinkId: string) {
 
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ["cocktail"] });
+      queryClient.invalidateQueries({
+        queryKey: ["favourites"],
+      });
     },
   });
 }

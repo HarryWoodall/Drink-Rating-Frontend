@@ -18,7 +18,17 @@ export interface CocktailDbDrink {
   strIngredient3: string | null;
   strIngredient4: string | null;
   strIngredient5: string | null;
+  favourite?: boolean;
 }
+
+/**
+ * The fields a cocktail card / favourite toggle needs — the common ground
+ * between CocktailDbDrink and CocktailDetail, both of which satisfy it.
+ */
+export type CocktailSummary = Pick<
+  CocktailDbDrink,
+  "idDrink" | "strDrink" | "strDrinkThumb" | "strCategory" | "strAlcoholic"
+> & { favourite?: boolean };
 
 export interface EnrichedCocktail extends DbCocktail {
   thumbUrl?: string;

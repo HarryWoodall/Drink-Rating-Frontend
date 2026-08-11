@@ -9,7 +9,7 @@ import { cocktailPageEvents } from "@/lib/paths";
 import { BackLink } from "@/components/shared/BackLink";
 import { useRouteHistoryStore } from "@/store/routeHistoryStore";
 import { useEffect } from "react";
-import { FavouriteButton } from "@/components/cocktail/FavouriteButton";
+import { FavouriteButton } from "@/components/cocktail/favouriteButton/FavouriteButton";
 
 export function CocktailPage() {
   const { name } = useParams<{ name: string }>();

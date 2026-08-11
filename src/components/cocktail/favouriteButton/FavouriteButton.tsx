@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CocktailDetail } from "@/types/cocktail";
+import { CocktailSummary } from "@/types/cocktail";
 import { useToggleFavourite } from "@/pages/cocktail/hooks/useFavourite";
 import { authClient } from "@/lib/auth";
 import {
@@ -9,19 +9,14 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { FavouriteIcon } from "./FavouriteIcon";
 
 type Size = keyof typeof sizeMap;
 
 type FavouriteButtonProps = {
-  cocktail: CocktailDetail;
+  cocktail: CocktailSummary;
   readonly?: boolean;
   size?: Size;
-};
-
-type IconProps = {
-  favourite: boolean;
-  readOnly?: boolean;
-  size: number;
 };
 
 const sizeMap = {
@@ -34,25 +29,6 @@ const sizeMap = {
     icon: 42,
   },
 } as const;
-
-function Icon({ favourite, readOnly, size }: IconProps) {
-  return (
-    <Heart
-      size={size}
-      className={cn(
-        "transition-colors [filter:drop-shadow(2px_3px_3px_rgba(50,0,0,0.8))]",
-        favourite && "fill-current text-rose-700",
-        favourite &&
-          !readOnly &&
-          "group-hover:fill-none group-hover:text-secondary",
-        !favourite && "text-secondary",
-        !favourite &&
-          !readOnly &&
-          "group-hover:fill-current group-hover:text-rose-700",
-      )}
-    />
-  );
-}
 
 export function FavouriteButton({
   cocktail,
@@ -71,7 +47,11 @@ export function FavouriteButton({
     }
 
     return (
-      <Icon favourite={favourite} readOnly={true} size={sizeMap[size].icon} />
+      <FavouriteIcon
+        favourite={favourite}
+        readOnly={true}
+        size={sizeMap[size].icon}
+      />
     );
   }
 
@@ -88,7 +68,7 @@ export function FavouriteButton({
           onClick={() => mutate(!favourite)}
           className={cn("group", sizeMap[size].button)}
         >
-          <Icon
+          <FavouriteIcon
             favourite={favourite}
             readOnly={false}
             size={sizeMap[size].icon}
