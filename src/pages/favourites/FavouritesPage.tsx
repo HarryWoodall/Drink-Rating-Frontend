@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authClient } from "@/lib/auth";
 import { loginPath } from "@/lib/paths";
 import { useRouteHistoryStore } from "@/store/routeHistoryStore";
 import { useFavourites } from "./hooks/useFavourites";
 import { FavouritesSection } from "./components/FavouritesSection";
+import { FavouritesSearchBar } from "./components/FavouritesSearchBar";
 
 export function FavouritesPage() {
   const { data: session, isPending } = authClient.useSession();
@@ -22,6 +23,20 @@ export function FavouritesPage() {
   }, [setPath]);
 
   const { data, isLoading, error } = useFavourites(!!session);
+  const [query, setQuery] = useState("");
+
+  const favourites = useMemo(() => data ?? [], [data]);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return favourites;
+
+    return favourites.filter(
+      (drink) =>
+        drink.strDrink.toLowerCase().includes(q) ||
+        drink.strCategory?.toLowerCase().includes(q),
+    );
+  }, [favourites, query]);
 
   if (isPending || !session) return null;
 
@@ -36,10 +51,15 @@ export function FavouritesPage() {
         Saved for later.
       </h1>
 
+      {favourites.length > 0 ? (
+        <FavouritesSearchBar value={query} onChange={setQuery} />
+      ) : null}
+
       <FavouritesSection
-        favourites={data ?? []}
+        favourites={filtered}
         loading={isLoading}
         error={error}
+        query={query.trim()}
       />
     </div>
   );

@@ -19,7 +19,7 @@ export function CocktailCard({ drink, action }: CocktailCardProps) {
     <div className="relative">
       <Link
         to={cocktailPath(drink.idDrink)}
-        className="group flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-border bg-gradient-to-br from-card to-background transition-all hover:-translate-y-1 hover:border-amber/45 hover:shadow-lg hover:shadow-black/30"
+        className="group flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-border bg-gradient-to-br from-card to-background transition-all hover:border-amber/45 hover:shadow-lg hover:shadow-black/30"
       >
         <div className="aspect-[4/3] w-full overflow-hidden bg-black/20">
           {drink.strDrinkThumb ? (

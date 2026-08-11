@@ -2,7 +2,7 @@ import { Hero } from "@/components/home/Hero";
 import { RandomCocktailGrid } from "@/components/home/RandomCocktailGrid";
 import { TrendingReel } from "@/components/home/TrendingReel";
 import { TopRatedSection } from "@/components/home/TopRated/TopRatedSection";
-import { useRandomCocktails } from "./hooks/useRandomCocktails";
+import { useRandomDrink } from "./hooks/useRandomCocktails";
 import { useRecentlyRated } from "./hooks/useRecentlyRated";
 import { useTopRated } from "./hooks/useTopRated";
 import { useRouteHistoryStore } from "@/store/routeHistoryStore";
@@ -16,7 +16,7 @@ export function HomePage() {
     fetching: randFetching,
     error: randError,
     shuffle,
-  } = useRandomCocktails(6);
+  } = useRandomDrink(6);
   const {
     recentCocktails,
     loading: recentLoading,

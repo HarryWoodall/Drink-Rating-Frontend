@@ -7,10 +7,13 @@ export function FavouritesSection({
   favourites,
   loading,
   error,
+  query = "",
 }: {
   favourites: CocktailDbDrink[];
   loading: boolean;
   error: Error | null;
+  /** Active filter text, used to tell "no matches" apart from "none saved". */
+  query?: string;
 }) {
   if (loading) {
     return (
@@ -44,9 +47,15 @@ export function FavouritesSection({
   if (favourites.length === 0) {
     return (
       <div className="rounded-[1.6rem] border border-dashed border-border bg-black/15 py-20 text-center">
-        <p className="font-serif text-2xl italic">Nothing saved yet</p>
+        <p className="font-serif text-2xl italic">
+          {query ? "Nothing on the shelf" : "Nothing saved yet"}
+        </p>
         <p className="mt-2 text-sm text-muted-foreground">
-          Tap the heart on any cocktail to keep it here.
+          {query ? (
+            <>No favourites match &ldquo;{query}&rdquo;</>
+          ) : (
+            "Tap the heart on any cocktail to keep it here."
+          )}
         </p>
       </div>
     );

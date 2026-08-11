@@ -152,9 +152,7 @@ export async function searchCocktailsByIngredient(
   return drinks ?? [];
 }
 
-export async function fetchRandomCocktails(
-  _count: number,
-): Promise<CocktailDetail> {
+export async function fetchRandomDrink(): Promise<CocktailDetail> {
   return await getRandomCocktail();
 }
 

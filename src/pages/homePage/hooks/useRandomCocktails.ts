@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchRandomCocktails } from "@/services/api";
+import { fetchRandomDrink } from "@/services/api";
 
-export function useRandomCocktails(count = 6) {
+export function useRandomDrink() {
   const { data, isLoading, isFetching, error, refetch } = useQuery({
-    queryKey: ["randomCocktails", count],
-    queryFn: () => fetchRandomCocktails(count),
+    queryKey: ["randomCocktails"],
+    queryFn: () => fetchRandomDrink(),
     refetchOnWindowFocus: false,
   });
 
