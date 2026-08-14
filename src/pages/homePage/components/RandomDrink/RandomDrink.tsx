@@ -1,13 +1,10 @@
-import { Link } from "react-router-dom";
-import { ArrowUpRight, Shuffle } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { DrinkDetail } from "@/types/cocktail";
-import { cocktailPath } from "@/lib/paths";
-import { SectionHeading } from "./SectionHeading";
-import { DrinkDescription } from "./DrinkDescription";
-import { DrinkIngredients } from "./DrinkIngredients";
-import { FavouriteButton } from "../cocktail/favouriteButton/FavouriteButton";
+import { SectionHeading } from "../SectionHeading";
+import { FavouriteButton } from "../../../../components/cocktail/favouriteButton/FavouriteButton";
+import { ContentSkeleton } from "./ContentSkeleton";
+import { RandomDrinkActions } from "./RandomDrinkActions";
+import { RandomDrinkContent } from "./RandomDrinkContent";
 
 interface RandomDrinkProps {
   drink: DrinkDetail | null;
@@ -27,8 +24,6 @@ export function RandomDrink({
   if (!drink) {
     return null;
   }
-
-  // drink.favourite = true;
 
   return (
     <section id="random" className="scroll-mt-24 py-8">
@@ -50,57 +45,16 @@ export function RandomDrink({
                 Couldn't pour a wildcard right now. Try shuffling again.
               </p>
             ) : loading || !drink ? (
-              <>
-                <Skeleton className="h-10 w-2/3" />
-                <Skeleton className="h-4 w-1/3" />
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-4 w-5/6" />
-              </>
+              <ContentSkeleton />
             ) : (
-              <>
-                <h3 className="font-serif text-4xl font-normal italic leading-none">
-                  {drink.strDrink}
-                </h3>
-                <DrinkDescription
-                  alcoholic={drink.strAlcoholic}
-                  category={drink.strCategory}
-                />
-                <div className="mt-4 max-w-[48ch]">
-                  <DrinkIngredients cocktail={drink} />
-                </div>
-
-                {drink.strInstructions && (
-                  <p className="max-w-[48ch] text-sm leading-relaxed text-muted-foreground line-clamp-3">
-                    {drink.strInstructions}
-                  </p>
-                )}
-              </>
+              <RandomDrinkContent drink={drink} />
             )}
 
-            <div className="mt-3 flex flex-wrap gap-3">
-              <Button
-                onClick={onShuffle}
-                disabled={fetching}
-                className="group rounded-full"
-              >
-                <Shuffle
-                  className={
-                    fetching
-                      ? "animate-spin"
-                      : "transition-transform group-hover:rotate-180"
-                  }
-                />
-                Shuffle Again
-              </Button>
-              {drink && (
-                <Button asChild variant="outline" className="rounded-full">
-                  <Link to={cocktailPath(drink.idDrink)}>
-                    View &amp; Rate
-                    <ArrowUpRight />
-                  </Link>
-                </Button>
-              )}
-            </div>
+            <RandomDrinkActions
+              drink={drink}
+              fetching={fetching}
+              onShuffle={onShuffle}
+            ></RandomDrinkActions>
           </div>
 
           <div className="flex items-center justify-center">

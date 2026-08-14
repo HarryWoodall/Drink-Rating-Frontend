@@ -50,6 +50,10 @@ export default {
           DEFAULT: c("--muted"),
           foreground: c("--muted-foreground"),
         },
+        faded: {
+          DEFAULT: c("--faded"),
+          foreground: c("--faded-foreground"),
+        },
         accent: {
           DEFAULT: c("--accent"),
           foreground: c("--accent-foreground"),

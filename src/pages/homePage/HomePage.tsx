@@ -1,12 +1,12 @@
-import { Hero } from "@/components/home/Hero";
-import { RandomDrink } from "@/components/home/RandomCocktailGrid";
-import { TrendingReel } from "@/components/home/TrendingReel";
-import { TopRatedSection } from "@/components/home/TopRated/TopRatedSection";
+import { Hero } from "@/pages/homePage/components/Hero";
+import { RandomDrink } from "@/pages/homePage/components/RandomDrink/RandomDrink";
+import { TrendingReel } from "@/pages/homePage/components/TrendingReel";
 import { useRandomDrink } from "./hooks/useRandomDrink";
 import { useRecentlyRated } from "./hooks/useRecentlyRated";
 import { useTopRated } from "./hooks/useTopRated";
 import { useRouteHistoryStore } from "@/store/routeHistoryStore";
 import { useEffect } from "react";
+import { TopRatedSection } from "./components/TopRated/TopRatedSection";
 
 export function HomePage() {
   const { topDrink, loading: topLoading, error: topError } = useTopRated();

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { Banner } from "./Banner";
+import { Banner } from "./Banner/Banner";
 
 export function Layout() {
   return (

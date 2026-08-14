@@ -3,7 +3,7 @@ import { Star } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cocktailPath } from "@/lib/paths";
 import { useUserFeedback } from "../hooks/useUserFeedback";
-import { StarRating } from "@/components/home/StarRating";
+import { StarRating } from "@/pages/homePage/components/StarRating";
 
 export function FeedbackHistory() {
   const { data, loading, error } = useUserFeedback();
