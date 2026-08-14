@@ -26,8 +26,12 @@ export function NavDraw({ navItems }: NavDrawProps) {
   const { data: session } = authClient.useSession();
   const logout = useLogout();
 
+  // vaul's own scroll lock jumps the window to 0 and scrolls back on close,
+  // which reads as a jitter. Radix's dialog already locks background scroll
+  // without moving the page. `repositionInputs` is only needed for on-screen
+  // keyboards, and this drawer has no inputs.
   return (
-    <Drawer direction="right">
+    <Drawer direction="right" noBodyStyles repositionInputs={false}>
       <DrawerTrigger asChild>
         <Button variant="ghost" size="icon" aria-label="Open menu">
           <Menu className="size-5" />

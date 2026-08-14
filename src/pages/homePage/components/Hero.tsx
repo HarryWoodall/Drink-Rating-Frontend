@@ -1,9 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search } from "lucide-react";
 import { searchPath } from "@/lib/paths";
-
-const SUGGESTIONS = ["Margarita", "Negroni", "Espresso Martini", "Mojito"];
+import { SearchBar } from "@/components/shared/SearchBar";
 
 export function Hero() {
   const navigate = useNavigate();
@@ -11,8 +9,8 @@ export function Hero() {
 
   function submit(e: FormEvent) {
     e.preventDefault();
-    const q = query.trim();
-    if (q) navigate(searchPath(q));
+    const formattedQuery = query.trim();
+    if (formattedQuery) navigate(searchPath(formattedQuery));
   }
 
   return (
@@ -27,45 +25,16 @@ export function Hero() {
         <em className="italic text-amber">right pour.</em>
       </h1>
 
-      <p className="mt-6 max-w-[46ch] text-lg text-muted-foreground">
+      <p className="mt-6 mb-8 max-w-[46ch] text-lg text-muted-foreground">
         A community-rated index of classic and modern cocktails. Search the
         cellar, leave your verdict, and let the crowd guide your next round.
       </p>
 
-      <form onSubmit={submit} className="mt-9 max-w-xl">
-        <div className="flex items-center gap-3 rounded-full border border-border bg-gradient-to-b from-card to-background py-2 pl-6 pr-2 shadow-2xl shadow-black/40 transition-colors focus-within:border-amber/55">
-          <Search className="h-5 w-5 shrink-0 text-amber" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            type="text"
-            placeholder="Search a cocktail by name…"
-            autoComplete="off"
-            aria-label="Search cocktails"
-            className="flex-1 bg-transparent py-2.5 text-base outline-none placeholder:text-muted-foreground/70"
-          />
-          <button
-            type="submit"
-            className="shrink-0 rounded-full bg-amber px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-px hover:bg-amber-bright"
-          >
-            Find
-          </button>
-        </div>
-
-        <div className="mt-3.5 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-          Try:
-          {SUGGESTIONS.map((s) => (
-            <button
-              key={s}
-              type="button"
-              onClick={() => navigate(searchPath(s))}
-              className="rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground transition-colors hover:border-amber/40 hover:text-amber"
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-      </form>
+      <SearchBar
+        defaultValue=""
+        onChange={(q) => setQuery(q)}
+        onSubmit={submit}
+      />
     </header>
   );
 }

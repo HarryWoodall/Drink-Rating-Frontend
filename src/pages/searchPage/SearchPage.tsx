@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
-import { SearchBar } from "./components/SearchBar";
+import { SearchBar } from "../../components/shared/SearchBar";
 import { SearchFilters } from "./components/SearchFilters";
 import { CocktailCard } from "@/components/shared/CocktailCard";
 import {
@@ -9,7 +9,7 @@ import {
   type SearchType,
 } from "./hooks/useSearchResults";
 import { useRouteHistoryStore } from "@/store/routeHistoryStore";
-import { useEffect } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 export function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,6 +19,7 @@ export function SearchPage() {
   const filter = (searchParams.get("filter") ?? "all") as AlcoholicFilter;
 
   const { setPath } = useRouteHistoryStore((state) => state);
+  const [searchQuery, setSearchQuery] = useState(query);
 
   useEffect(() => {
     setPath(location.pathname, "Back to search", location.search);
@@ -36,6 +37,14 @@ export function SearchPage() {
     );
   }
 
+  function handleSearchSubmit(e: FormEvent) {
+    e.preventDefault();
+    const formattedQuery = searchQuery.trim();
+    if (formattedQuery) {
+      updateParams({ q: formattedQuery });
+    }
+  }
+
   const { results, loading, error } = useSearchResults(query, type, filter);
 
   return (
@@ -49,7 +58,11 @@ export function SearchPage() {
         Find your next pour.
       </h1>
 
-      <SearchBar defaultValue={query} onSubmit={(q) => updateParams({ q })} />
+      <SearchBar
+        onChange={(q) => setSearchQuery(q)}
+        onSubmit={handleSearchSubmit}
+        defaultValue={query}
+      />
 
       {query ? (
         <>

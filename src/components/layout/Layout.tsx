@@ -6,11 +6,11 @@ export function Layout() {
     <div className="min-h-screen">
       <Banner />
 
-      <main className="mx-auto max-w-6xl px-7">
+      <main className="mx-auto max-w-6xl px-7 pt-16">
         <Outlet />
       </main>
 
-      <footer className="mx-auto mt-16 max-w-6xl px-7 pb-16 pt-10 text-center">
+      <footer className="mx-auto mt-16 max-w-6xl px-7 pb-16 pt-10 md:p-0 text-center">
         <div className="mb-2 font-serif text-lg italic text-amber">
           Drink curiously.
         </div>
