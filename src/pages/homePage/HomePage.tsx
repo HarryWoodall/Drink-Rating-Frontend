@@ -1,5 +1,5 @@
 import { Hero } from "@/pages/homePage/components/Hero";
-import { RandomDrink } from "@/pages/homePage/components/RandomDrink/RandomDrink";
+import { RandomDrink } from "@/pages/homePage/components/RandomDrink/RandomDrinkCard";
 import { TrendingReel } from "@/pages/homePage/components/TrendingReel";
 import { useRandomDrink } from "./hooks/useRandomDrink";
 import { useRecentlyRated } from "./hooks/useRecentlyRated";
