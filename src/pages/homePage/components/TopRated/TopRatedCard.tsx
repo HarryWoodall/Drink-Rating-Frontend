@@ -40,7 +40,7 @@ export function TopRatedCard({ cocktail }: TopRatedCardProps) {
             Best in the house
           </span>
 
-          <h3 className="font-serif text-6xl mb-2 font-normal italic leading-none">
+          <h3 className="font-serif text-2xl md:text-4xl font-normal italic leading-none">
             {cocktail.drink.strDrink}
           </h3>
 
