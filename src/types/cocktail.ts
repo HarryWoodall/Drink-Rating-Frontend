@@ -6,42 +6,18 @@ export interface DbDrink {
   createdAt: string;
 }
 
-export interface DbDrinkDetails {
-  idDrink: string;
-  strDrink: string;
-  strDrinkThumb: string;
-  strCategory: string;
-  strAlcoholic: string;
-  strInstructions: string;
-  strIngredient1: string | null;
-  strIngredient2: string | null;
-  strIngredient3: string | null;
-  strIngredient4: string | null;
-  strIngredient5: string | null;
-  favourite?: boolean;
-}
-
-/**
- * The fields a cocktail card / favourite toggle needs — the common ground
- * between CocktailDbDrink and CocktailDetail, both of which satisfy it.
- */
-export type DrinkSummary = Pick<
-  DbDrinkDetails,
-  "idDrink" | "strDrink" | "strDrinkThumb" | "strCategory" | "strAlcoholic"
-> & { favourite?: boolean };
-
 export interface EnrichedCocktail extends DbDrink {
   thumbUrl?: string;
 }
 
 export type TopRatedResponse = {
-  drink: DrinkDetail;
+  drink: Drink;
   avgRating: number;
   numRatings: number;
 };
 
 export type TrendingResponse = {
-  drink: DrinkDetail;
+  drink: Drink;
   avgRating: number;
   numRatings: number;
   numClients: number;
@@ -57,7 +33,7 @@ export type TopIngredient = {
 
 export type IngredientShowcaseResponse = {
   drinks: {
-    value: DrinkDetail;
+    value: Drink;
     avgRating: number;
     numRatings: number;
   }[];
@@ -65,24 +41,6 @@ export type IngredientShowcaseResponse = {
   avgRating: number;
   numRatings: number;
 };
-
-/**
- * Full CocktailDB drink as returned by the server's `/api/cocktails/id/:id`
- * lookup. Ingredients and measures are sparse string fields (1..15).
- */
-export interface DrinkDetail {
-  idDrink: string;
-  strDrink: string;
-  strDrinkThumb: string;
-  strCategory: string;
-  strAlcoholic: string;
-  strGlass: string;
-  strInstructions: string;
-  strTags?: string | null;
-  [key: `strIngredient${number}`]: string | null | undefined;
-  [key: `strMeasure${number}`]: string | null | undefined;
-  favourite?: boolean;
-}
 
 export interface Ingredient {
   name: string;
@@ -94,6 +52,11 @@ export type Rating = {
   numRatings: number;
 };
 
+/**
+ * A drink as returned by every server endpoint that serves one. The server has
+ * already collapsed CocktailDB's sparse strIngredientN / strMeasureN pairs into
+ * `ingredients`, so the client never has to.
+ */
 export type Drink = {
   id: string;
   name: string;
@@ -108,17 +71,9 @@ export type Drink = {
   rating?: Rating;
 };
 
-/** Collapse the sparse strIngredientN / strMeasureN pairs into a clean list. */
-export function extractIngredients(drink: DrinkDetail): Ingredient[] {
-  const out: Ingredient[] = [];
-  for (let i = 1; i <= 15; i++) {
-    const name = drink[`strIngredient${i}`];
-    if (name && name.trim()) {
-      const measure = drink[`strMeasure${i}`];
-      out.push({ name: name.trim(), measure: measure?.trim() || null });
-    }
-  }
-  return out;
+/** Display label for a drink's `alcoholic` flag. */
+export function alcoholicLabel(alcoholic: boolean): string {
+  return alcoholic ? "Alcoholic" : "Non-alcoholic";
 }
 
 export type User = {

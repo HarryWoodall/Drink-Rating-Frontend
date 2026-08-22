@@ -1,7 +1,7 @@
 import { FavouriteButton } from "@/components/cocktail/favouriteButton/FavouriteButton";
 import { CocktailCard } from "@/components/shared/CocktailCard";
 import { Skeleton } from "@/components/ui/skeleton";
-import { DbDrinkDetails } from "@/types/cocktail";
+import { Drink } from "@/types/cocktail";
 
 export function FavouritesSection({
   favourites,
@@ -9,7 +9,7 @@ export function FavouritesSection({
   error,
   query = "",
 }: {
-  favourites: DbDrinkDetails[];
+  favourites: Drink[];
   loading: boolean;
   error: Error | null;
   /** Active filter text, used to tell "no matches" apart from "none saved". */
@@ -65,7 +65,7 @@ export function FavouritesSection({
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
       {favourites.map((drink) => (
         <CocktailCard
-          key={drink.idDrink}
+          key={drink.id}
           drink={drink}
           action={
             <FavouriteButton

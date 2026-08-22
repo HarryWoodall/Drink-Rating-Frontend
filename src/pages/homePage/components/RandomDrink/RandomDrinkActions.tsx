@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { cocktailPath } from "@/lib/paths";
-import { DrinkDetail } from "@/types/cocktail";
+import { Drink } from "@/types/cocktail";
 import { Shuffle, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 type RandomDrinkActionsProps = {
-  drink: DrinkDetail;
+  drink: Drink;
   onShuffle: (() => void) | undefined;
   fetching?: boolean;
 };
@@ -33,7 +33,7 @@ export function RandomDrinkActions({
       </Button>
       {drink && (
         <Button asChild variant="outline" className="rounded-full">
-          <Link to={cocktailPath(drink.idDrink)}>
+          <Link to={cocktailPath(drink.id)}>
             View &amp; Rate
             <ArrowUpRight />
           </Link>

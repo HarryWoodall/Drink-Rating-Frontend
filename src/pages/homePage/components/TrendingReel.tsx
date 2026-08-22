@@ -48,7 +48,7 @@ export function TrendingReel({ cocktails, loading, error }: TrendingReelProps) {
         ) : (
           cocktails.map((c) => (
             <DrinkShowcaseCard
-              key={c.drink.idDrink}
+              key={c.drink.id}
               drink={c.drink}
               avgRating={c.avgRating}
               numRatings={c.numRatings}

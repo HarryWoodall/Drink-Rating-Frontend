@@ -26,8 +26,8 @@ export function useSearchResults(
     if (!data) return [];
     if (filter === "all") return data;
     if (filter === "alcoholic")
-      return data.filter((d) => d.strAlcoholic === "Alcoholic");
-    return data.filter((d) => d.strAlcoholic !== "Alcoholic");
+      return data.filter((d) => d.alcoholic);
+    return data.filter((d) => !d.alcoholic);
   }, [data, filter]);
 
   return {

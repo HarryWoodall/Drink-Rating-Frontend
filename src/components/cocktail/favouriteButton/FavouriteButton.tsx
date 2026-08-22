@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { DrinkSummary } from "@/types/cocktail";
+import { Drink } from "@/types/cocktail";
 import { useToggleFavourite } from "@/pages/cocktail/hooks/useFavourite";
 import { authClient } from "@/lib/auth";
 import {
@@ -14,7 +14,7 @@ import { FavouriteIcon } from "./FavouriteIcon";
 type Size = keyof typeof sizeMap;
 
 type FavouriteButtonProps = {
-  cocktail: DrinkSummary;
+  cocktail: Drink;
   readonly?: boolean;
   size?: Size;
 };
@@ -36,7 +36,7 @@ export function FavouriteButton({
   size = "lg",
 }: FavouriteButtonProps) {
   const favourite = cocktail.favourite ?? false;
-  const { mutate } = useToggleFavourite(cocktail.idDrink);
+  const { mutate } = useToggleFavourite(cocktail.id);
   const { data: session, isPending } = authClient.useSession();
 
   if (isPending || !session) return null;

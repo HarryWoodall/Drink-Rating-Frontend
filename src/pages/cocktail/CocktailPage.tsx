@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { useCocktail } from "@/pages/cocktail/hooks/useCocktail";
-import { extractIngredients } from "@/types/cocktail";
+import { alcoholicLabel } from "@/types/cocktail";
 import { CommentSection } from "@/components/cocktail/comments/CommentSection";
 import { useRoomEvents } from "@/pages/cocktail/hooks/useEvents";
 import { cocktailPageEvents } from "@/lib/paths";
@@ -56,8 +56,8 @@ export function CocktailPage() {
           <div className="grid grid-cols-1 md:grid-cols-[320px_1fr]">
             <div className="border-b border-border bg-black/20 p-6 md:border-b-0 md:border-r">
               <img
-                src={cocktail.strDrinkThumb}
-                alt={cocktail.strDrink}
+                src={cocktail.image}
+                alt={cocktail.name}
                 className="aspect-square w-full rounded-xl object-cover shadow-lg shadow-black/50"
               />
             </div>
@@ -65,16 +65,16 @@ export function CocktailPage() {
             <div className="p-8 md:p-10">
               <p className="text-[0.7rem] uppercase tracking-[0.24em] text-amber">
                 {[
-                  cocktail.strCategory,
-                  cocktail.strAlcoholic,
-                  cocktail.strGlass,
+                  cocktail.category,
+                  alcoholicLabel(cocktail.alcoholic),
+                  cocktail.glass,
                 ]
                   .filter(Boolean)
                   .join(" · ")}
               </p>
               <div className="flex justify-between items-center">
                 <h1 className="mt-2 font-serif text-5xl font-normal italic leading-none">
-                  {cocktail.strDrink}
+                  {cocktail.name}
                 </h1>
                 <FavouriteButton cocktail={cocktail} />
               </div>
@@ -83,7 +83,7 @@ export function CocktailPage() {
                 Ingredients
               </h2>
               <ul className="flex flex-col gap-1.5">
-                {extractIngredients(cocktail).map((ing) => (
+                {cocktail.ingredients.map((ing) => (
                   <li
                     key={ing.name}
                     className="flex items-baseline justify-between gap-4 border-b border-border/60 pb-1.5 text-sm"
@@ -98,19 +98,19 @@ export function CocktailPage() {
                 ))}
               </ul>
 
-              {cocktail.strInstructions && (
+              {cocktail.instructions && (
                 <>
                   <h2 className="mt-8 mb-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">
                     Method
                   </h2>
                   <p className="text-sm leading-relaxed text-muted-foreground">
-                    {cocktail.strInstructions}
+                    {cocktail.instructions}
                   </p>
                 </>
               )}
             </div>
           </div>
-          <CommentSection drinkId={cocktail.idDrink} />
+          <CommentSection drinkId={cocktail.id} />
         </article>
       )}
     </div>

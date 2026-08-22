@@ -6,14 +6,14 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { DrinkDetail } from "@/types/cocktail";
+import type { Drink } from "@/types/cocktail";
 import { SectionHeading } from "../SectionHeading";
 import { ContentSkeleton } from "./ContentSkeleton";
 import { RandomDrinkActions } from "./RandomDrinkActions";
 import { RandomDrinkDetails, RandomDrinkHeading } from "./RandomDrinkContent";
 
 interface RandomDrinkProps {
-  drink: DrinkDetail | null;
+  drink: Drink | null;
   loading: boolean;
   fetching?: boolean;
   error: string | null;
@@ -95,7 +95,7 @@ export function RandomDrink({
 }
 
 interface CardImageProps {
-  drink: DrinkDetail;
+  drink: Drink;
 }
 
 function CardImage({ drink }: CardImageProps) {
@@ -103,8 +103,8 @@ function CardImage({ drink }: CardImageProps) {
   return (
     <>
       <img
-        src={drink.strDrinkThumb}
-        alt={drink.strDrink}
+        src={drink.image}
+        alt={drink.name}
         className="md:aspect-square w-full max-h-[200px] sm:max-h-[300px] md:max-h-full md:max-w-[360px] md:rounded-xl object-cover md:shadow-lg md:shadow-black/50"
       />
       <div className="absolute top-0 right-0 m-2">

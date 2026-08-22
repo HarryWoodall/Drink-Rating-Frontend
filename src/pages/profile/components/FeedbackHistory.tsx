@@ -39,10 +39,10 @@ export function FeedbackHistory() {
         >
           <div className="flex items-center justify-between gap-2">
             <Link
-              to={cocktailPath(item.drink.idDrink)}
+              to={cocktailPath(item.drink.id)}
               className="font-medium hover:text-amber transition-colors truncate"
             >
-              {item.drink.strDrink}
+              {item.drink.name}
             </Link>
             {item.rating !== null && (
               <StarRating rating={item.rating} showValue={false} />

@@ -2,10 +2,10 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { Wine } from "lucide-react";
 import { cocktailPath } from "@/lib/paths";
-import type { DrinkSummary } from "@/types/cocktail";
+import { alcoholicLabel, type Drink } from "@/types/cocktail";
 
 interface CocktailCardProps {
-  drink: DrinkSummary;
+  drink: Drink;
   /**
    * Optional control pinned to the top-right of the thumbnail. Rendered as a
    * sibling of the link rather than inside it, so an interactive action (a
@@ -18,14 +18,14 @@ export function CocktailCard({ drink, action }: CocktailCardProps) {
   return (
     <div className="relative">
       <Link
-        to={cocktailPath(drink.idDrink)}
+        to={cocktailPath(drink.id)}
         className="group flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-border bg-gradient-to-br from-card to-background transition-all hover:border-amber/45 hover:shadow-lg hover:shadow-black/30"
       >
         <div className="aspect-[4/3] w-full overflow-hidden bg-black/20">
-          {drink.strDrinkThumb ? (
+          {drink.image ? (
             <img
-              src={drink.strDrinkThumb}
-              alt={drink.strDrink}
+              src={drink.image}
+              alt={drink.name}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
@@ -37,13 +37,13 @@ export function CocktailCard({ drink, action }: CocktailCardProps) {
 
         <div className="flex flex-1 flex-col p-4">
           <p className="text-[0.65rem] uppercase tracking-[0.24em] text-amber">
-            {drink.strCategory}
+            {drink.category}
           </p>
           <p className="mt-1 font-serif text-lg italic leading-snug">
-            {drink.strDrink}
+            {drink.name}
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            {drink.strAlcoholic}
+            {alcoholicLabel(drink.alcoholic)}
           </p>
         </div>
       </Link>

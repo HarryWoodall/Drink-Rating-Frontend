@@ -18,15 +18,15 @@ export function RatedCard({ topRatedResponse, number }: RatedCardProps) {
 
   return (
     <Link
-      to={cocktailPath(topRatedResponse.drink.idDrink)}
+      to={cocktailPath(topRatedResponse.drink.id)}
       className="group block"
     >
       <Card className="flex flex-row-reverse overflow-hidden rounded-[1.2rem] border-border bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40 transition-colors group-hover:border-amber/45 md:flex-row">
         <div className="relative h-30 w-20 shrink-0 overflow-hidden md:h-auto md:w-40 relative">
-          {topRatedResponse.drink.strDrinkThumb ? (
+          {topRatedResponse.drink.image ? (
             <img
-              src={topRatedResponse.drink.strDrinkThumb}
-              alt={topRatedResponse.drink.strDrink}
+              src={topRatedResponse.drink.image}
+              alt={topRatedResponse.drink.name}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
@@ -47,7 +47,7 @@ export function RatedCard({ topRatedResponse, number }: RatedCardProps) {
           <div className="flex gap-3 items-center">
             <span className="font-serif text-amber text-2xl">{number}.</span>
             <h3 className="font-serif text-xl font-normal italic leading-none">
-              {topRatedResponse.drink.strDrink}
+              {topRatedResponse.drink.name}
             </h3>
           </div>
 
@@ -59,9 +59,9 @@ export function RatedCard({ topRatedResponse, number }: RatedCardProps) {
             />
           </div>
 
-          {topRatedResponse.drink.strInstructions && (
+          {topRatedResponse.drink.instructions && (
             <p className="max-w-[48ch] text-sm leading-relaxed text-muted-foreground line-clamp-2">
-              {topRatedResponse.drink.strInstructions}
+              {topRatedResponse.drink.instructions}
             </p>
           )}
         </CardContent>

@@ -141,7 +141,7 @@ function ResultsSection({
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
       {results.map((drink) => (
-        <CocktailCard key={drink.idDrink} drink={drink} />
+        <CocktailCard key={drink.id} drink={drink} />
       ))}
     </div>
   );

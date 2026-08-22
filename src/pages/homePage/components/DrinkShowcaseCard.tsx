@@ -6,12 +6,12 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { DrinkDetail, extractIngredients } from "@/types/cocktail";
+import { Drink } from "@/types/cocktail";
 import { StarRating } from "./StarRating";
 import { cn } from "@/lib/utils";
 
 type DrinkShowcaseCardProps = {
-  drink: DrinkDetail;
+  drink: Drink;
   avgRating: number;
   numRatings: number;
   ingredient: string;
@@ -29,7 +29,7 @@ export function DrinkShowcaseCard({
         <div className="flex flex-col p-4 justify-center gap-3">
           <CardHeader className="flex flex-col gap-1 md:gap-3 space-y-0 p-6 pb-2 md:p-0">
             <h3 className="font-serif text-xl font-normal italic leading-none">
-              {drink.strDrink}
+              {drink.name}
             </h3>
           </CardHeader>
 
@@ -48,15 +48,15 @@ export function DrinkShowcaseCard({
 
 interface CardImageProps {
   // TODO - maybe take this out into a seperate file
-  drink: DrinkDetail;
+  drink: Drink;
 }
 
 function CardImage({ drink }: CardImageProps) {
   return (
     <>
       <img
-        src={drink.strDrinkThumb}
-        alt={drink.strDrink}
+        src={drink.image}
+        alt={drink.name}
         className="w-full max-h-48 object-cover"
       />
       <div className="absolute top-0 right-0 m-2">
@@ -67,18 +67,17 @@ function CardImage({ drink }: CardImageProps) {
 }
 
 interface DrinkIngredientsProps {
-  cocktail: DrinkDetail;
+  cocktail: Drink;
 }
 
 export function DrinkIngredients({ cocktail }: DrinkIngredientsProps) {
-  const ingredients = extractIngredients(cocktail);
   return (
     <p
       className={cn(
         "text-[0.8em] italic uppercase tracking-[0.16em] text-faded-foreground",
       )}
     >
-      {ingredients.filter(Boolean).map((x, index) => (
+      {cocktail.ingredients.map((x, index) => (
         <Fragment key={x.name}>
           {index > 0 && <span className="font-extrabold"> · </span>}
           <span className={cn(index === 0 && "font-bold text-amber-bright")}>

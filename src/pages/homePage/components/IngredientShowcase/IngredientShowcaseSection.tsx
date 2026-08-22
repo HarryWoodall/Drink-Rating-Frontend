@@ -97,7 +97,7 @@ export function IngredientShowcaseSection() {
           <div className={GRID}>
             {results.map((d) => (
               <DrinkShowcaseCard
-                key={d.idDrink}
+                key={d.id}
                 drink={d}
                 avgRating={2.5}
                 numRatings={3}

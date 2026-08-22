@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { FavouritesPage } from "./FavouritesPage";
 import { renderWithProviders, screen } from "@/test/utils";
 import { fetchFavourites } from "@/services/api";
-import type { DbDrinkDetails } from "@/types/cocktail";
+import type { Drink } from "@/types/cocktail";
 
 vi.mock("@/services/api", () => ({
   fetchFavourites: vi.fn(),
@@ -22,19 +22,17 @@ vi.mock("@/lib/auth", () => ({
 
 const mockFetchFavourites = vi.mocked(fetchFavourites);
 
-function drink(id: string, name: string): DbDrinkDetails {
+function drink(id: string, name: string): Drink {
   return {
-    idDrink: id,
-    strDrink: name,
-    strDrinkThumb: `https://example.test/${id}.jpg`,
-    strCategory: "Cocktail",
-    strAlcoholic: "Alcoholic",
-    strInstructions: "Shake.",
-    strIngredient1: "Gin",
-    strIngredient2: null,
-    strIngredient3: null,
-    strIngredient4: null,
-    strIngredient5: null,
+    id,
+    name,
+    image: `https://example.test/${id}.jpg`,
+    category: "Cocktail",
+    alcoholic: true,
+    glass: "Coupe",
+    instructions: "Shake.",
+    tags: null,
+    ingredients: [{ name: "Gin", measure: "50ml" }],
   };
 }
 

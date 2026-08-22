@@ -33,8 +33,8 @@ export function FavouritesPage() {
 
     return favourites.filter(
       (drink) =>
-        drink.strDrink.toLowerCase().includes(q) ||
-        drink.strCategory?.toLowerCase().includes(q),
+        drink.name.toLowerCase().includes(q) ||
+        drink.category?.toLowerCase().includes(q),
     );
   }, [favourites, query]);
 

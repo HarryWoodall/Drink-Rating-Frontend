@@ -1,10 +1,10 @@
 import { CardTitle } from "@/components/ui/card";
-import { DrinkDetail } from "@/types/cocktail";
+import { Drink } from "@/types/cocktail";
 import { DrinkDescription } from "../DrinkDescription";
 import { DrinkIngredients } from "../DrinkIngredients";
 
 interface RandomDrinkContentProps {
-  drink: DrinkDetail;
+  drink: Drink;
 }
 
 /** Name + category line — belongs in the card's header slot. */
@@ -12,11 +12,11 @@ export function RandomDrinkHeading({ drink }: RandomDrinkContentProps) {
   return (
     <>
       <CardTitle className="font-serif text-2xl md:text-4xl font-normal italic leading-none">
-        {drink.strDrink}
+        {drink.name}
       </CardTitle>
       <DrinkDescription
-        alcoholic={drink.strAlcoholic}
-        category={drink.strCategory}
+        alcoholic={drink.alcoholic}
+        category={drink.category}
       />
     </>
   );
@@ -30,9 +30,9 @@ export function RandomDrinkDetails({ drink }: RandomDrinkContentProps) {
         <DrinkIngredients cocktail={drink} />
       </div>
 
-      {drink.strInstructions && (
+      {drink.instructions && (
         <p className="max-w-[48ch] text-sm leading-relaxed text-muted-foreground line-clamp-3">
-          {drink.strInstructions}
+          {drink.instructions}
         </p>
       )}
     </>

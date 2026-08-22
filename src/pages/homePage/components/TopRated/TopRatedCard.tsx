@@ -14,13 +14,13 @@ interface TopRatedCardProps {
 
 export function TopRatedCard({ cocktail }: TopRatedCardProps) {
   return (
-    <Link to={cocktailPath(cocktail.drink.idDrink)} className="group block">
+    <Link to={cocktailPath(cocktail.drink.id)} className="group block">
       <Card className="flex flex-col overflow-hidden rounded-[1.6rem] border-border bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40 transition-colors group-hover:border-amber/45 md:flex-row">
         <div className="relative h-60 w-full shrink-0 overflow-hidden md:h-auto md:w-80 relative">
-          {cocktail.drink.strDrinkThumb ? (
+          {cocktail.drink.image ? (
             <img
-              src={cocktail.drink.strDrinkThumb}
-              alt={cocktail.drink.strDrink}
+              src={cocktail.drink.image}
+              alt={cocktail.drink.name}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
@@ -39,12 +39,12 @@ export function TopRatedCard({ cocktail }: TopRatedCardProps) {
           </span>
 
           <h3 className="font-serif text-2xl md:text-4xl font-normal italic leading-none">
-            {cocktail.drink.strDrink}
+            {cocktail.drink.name}
           </h3>
 
           <DrinkDescription
-            alcoholic={cocktail.drink.strAlcoholic}
-            category={cocktail.drink.strCategory}
+            alcoholic={cocktail.drink.alcoholic}
+            category={cocktail.drink.category}
           />
 
           <div className="flex gap-3 mb-4">
@@ -55,9 +55,9 @@ export function TopRatedCard({ cocktail }: TopRatedCardProps) {
           </div>
 
           <DrinkIngredients cocktail={cocktail.drink} />
-          {cocktail.drink.strInstructions && (
+          {cocktail.drink.instructions && (
             <p className="max-w-[48ch] text-sm leading-relaxed text-muted-foreground line-clamp-3">
-              {cocktail.drink.strInstructions}
+              {cocktail.drink.instructions}
             </p>
           )}
           <span className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-amber transition-colors group-hover:text-amber-bright">
