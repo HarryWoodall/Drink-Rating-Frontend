@@ -43,8 +43,6 @@ export function RandomDrink({
 
       <Card className="relative overflow-hidden rounded-[1.6rem] bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40 md:p-10 md:pr-0">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_400px]">
-          {/* Card sections carry their own p-6; the column owns the padding so
-              the original gap-3 rhythm between all the rows is preserved. */}
           <div className="flex flex-col justify-center gap-3 md:p-10">
             <div className="md:hidden">
               <CardImage drink={drink} />
@@ -91,10 +89,6 @@ export function RandomDrink({
             )}
           </div>
         </div>
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(420px_400px_at_16%_50%,#d8a44b24,transparent_60%)]"
-        />
       </Card>
     </section>
   );
@@ -105,6 +99,7 @@ interface CardImageProps {
 }
 
 function CardImage({ drink }: CardImageProps) {
+  // TODO - maybe take this out into a seperate file
   return (
     <>
       <img

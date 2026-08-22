@@ -4,6 +4,7 @@ import type { TrendingResponse } from "@/types/cocktail";
 import { cocktailPath } from "@/lib/paths";
 import { SectionHeading } from "./SectionHeading";
 import { StarRating } from "./StarRating";
+import { DrinkShowcaseCard } from "./DrinkShowcaseCard";
 
 interface TrendingReelProps {
   cocktails: TrendingResponse[];
@@ -12,7 +13,6 @@ interface TrendingReelProps {
 }
 
 export function TrendingReel({ cocktails, loading, error }: TrendingReelProps) {
-  console.log(cocktails);
   return (
     <section id="trending" className="scroll-mt-24 py-8">
       <SectionHeading
@@ -47,36 +47,42 @@ export function TrendingReel({ cocktails, loading, error }: TrendingReelProps) {
           </div>
         ) : (
           cocktails.map((c) => (
-            <Link
+            <DrinkShowcaseCard
               key={c.drink.idDrink}
-              to={cocktailPath(c.drink.idDrink)}
-              className="group w-[200px] shrink-0 overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-amber/45"
-            >
-              <div
-                className="relative flex h-28 items-end justify-between gap-2 overflow-hidden bg-cover bg-center p-4"
-                style={{ backgroundImage: `url(${c.drink.strDrinkThumb})` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-card/30 to-background/70" />
-                <span className="relative z-10 dark:text-amber-bright font-serif text-2xl italic leading-tight">
-                  {c.drink.strDrink}
-                </span>
-              </div>
-              <div className="border-t border-border p-4">
-                <StarRating
-                  rating={c.avgRating}
-                  showValue={false}
-                  numRatings={c.numRatings}
-                  size="sm"
-                />
-                <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber opacity-60" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-amber" />
-                  </span>
-                  {c.numClients} watching now
-                </div>
-              </div>
-            </Link>
+              drink={c.drink}
+              avgRating={c.avgRating}
+              numRatings={c.numRatings}
+            />
+            // <Link
+            //   key={c.drink.idDrink}
+            //   to={cocktailPath(c.drink.idDrink)}
+            //   className="group w-[200px] shrink-0 overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-1 hover:border-amber/45"
+            // >
+            //   <div
+            //     className="relative flex h-28 items-end justify-between gap-2 overflow-hidden bg-cover bg-center p-4"
+            //     style={{ backgroundImage: `url(${c.drink.strDrinkThumb})` }}
+            //   >
+            //     <div className="absolute inset-0 bg-gradient-to-br from-card/30 to-background/70" />
+            //     <span className="relative z-10 dark:text-amber-bright font-serif text-2xl italic leading-tight">
+            //       {c.drink.strDrink}
+            //     </span>
+            //   </div>
+            //   <div className="border-t border-border p-4">
+            //     <StarRating
+            //       rating={c.avgRating}
+            //       showValue={false}
+            //       numRatings={c.numRatings}
+            //       size="sm"
+            //     />
+            //     <div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
+            //       <span className="relative flex h-2 w-2">
+            //         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber opacity-60" />
+            //         <span className="relative inline-flex h-2 w-2 rounded-full bg-amber" />
+            //       </span>
+            //       {c.numClients} watching now
+            //     </div>
+            //   </div>
+            // </Link>
           ))
         )}
       </div>

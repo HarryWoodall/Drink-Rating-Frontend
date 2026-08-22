@@ -6,6 +6,7 @@ import { StarRating } from "../StarRating";
 import { DrinkDescription } from "../DrinkDescription";
 import { DrinkIngredients } from "../DrinkIngredients";
 import { FavouriteButton } from "@/components/cocktail/favouriteButton/FavouriteButton";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface TopRatedCardProps {
   cocktail: TopRatedResponse;
@@ -13,11 +14,8 @@ interface TopRatedCardProps {
 
 export function TopRatedCard({ cocktail }: TopRatedCardProps) {
   return (
-    <Link
-      to={cocktailPath(cocktail.drink.idDrink)}
-      className="group block overflow-hidden rounded-[1.6rem] border border-border bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40 transition-colors hover:border-amber/45"
-    >
-      <div className="flex flex-col md:flex-row">
+    <Link to={cocktailPath(cocktail.drink.idDrink)} className="group block">
+      <Card className="flex flex-col overflow-hidden rounded-[1.6rem] border-border bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40 transition-colors group-hover:border-amber/45 md:flex-row">
         <div className="relative h-60 w-full shrink-0 overflow-hidden md:h-auto md:w-80 relative">
           {cocktail.drink.strDrinkThumb ? (
             <img
@@ -35,7 +33,7 @@ export function TopRatedCard({ cocktail }: TopRatedCardProps) {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center gap-3 p-8 md:p-10 w-full">
+        <CardContent className="flex w-full flex-col justify-center gap-3 p-8 pt-8 md:p-10 md:pt-10">
           <span className="text-[0.7rem] uppercase tracking-[0.4em] text-amber">
             Best in the house
           </span>
@@ -66,8 +64,8 @@ export function TopRatedCard({ cocktail }: TopRatedCardProps) {
             Read the tasting notes
             <ArrowUpRight className="h-4 w-4" />
           </span>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </Link>
   );
 }

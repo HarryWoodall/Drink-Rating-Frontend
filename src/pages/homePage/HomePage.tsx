@@ -7,6 +7,7 @@ import { useTopRated } from "./hooks/useTopRated";
 import { useRouteHistoryStore } from "@/store/routeHistoryStore";
 import { useEffect } from "react";
 import { TopRatedSection } from "./components/TopRated/TopRatedSection";
+import { IngredientShowcaseSection } from "./components/IngredientShowcase/IngredientShowcaseSection";
 
 export function HomePage() {
   const { topDrink, loading: topLoading, error: topError } = useTopRated();
@@ -49,6 +50,7 @@ export function HomePage() {
         loading={recentLoading}
         error={recentError}
       />
+      {/* <IngredientShowcaseSection /> */}
     </div>
   );
 }

@@ -47,6 +47,25 @@ export type TrendingResponse = {
   numClients: number;
 };
 
+/** An ingredient in the showcase tab rail. Mirrors the server's IngredientSearchTerm. */
+export type TopIngredient = {
+  name: string;
+  alternatives: string[];
+  /** Number of drinks poured with it — not sent by the server yet. */
+  count?: number;
+};
+
+export type IngredientShowcaseResponse = {
+  drinks: {
+    value: DrinkDetail;
+    avgRating: number;
+    numRatings: number;
+  }[];
+  ingredient: string;
+  avgRating: number;
+  numRatings: number;
+};
+
 /**
  * Full CocktailDB drink as returned by the server's `/api/cocktails/id/:id`
  * lookup. Ingredients and measures are sparse string fields (1..15).
@@ -62,13 +81,32 @@ export interface DrinkDetail {
   strTags?: string | null;
   [key: `strIngredient${number}`]: string | null | undefined;
   [key: `strMeasure${number}`]: string | null | undefined;
-  favourite?: boolean | undefined;
+  favourite?: boolean;
 }
 
 export interface Ingredient {
   name: string;
   measure: string | null;
 }
+
+export type Rating = {
+  avgRating: number;
+  numRatings: number;
+};
+
+export type Drink = {
+  id: string;
+  name: string;
+  image: string;
+  category: string;
+  alcoholic: boolean;
+  glass: string;
+  instructions: string;
+  tags: string | null;
+  ingredients: Ingredient[];
+  favourite?: boolean;
+  rating?: Rating;
+};
 
 /** Collapse the sparse strIngredientN / strMeasureN pairs into a clean list. */
 export function extractIngredients(drink: DrinkDetail): Ingredient[] {
@@ -94,16 +132,6 @@ export type Comment = {
   drinkId: number;
   userId: string | null;
   comment: string;
-  createdAt: Date;
-  updatedAt: Date;
-  user: User | null;
-};
-
-export type Rating = {
-  id: number;
-  drinkId: number;
-  userId: string | null;
-  rating: number;
   createdAt: Date;
   updatedAt: Date;
   user: User | null;

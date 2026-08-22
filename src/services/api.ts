@@ -4,6 +4,8 @@ import type {
   Comment,
   DbDrink,
   FeedbackResponse,
+  IngredientShowcaseResponse,
+  TopIngredient,
   TopRatedResponse,
   TrendingResponse,
 } from "@/types/cocktail";
@@ -100,6 +102,22 @@ export async function fetchTopRatedDrinks(): Promise<TopRatedResponse[]> {
 
 export async function fetchTrendingDrinks(): Promise<TrendingResponse[]> {
   return get<TrendingResponse[]>("/drinks/trending");
+}
+
+export async function fetchTopIngredients(): Promise<TopIngredient[]> {
+  return get<TopIngredient[]>("/drinks/top-ingredient-list");
+}
+
+/**
+ * The highest-rated drinks made with a given ingredient.
+ * NOTE: this endpoint is not implemented on the server yet.
+ */
+export async function fetchIngredientShowcase(
+  ingredient: string,
+): Promise<IngredientShowcaseResponse> {
+  return get<IngredientShowcaseResponse>(
+    `/drinks/ingredient/${encodeURIComponent(ingredient)}/showcase`,
+  );
 }
 
 export async function getRandomCocktail(): Promise<DrinkDetail> {

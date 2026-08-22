@@ -4,6 +4,7 @@ import type { TopRatedResponse } from "@/types/cocktail";
 import { cocktailPath } from "@/lib/paths";
 import { StarRating } from "../StarRating";
 import { FavouriteButton } from "@/components/cocktail/favouriteButton/FavouriteButton";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface RatedCardProps {
   topRatedResponse: TopRatedResponse;
@@ -18,9 +19,9 @@ export function RatedCard({ topRatedResponse, number }: RatedCardProps) {
   return (
     <Link
       to={cocktailPath(topRatedResponse.drink.idDrink)}
-      className="group block overflow-hidden rounded-[1.2rem] border border-border bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40 transition-colors hover:border-amber/45"
+      className="group block"
     >
-      <div className="flex flex-row-reverse md:flex-row">
+      <Card className="flex flex-row-reverse overflow-hidden rounded-[1.2rem] border-border bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40 transition-colors group-hover:border-amber/45 md:flex-row">
         <div className="relative h-30 w-20 shrink-0 overflow-hidden md:h-auto md:w-40 relative">
           {topRatedResponse.drink.strDrinkThumb ? (
             <img
@@ -42,7 +43,7 @@ export function RatedCard({ topRatedResponse, number }: RatedCardProps) {
           </div>
         </div>
 
-        <div className="flex flex-col justify-center gap-3 p-5 md:p-6">
+        <CardContent className="flex flex-col justify-center gap-3 p-5 pt-5 md:p-6 md:pt-6">
           <div className="flex gap-3 items-center">
             <span className="font-serif text-amber text-2xl">{number}.</span>
             <h3 className="font-serif text-xl font-normal italic leading-none">
@@ -63,8 +64,8 @@ export function RatedCard({ topRatedResponse, number }: RatedCardProps) {
               {topRatedResponse.drink.strInstructions}
             </p>
           )}
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     </Link>
   );
 }
