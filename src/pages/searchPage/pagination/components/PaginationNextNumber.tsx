@@ -1,4 +1,5 @@
 import { PaginationItem, PaginationLink } from "@/components/ui/pagination";
+import { cn } from "@/lib/utils";
 
 type PaginationNextNumberProps = {
   currentPageNumber: number;
@@ -20,7 +21,7 @@ export function PaginationNextNumber({
   }
 
   return (
-    <PaginationItem>
+    <PaginationItem className={cn(offset > 0 ? "hidden md:flex" : "")}>
       <PaginationLink
         href="#"
         onClick={(e) => {

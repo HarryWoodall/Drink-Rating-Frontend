@@ -22,7 +22,7 @@ export function PaginationLastNumber({
   }
 
   return (
-    <>
+    <div className="hidden md:flex">
       {currentPageNumber < totalPages - offsetAmount - 1 && (
         <PaginationItem>
           <PaginationEllipsis />
@@ -40,6 +40,6 @@ export function PaginationLastNumber({
           {totalPages}
         </PaginationLink>
       </PaginationItem>
-    </>
+    </div>
   );
 }

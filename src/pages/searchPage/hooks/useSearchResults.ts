@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
   searchCocktailsByIngredient,
   searchCocktailsByName,
@@ -13,25 +12,22 @@ export function useSearchResults(
   type: SearchType,
   filter: AlcoholicFilter,
   page: number,
+  limit?: number,
 ) {
+  const isAlcoholic = filter === "all" ? undefined : filter === "alcoholic";
+
   const { data, isLoading, error } = useQuery({
-    queryKey: ["search", type, query],
+    queryKey: ["search", type, query, isAlcoholic, page, limit],
     queryFn:
       type === "ingredient"
-        ? () => searchCocktailsByIngredient(query)
-        : () => searchCocktailsByName(query),
+        ? () => searchCocktailsByIngredient(query, isAlcoholic, page, limit)
+        : () => searchCocktailsByName(query, isAlcoholic, page, limit),
     enabled: query.trim().length > 0,
+    placeholderData: keepPreviousData,
   });
 
-  const results = useMemo(() => {
-    if (!data) return [];
-    if (filter === "all") return data;
-    if (filter === "alcoholic") return data.filter((d) => d.alcoholic);
-    return data.filter((d) => !d.alcoholic);
-  }, [data, filter]);
-
   return {
-    results,
+    results: data,
     loading: isLoading,
     error: error ? (error as Error).message : null,
   };

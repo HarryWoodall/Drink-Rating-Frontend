@@ -11,6 +11,7 @@ import {
 import { useRouteHistoryStore } from "@/store/routeHistoryStore";
 import { FormEvent, useEffect, useState } from "react";
 import { SearchResultsPagination } from "./pagination/SearchResultsPagination";
+import { DrinkSearchResponse } from "@/types/cocktail";
 
 export function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -18,7 +19,7 @@ export function SearchPage() {
   const query = searchParams.get("q") ?? "";
   const type = (searchParams.get("type") ?? "name") as SearchType;
   const filter = (searchParams.get("filter") ?? "all") as AlcoholicFilter;
-  const page = (searchParams.get("number") ?? 1) as number;
+  const page = Number(searchParams.get("page") ?? 1);
 
   const { setPath } = useRouteHistoryStore((state) => state);
   const [searchQuery, setSearchQuery] = useState(query);
@@ -54,6 +55,10 @@ export function SearchPage() {
     page,
   );
 
+  if (!results) {
+    return null;
+  }
+
   return (
     <div className="py-8">
       <div className="mb-6 flex items-center gap-3.5 text-[0.7rem] uppercase tracking-[0.46em] text-amber">
@@ -76,9 +81,9 @@ export function SearchPage() {
           <SearchFilters
             type={type}
             filter={filter}
-            resultCount={results.length}
-            onTypeChange={(t) => updateParams({ type: t }, true)}
-            onFilterChange={(f) => updateParams({ filter: f }, true)}
+            resultCount={results.pagination.totalResults}
+            onTypeChange={(t) => updateParams({ type: t, page: "1" }, true)}
+            onFilterChange={(f) => updateParams({ filter: f, page: "1" }, true)}
           />
           <ResultsSection
             results={results}
@@ -87,10 +92,10 @@ export function SearchPage() {
             query={query}
           />
           <SearchResultsPagination
-            currentPageNumber={1}
-            totalPages={10}
+            currentPageNumber={page}
+            totalPages={results.pagination.pages}
             offsetAmmount={2}
-            onClick={() => null} // TODO modify this
+            onClick={(p) => updateParams({ page: p.toString() }, true)} // TODO modify this
           />
         </>
       ) : (
@@ -106,7 +111,7 @@ function ResultsSection({
   error,
   query,
 }: {
-  results: ReturnType<typeof useSearchResults>["results"];
+  results: DrinkSearchResponse;
   loading: boolean;
   error: string | null;
   query: string;
@@ -140,7 +145,7 @@ function ResultsSection({
     );
   }
 
-  if (results.length === 0) {
+  if (results.drinks.length === 0) {
     return (
       <div className="rounded-[1.6rem] border border-dashed border-border bg-black/15 py-20 text-center">
         <p className="font-serif text-2xl italic">Nothing on the shelf</p>
@@ -153,7 +158,7 @@ function ResultsSection({
 
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-      {results.map((drink) => (
+      {results.drinks.map((drink) => (
         <CocktailCard key={drink.id} drink={drink} />
       ))}
     </div>

@@ -73,6 +73,16 @@ export type Drink = {
   rating?: Rating;
 };
 
+export type Pagination = {
+  totalResults: number;
+  pages: number;
+};
+
+export type DrinkSearchResponse = {
+  pagination: Pagination;
+  drinks: Drink[];
+};
+
 /** Display label for a drink's `alcoholic` flag. */
 export function alcoholicLabel(alcoholic: boolean): string {
   return alcoholic ? "Alcoholic" : "Non-alcoholic";
