@@ -13,7 +13,7 @@ import { HttpError } from "@/lib/errors";
 
 const BASE_URL = "http://localhost:3000/api";
 
-async function get<T>(path: string): Promise<T> {
+export async function get<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
     credentials: "include",
   });
@@ -132,9 +132,7 @@ export async function fetchCocktailById(id: string): Promise<Drink> {
  * Full drink lookup by name — backs the individual cocktail page. The server's
  * by-name endpoint returns the rich CocktailDB drink list; we take the first.
  */
-export async function fetchCocktailByName(
-  name: string,
-): Promise<Drink | null> {
+export async function fetchCocktailByName(name: string): Promise<Drink | null> {
   const drinks = await get<Drink[] | null>(
     `/drinks/name/${encodeURIComponent(name)}`,
   );
@@ -150,9 +148,7 @@ export async function searchCocktailByName(
   return drinks?.[0] ?? null;
 }
 
-export async function searchCocktailsByName(
-  name: string,
-): Promise<Drink[]> {
+export async function searchCocktailsByName(name: string): Promise<Drink[]> {
   const drinks = await get<Drink[] | null>(
     `/drinks/name/${encodeURIComponent(name)}`,
   );

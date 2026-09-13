@@ -45,12 +45,12 @@ export function HomePage() {
         loading={topLoading}
         error={topError}
       />
-      <TrendingReel
+      {/* <TrendingReel
         cocktails={recentCocktails}
         loading={recentLoading}
         error={recentError}
-      />
-      {/* <IngredientShowcaseSection /> */}
+      /> */}
+      <IngredientShowcaseSection />
     </div>
   );
 }

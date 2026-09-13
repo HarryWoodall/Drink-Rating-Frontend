@@ -12,6 +12,7 @@ export function useSearchResults(
   query: string,
   type: SearchType,
   filter: AlcoholicFilter,
+  page: number,
 ) {
   const { data, isLoading, error } = useQuery({
     queryKey: ["search", type, query],
@@ -25,8 +26,7 @@ export function useSearchResults(
   const results = useMemo(() => {
     if (!data) return [];
     if (filter === "all") return data;
-    if (filter === "alcoholic")
-      return data.filter((d) => d.alcoholic);
+    if (filter === "alcoholic") return data.filter((d) => d.alcoholic);
     return data.filter((d) => !d.alcoholic);
   }, [data, filter]);
 

@@ -4,8 +4,8 @@ import type { TopIngredient } from "@/types/cocktail";
 
 interface IngredientTabsProps {
   ingredients: TopIngredient[];
-  selected: string | undefined;
-  onSelect: (name: string) => void;
+  selected: TopIngredient | undefined;
+  onSelect: (name: TopIngredient) => void;
 }
 
 export function IngredientTabs({
@@ -15,30 +15,13 @@ export function IngredientTabs({
 }: IngredientTabsProps) {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const activeIndex = ingredients.findIndex((x) => x.name === selected);
+  const activeIndex = ingredients.findIndex((x) => x.name === selected?.name);
 
   function move(index: number) {
     const next = ingredients[index];
     if (!next) return;
-    onSelect(next.name);
+    onSelect(next);
     tabRefs.current[index]?.focus();
-  }
-
-  function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
-    const last = ingredients.length - 1;
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      move(activeIndex === last ? 0 : activeIndex + 1);
-    } else if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      move(activeIndex === 0 ? last : activeIndex - 1);
-    } else if (e.key === "Home") {
-      e.preventDefault();
-      move(0);
-    } else if (e.key === "End") {
-      e.preventDefault();
-      move(last);
-    }
   }
 
   return (
@@ -46,11 +29,10 @@ export function IngredientTabs({
       <div
         role="tablist"
         aria-label="Popular ingredients"
-        onKeyDown={handleKeyDown}
         className="reel-scroll flex gap-2 overflow-x-auto pb-2.5"
       >
         {ingredients.map((ingredient, i) => {
-          const isSelected = ingredient.name === selected;
+          const isSelected = ingredient.name === selected?.name;
           return (
             <button
               key={ingredient.name}
@@ -62,7 +44,7 @@ export function IngredientTabs({
               aria-selected={isSelected}
               aria-controls="ingredient-showcase-panel"
               tabIndex={isSelected ? 0 : -1}
-              onClick={() => onSelect(ingredient.name)}
+              onClick={() => onSelect(ingredient)}
               className={cn(
                 "shrink-0 rounded-full border border-border px-4 py-2 text-sm text-muted-foreground transition-colors",
                 "hover:border-foreground/25 hover:text-foreground",
@@ -80,9 +62,6 @@ export function IngredientTabs({
           );
         })}
       </div>
-
-      {/* Fades the rail out at the right edge to hint that it scrolls. */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-r from-transparent to-background" />
     </div>
   );
 }

@@ -10,6 +10,7 @@ import {
 } from "./hooks/useSearchResults";
 import { useRouteHistoryStore } from "@/store/routeHistoryStore";
 import { FormEvent, useEffect, useState } from "react";
+import { SearchResultsPagination } from "./pagination/SearchResultsPagination";
 
 export function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,6 +18,7 @@ export function SearchPage() {
   const query = searchParams.get("q") ?? "";
   const type = (searchParams.get("type") ?? "name") as SearchType;
   const filter = (searchParams.get("filter") ?? "all") as AlcoholicFilter;
+  const page = (searchParams.get("number") ?? 1) as number;
 
   const { setPath } = useRouteHistoryStore((state) => state);
   const [searchQuery, setSearchQuery] = useState(query);
@@ -45,7 +47,12 @@ export function SearchPage() {
     }
   }
 
-  const { results, loading, error } = useSearchResults(query, type, filter);
+  const { results, loading, error } = useSearchResults(
+    query,
+    type,
+    filter,
+    page,
+  );
 
   return (
     <div className="py-8">
@@ -78,6 +85,12 @@ export function SearchPage() {
             loading={loading}
             error={error}
             query={query}
+          />
+          <SearchResultsPagination
+            currentPageNumber={1}
+            totalPages={10}
+            offsetAmmount={2}
+            onClick={() => null} // TODO modify this
           />
         </>
       ) : (

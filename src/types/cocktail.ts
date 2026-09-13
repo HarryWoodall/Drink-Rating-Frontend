@@ -43,8 +43,10 @@ export type IngredientShowcaseResponse = {
 };
 
 export interface Ingredient {
+  id: number;
   name: string;
   measure: string | null;
+  searchItems?: boolean;
 }
 
 export type Rating = {
