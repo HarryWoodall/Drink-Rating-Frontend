@@ -1,3 +1,5 @@
+import type { AlcoholicFilter, SearchType } from "@/types/search";
+
 /** Route to an individual cocktail page, keyed by drink name. */
 export function cocktailPath(name: string): string {
   return `/cocktail/${encodeURIComponent(name)}`;
@@ -5,8 +7,8 @@ export function cocktailPath(name: string): string {
 
 export function searchPath(
   q: string,
-  type: "name" | "ingredient" = "name",
-  filter: "all" | "alcoholic" | "non-alcoholic" = "all",
+  type: SearchType = "name",
+  filter: AlcoholicFilter = "all",
 ): string {
   const params = new URLSearchParams({ q, type, filter });
   return `/search?${params.toString()}`;

@@ -3,9 +3,9 @@ import {
   searchCocktailsByIngredient,
   searchCocktailsByName,
 } from "@/services/api";
+import type { AlcoholicFilter, SearchType } from "@/types/search";
 
-export type SearchType = "name" | "ingredient";
-export type AlcoholicFilter = "all" | "alcoholic" | "non-alcoholic";
+export type { SearchType, AlcoholicFilter } from "@/types/search";
 
 export function useSearchResults(
   query: string,

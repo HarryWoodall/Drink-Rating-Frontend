@@ -1,16 +1,18 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { searchPath } from "@/lib/paths";
-import { SearchBar } from "@/components/shared/SearchBar";
+import { SearchBar } from "@/components/shared/layouts/SearchBar/SearchBar";
+import type { SearchType } from "@/types/search";
 
 export function Hero() {
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const [type, setType] = useState<SearchType>("name");
 
   function submit(e: FormEvent) {
     e.preventDefault();
     const formattedQuery = query.trim();
-    if (formattedQuery) navigate(searchPath(formattedQuery));
+    if (formattedQuery) navigate(searchPath(formattedQuery, type));
   }
 
   return (
@@ -32,7 +34,9 @@ export function Hero() {
 
       <SearchBar
         defaultValue=""
+        type={type}
         onChange={(q) => setQuery(q)}
+        onTypeChange={setType}
         onSubmit={submit}
       />
     </header>

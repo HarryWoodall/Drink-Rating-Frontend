@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
-import { SearchBar } from "../../components/shared/SearchBar";
+import { SearchBar } from "../../components/shared/layouts/SearchBar/SearchBar";
 import { SearchFilters } from "./components/SearchFilters";
 import { CocktailCard } from "@/components/shared/CocktailCard";
 import {
@@ -74,15 +74,15 @@ export function SearchPage() {
         onChange={(q) => setSearchQuery(q)}
         onSubmit={handleSearchSubmit}
         defaultValue={query}
+        type={type}
+        onTypeChange={(t) => updateParams({ type: t, page: "1" }, true)}
       />
 
       {query ? (
         <>
           <SearchFilters
-            type={type}
             filter={filter}
             resultCount={results.pagination.totalResults}
-            onTypeChange={(t) => updateParams({ type: t, page: "1" }, true)}
             onFilterChange={(f) => updateParams({ filter: f, page: "1" }, true)}
           />
           <ResultsSection
@@ -95,7 +95,7 @@ export function SearchPage() {
             currentPageNumber={page}
             totalPages={results.pagination.pages}
             offsetAmmount={2}
-            onClick={(p) => updateParams({ page: p.toString() }, true)} // TODO modify this
+            onClick={(p) => updateParams({ page: p.toString() }, true)}
           />
         </>
       ) : (
