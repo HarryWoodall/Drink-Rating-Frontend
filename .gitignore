@@ -11,3 +11,8 @@ coverage
 .idea
 .DS_Store
 CLAUDE.md
+
+# Local env overrides
+.env
+.env.local
+.env.*.local

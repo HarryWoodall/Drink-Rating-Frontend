@@ -13,7 +13,7 @@ import type { AuthResponse, UserFeedbackItem } from "@/types/auth";
 import { HttpError } from "@/lib/errors";
 import { DrinkCategory } from "@/pages/searchPage/types/FilterTypes";
 
-const BASE_URL = "http://localhost:3000/api";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export async function get<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
