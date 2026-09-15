@@ -2,14 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Loader2 } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { loginPath } from "@/lib/paths";
 import type { RegisterFormValues } from "@/types/auth";
@@ -17,9 +10,7 @@ import { register as registerUser } from "./services/registerService";
 import { authClient } from "@/lib/auth";
 import { PasswordInput } from "@/components/shared/forms/PasswordInput";
 import { FormInput } from "@/components/shared/forms/FormInput";
-import { Field, FieldLabel } from "@/components/ui/field";
 import { FormTextInput } from "@/components/shared/forms/FormTextInput";
-import { Input } from "@/components/ui/input";
 import { FormPage } from "@/components/shared/layouts/FormPage";
 
 export function RegisterPage() {

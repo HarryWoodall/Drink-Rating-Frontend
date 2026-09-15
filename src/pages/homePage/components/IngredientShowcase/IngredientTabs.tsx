@@ -15,14 +15,14 @@ export function IngredientTabs({
 }: IngredientTabsProps) {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
-  const activeIndex = ingredients.findIndex((x) => x.name === selected?.name);
+  // const activeIndex = ingredients.findIndex((x) => x.name === selected?.name);
 
-  function move(index: number) {
-    const next = ingredients[index];
-    if (!next) return;
-    onSelect(next);
-    tabRefs.current[index]?.focus();
-  }
+  // function move(index: number) {
+  //   const next = ingredients[index];
+  //   if (!next) return;
+  //   onSelect(next);
+  //   tabRefs.current[index]?.focus();
+  // }
 
   return (
     <div className="relative">

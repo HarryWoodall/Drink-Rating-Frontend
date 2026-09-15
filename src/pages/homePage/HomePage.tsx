@@ -1,8 +1,6 @@
 import { Hero } from "@/pages/homePage/components/Hero";
 import { RandomDrink } from "@/pages/homePage/components/RandomDrink/RandomDrinkCard";
-import { TrendingReel } from "@/pages/homePage/components/TrendingReel";
 import { useRandomDrink } from "./hooks/useRandomDrink";
-import { useRecentlyRated } from "./hooks/useRecentlyRated";
 import { useTopRated } from "./hooks/useTopRated";
 import { useRouteHistoryStore } from "@/store/routeHistoryStore";
 import { useEffect } from "react";
@@ -18,11 +16,11 @@ export function HomePage() {
     error: randError,
     shuffle,
   } = useRandomDrink();
-  const {
-    recentCocktails,
-    loading: recentLoading,
-    error: recentError,
-  } = useRecentlyRated();
+  // const {
+  //   recentCocktails,
+  //   loading: recentLoading,
+  //   error: recentError,
+  // } = useRecentlyRated();
 
   const { resetPath } = useRouteHistoryStore((state) => state);
 

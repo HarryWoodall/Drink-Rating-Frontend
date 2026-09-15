@@ -32,7 +32,7 @@ function drink(id: string, name: string): Drink {
     glass: "Coupe",
     instructions: "Shake.",
     tags: null,
-    ingredients: [{ name: "Gin", measure: "50ml" }],
+    ingredients: [{ id: 1, name: "Gin", measure: "50ml" }],
   };
 }
 

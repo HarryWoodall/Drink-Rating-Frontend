@@ -1,9 +1,6 @@
-import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { TrendingResponse } from "@/types/cocktail";
-import { cocktailPath } from "@/lib/paths";
 import { SectionHeading } from "./SectionHeading";
-import { StarRating } from "./StarRating";
 import { DrinkShowcaseCard } from "./DrinkShowcaseCard";
 
 interface TrendingReelProps {

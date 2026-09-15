@@ -1,6 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { CommentItem } from "./CommentItem";
-import { useFeedback } from "@/pages/cocktail/hooks/useFeedback";
 import { FeedbackResponse } from "@/types/cocktail";
 
 export type CommentListProps = {

@@ -97,7 +97,6 @@ function ShowcaseContent({ drinks }: ContentShowcaseProps) {
           drink={d}
           avgRating={2.5} // TODO -- fix this to use actual data
           numRatings={3}
-          ingredient="test"
         />
       </Link>
     </CarouselItem>

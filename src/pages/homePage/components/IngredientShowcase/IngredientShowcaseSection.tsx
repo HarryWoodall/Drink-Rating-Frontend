@@ -6,7 +6,7 @@ import { TopIngredient } from "@/types/cocktail";
 import { IngredientDrinkList } from "./IngredientDrinkList";
 
 export function IngredientShowcaseSection() {
-  const { ingredients, loading, error } = useTopIngredients();
+  const { ingredients } = useTopIngredients();
 
   const [picked, setPicked] = useState<TopIngredient>();
 

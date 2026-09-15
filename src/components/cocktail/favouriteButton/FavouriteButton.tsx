@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Drink } from "@/types/cocktail";
 import { useToggleFavourite } from "@/pages/cocktail/hooks/useFavourite";

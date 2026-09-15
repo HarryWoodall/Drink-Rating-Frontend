@@ -14,7 +14,6 @@ type DrinkShowcaseCardProps = {
   drink: Drink;
   avgRating: number;
   numRatings: number;
-  ingredient: string;
 };
 
 export function DrinkShowcaseCard({

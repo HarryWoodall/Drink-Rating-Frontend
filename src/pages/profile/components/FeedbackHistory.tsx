@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Star } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cocktailPath } from "@/lib/paths";
 import { useUserFeedback } from "../hooks/useUserFeedback";
