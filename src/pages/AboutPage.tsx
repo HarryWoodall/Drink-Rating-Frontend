@@ -1,6 +1,6 @@
 export function AboutPage() {
   return (
-    <section>
+    <section className="m-10 md:m-0">
       <h1 className="mb-2 text-3xl font-bold">About</h1>
 
       <p>Created by Harry Woodall</p>

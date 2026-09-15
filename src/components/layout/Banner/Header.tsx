@@ -1,4 +1,3 @@
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { Link } from "react-router-dom";
 
 export function Header() {
@@ -10,7 +9,7 @@ export function Header() {
       <span className="hidden text-[0.62rem] uppercase tracking-[0.42em] text-muted-foreground lg:block mr-3">
         Cocktail Index
       </span>
-      <ThemeToggle />
+      {/* <ThemeToggle /> */}
     </Link>
   );
 }
