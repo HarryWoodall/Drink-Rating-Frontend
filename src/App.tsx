@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
+import { ScrollToTop } from "./components/shared/ScrollToTop";
 import { HomePage } from "./pages/homePage/HomePage";
 import { CocktailPage } from "./pages/cocktail/CocktailPage";
 import { AboutPage } from "./pages/AboutPage";
@@ -14,23 +15,26 @@ import { ResetPasswordRequestPage } from "./pages/resetPasswordRequest/ResetPass
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/reset-password" element={<ResetPasswordPage />} />
-      <Route
-        path="/reset-password-request"
-        element={<ResetPasswordRequestPage />}
-      />
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route path="cocktail/:name" element={<CocktailPage />} />
-        <Route path="search" element={<SearchPage />} />
-        <Route path="about" element={<AboutPage />} />
-        <Route path="profile" element={<ProfilePage />} />
-        <Route path="favourites" element={<FavouritesPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    </Routes>
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route
+          path="/reset-password-request"
+          element={<ResetPasswordRequestPage />}
+        />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="cocktail/:name" element={<CocktailPage />} />
+          <Route path="search" element={<SearchPage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="favourites" element={<FavouritesPage />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
