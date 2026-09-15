@@ -1,28 +1,27 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
+  browseDrinks,
   searchCocktailsByIngredient,
   searchCocktailsByName,
 } from "@/services/api";
 import type { AlcoholicFilter, SearchType } from "@/types/search";
+import { DrinkCategory } from "../types/FilterTypes";
 
 export type { SearchType, AlcoholicFilter } from "@/types/search";
 
 export function useSearchResults(
-  query: string,
   type: SearchType,
   filter: AlcoholicFilter,
+  category: DrinkCategory,
   page: number,
+  query?: string,
   limit?: number,
 ) {
   const isAlcoholic = filter === "all" ? undefined : filter === "alcoholic";
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["search", type, query, isAlcoholic, page, limit],
-    queryFn:
-      type === "ingredient"
-        ? () => searchCocktailsByIngredient(query, isAlcoholic, page, limit)
-        : () => searchCocktailsByName(query, isAlcoholic, page, limit),
-    enabled: query.trim().length > 0,
+    queryKey: ["search", type, query, isAlcoholic, category, page, limit],
+    queryFn: getQuery(type, category, page, isAlcoholic, query, limit),
     placeholderData: keepPreviousData,
   });
 
@@ -31,4 +30,24 @@ export function useSearchResults(
     loading: isLoading,
     error: error ? (error as Error).message : null,
   };
+}
+
+function getQuery(
+  type: SearchType,
+  category: DrinkCategory,
+  page: number,
+  isAlcoholic?: boolean,
+  query?: string,
+  limit?: number,
+) {
+  if (!query) {
+    return () => browseDrinks(isAlcoholic, category, page, limit);
+  }
+
+  if (type === "ingredient") {
+    return () =>
+      searchCocktailsByIngredient(query, isAlcoholic, category, page, limit);
+  }
+
+  return () => searchCocktailsByName(query, isAlcoholic, category, page, limit);
 }

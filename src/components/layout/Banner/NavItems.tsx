@@ -6,9 +6,7 @@ import { NavDraw } from "./Auth/NavDraw";
 import { NavItem } from "./Auth/types/navTypes";
 
 const navItems: NavItem[] = [
-  { to: "/#top", label: "Top Rated" },
-  { to: "/#random", label: "Surprise Me" },
-  { to: "/#trending", label: "Trending" },
+  { to: "/search", label: "Browse" },
   { to: favouritesPath(), label: "Favourites", authOnly: true },
 ];
 

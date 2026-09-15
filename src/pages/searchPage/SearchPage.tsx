@@ -12,13 +12,17 @@ import { useRouteHistoryStore } from "@/store/routeHistoryStore";
 import { FormEvent, useEffect, useState } from "react";
 import { SearchResultsPagination } from "./pagination/SearchResultsPagination";
 import { DrinkSearchResponse } from "@/types/cocktail";
+import { DrinkCategory } from "./types/FilterTypes";
 
 export function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const query = searchParams.get("q") ?? "";
+  const query = searchParams.get("q") ?? undefined;
   const type = (searchParams.get("type") ?? "name") as SearchType;
   const filter = (searchParams.get("filter") ?? "all") as AlcoholicFilter;
+  // TODO - not yet passed to useSearchResults; the API has no category param.
+  const category: DrinkCategory = (searchParams.get("category") ??
+    "All") as DrinkCategory;
   const page = Number(searchParams.get("page") ?? 1);
 
   const { setPath } = useRouteHistoryStore((state) => state);
@@ -28,11 +32,20 @@ export function SearchPage() {
     setPath(location.pathname, "Back to search", location.search);
   }, [setPath, searchParams]);
 
-  function updateParams(patch: Record<string, string>, replace = false) {
+  function updateParams(
+    patch: Record<string, string | undefined>,
+    replace = false,
+  ) {
     setSearchParams(
       (prev) => {
         const next = new URLSearchParams(prev);
-        Object.entries(patch).forEach(([k, v]) => next.set(k, v));
+        Object.entries(patch).forEach(([k, v]) => {
+          if (v === undefined) {
+            next.delete(k);
+          } else {
+            next.set(k, v);
+          }
+        });
         console.log(next);
         return next;
       },
@@ -42,18 +55,23 @@ export function SearchPage() {
 
   function handleSearchSubmit(e: FormEvent) {
     e.preventDefault();
-    const formattedQuery = searchQuery.trim();
+    const formattedQuery = searchQuery?.trim();
     if (formattedQuery) {
       updateParams({ q: formattedQuery });
+    } else {
+      updateParams({ q: undefined });
     }
   }
 
   const { results, loading, error } = useSearchResults(
-    query,
     type,
     filter,
+    category,
     page,
+    query,
   );
+
+  console.log(results);
 
   if (!results) {
     return null;
@@ -78,29 +96,25 @@ export function SearchPage() {
         onTypeChange={(t) => updateParams({ type: t, page: "1" }, true)}
       />
 
-      {query ? (
-        <>
-          <SearchFilters
-            filter={filter}
-            resultCount={results.pagination.totalResults}
-            onFilterChange={(f) => updateParams({ filter: f, page: "1" }, true)}
-          />
-          <ResultsSection
-            results={results}
-            loading={loading}
-            error={error}
-            query={query}
-          />
-          <SearchResultsPagination
-            currentPageNumber={page}
-            totalPages={results.pagination.pages}
-            offsetAmmount={2}
-            onClick={(p) => updateParams({ page: p.toString() }, true)}
-          />
-        </>
-      ) : (
-        <EmptyPrompt />
-      )}
+      <SearchFilters
+        filter={filter}
+        category={category}
+        resultCount={results.pagination.totalResults}
+        onFilterChange={(f) => updateParams({ filter: f, page: "1" }, true)}
+        onCategoryChange={(c) => updateParams({ category: c, page: "1" }, true)}
+      />
+      <ResultsSection
+        results={results}
+        loading={loading}
+        error={error}
+        query={query}
+      />
+      <SearchResultsPagination
+        currentPageNumber={page}
+        totalPages={results.pagination.pages}
+        offsetAmmount={2}
+        onClick={(p) => updateParams({ page: p.toString() }, true)}
+      />
     </div>
   );
 }
@@ -114,7 +128,7 @@ function ResultsSection({
   results: DrinkSearchResponse;
   loading: boolean;
   error: string | null;
-  query: string;
+  query: string | undefined;
 }) {
   if (loading) {
     return (
@@ -145,7 +159,7 @@ function ResultsSection({
     );
   }
 
-  if (results.drinks.length === 0) {
+  if (query && results.drinks.length === 0) {
     return (
       <div className="rounded-[1.6rem] border border-dashed border-border bg-black/15 py-20 text-center">
         <p className="font-serif text-2xl italic">Nothing on the shelf</p>
@@ -161,21 +175,6 @@ function ResultsSection({
       {results.drinks.map((drink) => (
         <CocktailCard key={drink.id} drink={drink} />
       ))}
-    </div>
-  );
-}
-
-function EmptyPrompt() {
-  return (
-    <div className="mt-16 text-center">
-      <div className="mb-3 flex items-center justify-center gap-3.5 text-[0.7rem] uppercase tracking-[0.46em] text-amber">
-        <span className="h-px w-8 bg-amber/60" />
-        Ready when you are
-        <span className="h-px w-8 bg-amber/60" />
-      </div>
-      <p className="font-serif text-3xl font-light italic text-muted-foreground">
-        What are you in the mood for?
-      </p>
     </div>
   );
 }

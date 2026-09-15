@@ -4,7 +4,7 @@ import type { SearchType } from "@/types/search";
 import { SearchBarDropdown } from "./SearchBarDropdown";
 
 interface SearchBarProps {
-  defaultValue: string;
+  defaultValue?: string;
   type: SearchType;
   onSubmit: (event: FormEvent) => void;
   onChange: (query: string) => void;

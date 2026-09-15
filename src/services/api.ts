@@ -11,6 +11,7 @@ import type {
 } from "@/types/cocktail";
 import type { AuthResponse, UserFeedbackItem } from "@/types/auth";
 import { HttpError } from "@/lib/errors";
+import { DrinkCategory } from "@/pages/searchPage/types/FilterTypes";
 
 const BASE_URL = "http://localhost:3000/api";
 
@@ -140,18 +141,9 @@ export async function fetchCocktailByName(name: string): Promise<Drink | null> {
   return drinks?.[0] ?? null;
 }
 
-// export async function searchCocktailByName(
-//   name: string,
-// ): Promise<Drink | null> {
-//   const drinks = await get<Drink[] | null>(
-//     `/drinks/name/${encodeURIComponent(name)}`,
-//   );
-//   return drinks?.[0] ?? null;
-// }
-
-export async function searchCocktailsByName(
-  name: string,
+export async function browseDrinks(
   alcoholic?: boolean,
+  category?: DrinkCategory,
   page?: number,
   limit?: number,
 ): Promise<DrinkSearchResponse> {
@@ -159,6 +151,35 @@ export async function searchCocktailsByName(
 
   if (alcoholic !== undefined) {
     searchParams.append("alcoholic", alcoholic.toString());
+  }
+
+  if (category !== undefined) {
+    searchParams.append("category", category);
+  }
+
+  const queryParams = paginationQueryParams(searchParams, page, limit);
+  const baseUrl = `/drinks`;
+
+  return await get<DrinkSearchResponse>(
+    appendSearchParms(baseUrl, queryParams),
+  );
+}
+
+export async function searchCocktailsByName(
+  name: string,
+  alcoholic?: boolean,
+  category?: DrinkCategory,
+  page?: number,
+  limit?: number,
+): Promise<DrinkSearchResponse> {
+  const searchParams = new URLSearchParams();
+
+  if (alcoholic !== undefined) {
+    searchParams.append("alcoholic", alcoholic.toString());
+  }
+
+  if (category !== undefined) {
+    searchParams.append("category", category);
   }
 
   const queryParams = paginationQueryParams(searchParams, page, limit);
@@ -172,6 +193,7 @@ export async function searchCocktailsByName(
 export async function searchCocktailsByIngredient(
   ingredient: string,
   alcoholic?: boolean,
+  category?: DrinkCategory,
   page?: number,
   limit?: number,
 ): Promise<DrinkSearchResponse> {
@@ -179,6 +201,10 @@ export async function searchCocktailsByIngredient(
 
   if (alcoholic !== undefined) {
     searchParams.append("alcoholic", alcoholic.toString());
+  }
+
+  if (category !== undefined) {
+    searchParams.append("category", category);
   }
 
   const queryParams = paginationQueryParams(searchParams, page, limit);
