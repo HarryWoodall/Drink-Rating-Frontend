@@ -37,6 +37,7 @@ export interface UpdateProfileFormValues {
 
 export interface UserFeedbackItem {
   id: number;
+  drinkId: string;
   comment: string;
   rating: number | null;
   createdAt: string;

@@ -38,7 +38,7 @@ export function FeedbackHistory() {
         >
           <div className="flex items-center justify-between gap-2">
             <Link
-              to={cocktailPath(item.drink.id)}
+              to={cocktailPath(item.drinkId)}
               className="font-medium hover:text-amber transition-colors truncate"
             >
               {item.drink.name}
