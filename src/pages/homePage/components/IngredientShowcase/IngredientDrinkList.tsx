@@ -59,17 +59,6 @@ export function IngredientDrinkList({ picked }: CocktailListProps) {
               dragFree: true,
               align: "center",
             }}
-            plugins={
-              [
-                //   Autoscroll({
-                //     playOnInit: true,
-                //     startDelay: 3000,
-                //     stopOnInteraction: true,
-                //     stopOnMouseEnter: true,
-                //     speed: 1.5,
-                //   }),
-              ]
-            }
             className=""
           >
             <CarouselContent>
@@ -90,7 +79,7 @@ interface ContentShowcaseProps {
 
 function ShowcaseContent({ drinks }: ContentShowcaseProps) {
   return drinks.map((d) => (
-    <CarouselItem className="basis-auto">
+    <CarouselItem className="basis-auto" key={d.id}>
       <Link to={cocktailPath(d.id)!}>
         <DrinkShowcaseCard
           key={d.id}

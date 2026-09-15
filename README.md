@@ -1,11 +1,15 @@
 # Drink Rating — Frontend
 
-## Stack
+**Still WIP**
 
-- **TypeScript** — strict mode enabled
-- **Routing** — React Router (`react-router-dom`) with a shared layout and 404 route
-- **Tailwind CSS** — configured via PostCSS
-- **Tests** — Vitest + React Testing Library (jsdom)
+## Features
+
+- View and search drinks across a wide selection of filters
+- Rate and comment on drinks
+- Email login (Better Auth)
+- Password reset (Resend)
+- Anonymous commenting (with cooldown)
+- Users can bookmark drinks as 'favourites' for quick access
 
 ## Scripts
 

@@ -8,6 +8,7 @@ import { NavItem } from "./Auth/types/navTypes";
 const navItems: NavItem[] = [
   { to: "/search", label: "Browse" },
   { to: favouritesPath(), label: "Favourites", authOnly: true },
+  { to: "/about", label: "About" },
 ];
 
 export function NavItems() {
