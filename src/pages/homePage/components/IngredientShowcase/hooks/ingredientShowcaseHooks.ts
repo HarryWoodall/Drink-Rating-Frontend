@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTopIngredients } from "@/services/api";
 import { TopIngredient } from "@/types/cocktail";
 import { getCocktailsForTopIngredients } from "../services/ingredientShowcaseService";
+import { fetchTopIngredients } from "@/pages/homePage/services/homeService";
 
 export type SearchType = "name" | "ingredient";
 export type AlcoholicFilter = "all" | "alcoholic" | "non-alcoholic";

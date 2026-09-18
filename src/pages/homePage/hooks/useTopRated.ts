@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTopRatedDrinks } from "@/services/api";
+import { fetchTopRatedDrinks } from "../services/homeService";
 
 export function useTopRated() {
   const {

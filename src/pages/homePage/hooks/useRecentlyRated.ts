@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTrendingDrinks } from "@/services/api";
+import { fetchTrendingDrinks } from "../services/homeService";
 
 export function useRecentlyRated() {
   const { data, isLoading, error } = useQuery({

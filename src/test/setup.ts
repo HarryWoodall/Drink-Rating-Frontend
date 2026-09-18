@@ -1,13 +1,13 @@
-import '@testing-library/jest-dom';
-import { afterEach, vi } from 'vitest';
-import { cleanup } from '@testing-library/react';
+import "@testing-library/jest-dom";
+import { afterEach, vi } from "vitest";
+import { cleanup } from "@testing-library/react";
 
 afterEach(() => {
   cleanup();
 });
 
 // jsdom doesn't implement matchMedia; stub it for the theme provider.
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: (query: string) => ({
     matches: false,
@@ -22,7 +22,7 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // jsdom doesn't implement EventSource; stub it for hooks that open a stream
-// (see src/pages/cocktail/hooks/useEvents.ts). Never emits — tests that care
+// (see src/pages/drink/hooks/useEvents.ts). Never emits — tests that care
 // about server events should drive the instance themselves.
 class EventSourceStub {
   static readonly CONNECTING = 0;

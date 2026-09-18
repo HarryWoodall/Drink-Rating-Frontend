@@ -2,23 +2,33 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
 import { renderWithProviders, screen } from "./test/utils";
 import {
-  fetchCocktailById,
-  fetchComments,
   fetchRandomDrink,
   fetchTopIngredients,
   fetchTopRatedDrinks,
-} from "@/services/api";
+} from "@/pages/homePage/services/homeService";
+import {
+  fetchCocktailById,
+  fetchFeedback,
+} from "@/pages/drink/services/drinkService";
 import type { Drink } from "@/types/cocktail";
 
-// Keep the real module (App pulls in every page, so every export must exist)
+// Keep the real modules (App pulls in every page, so every export must exist)
 // and stub only the fetches the routes under test actually make.
-vi.mock("@/services/api", async (importOriginal) => ({
-  ...(await importOriginal<typeof import("@/services/api")>()),
-  fetchCocktailById: vi.fn(),
-  fetchComments: vi.fn(),
+vi.mock("@/pages/homePage/services/homeService", async (importOriginal) => ({
+  ...(await importOriginal<
+    typeof import("@/pages/homePage/services/homeService")
+  >()),
   fetchRandomDrink: vi.fn(),
   fetchTopIngredients: vi.fn(),
   fetchTopRatedDrinks: vi.fn(),
+}));
+
+vi.mock("@/pages/drink/services/drinkService", async (importOriginal) => ({
+  ...(await importOriginal<
+    typeof import("@/pages/drink/services/drinkService")
+  >()),
+  fetchCocktailById: vi.fn(),
+  fetchFeedback: vi.fn(),
 }));
 
 vi.mock("@/lib/auth", () => ({
@@ -43,7 +53,10 @@ const margarita: Drink = {
 describe("App routing", () => {
   beforeEach(() => {
     vi.mocked(fetchCocktailById).mockResolvedValue(margarita);
-    vi.mocked(fetchComments).mockResolvedValue([]);
+    vi.mocked(fetchFeedback).mockResolvedValue({
+      userHasCommented: false,
+      feedback: [],
+    });
     vi.mocked(fetchRandomDrink).mockResolvedValue(margarita);
     vi.mocked(fetchTopIngredients).mockResolvedValue([]);
     vi.mocked(fetchTopRatedDrinks).mockResolvedValue([]);

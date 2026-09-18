@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
 import { ScrollToTop } from "./components/shared/ScrollToTop";
 import { HomePage } from "./pages/homePage/HomePage";
-import { CocktailPage } from "./pages/cocktail/CocktailPage";
+import { CocktailPage } from "./pages/drink/CocktailPage";
 import { AboutPage } from "./pages/AboutPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { LoginPage } from "./pages/login/LoginPage";

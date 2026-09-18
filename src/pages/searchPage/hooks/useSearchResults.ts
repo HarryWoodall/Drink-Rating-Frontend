@@ -1,11 +1,11 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import type { AlcoholicFilter, SearchType } from "@/types/search";
+import { DrinkCategory } from "../types/FilterTypes";
 import {
   browseDrinks,
   searchCocktailsByIngredient,
   searchCocktailsByName,
-} from "@/services/api";
-import type { AlcoholicFilter, SearchType } from "@/types/search";
-import { DrinkCategory } from "../types/FilterTypes";
+} from "../services/searchService";
 
 export type { SearchType, AlcoholicFilter } from "@/types/search";
 

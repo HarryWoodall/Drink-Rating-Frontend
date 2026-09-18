@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Drink } from "@/types/cocktail";
-import { useToggleFavourite } from "@/pages/cocktail/hooks/useFavourite";
+import { useToggleFavourite } from "@/pages/drink/hooks/useFavourite";
 import { authClient } from "@/lib/auth";
 import {
   Tooltip,

@@ -16,11 +16,6 @@ export function HomePage() {
     error: randError,
     shuffle,
   } = useRandomDrink();
-  // const {
-  //   recentCocktails,
-  //   loading: recentLoading,
-  //   error: recentError,
-  // } = useRecentlyRated();
 
   const { resetPath } = useRouteHistoryStore((state) => state);
 
@@ -43,11 +38,6 @@ export function HomePage() {
         loading={topLoading}
         error={topError}
       />
-      {/* <TrendingReel
-        cocktails={recentCocktails}
-        loading={recentLoading}
-        error={recentError}
-      /> */}
       <IngredientShowcaseSection />
     </div>
   );

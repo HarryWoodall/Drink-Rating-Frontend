@@ -1,8 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { fetchFeedback, postFeedback, putFeedback } from "@/services/api";
 import { toast } from "sonner";
 import { HttpError } from "@/lib/errors";
 import { TooManyRequestsErrorBody } from "@/lib/errorResponses";
+import {
+  postFeedback,
+  putFeedback,
+  fetchFeedback,
+} from "../services/drinkService";
 
 export function usePostFeedback(drinkId: string) {
   const queryClient = useQueryClient();

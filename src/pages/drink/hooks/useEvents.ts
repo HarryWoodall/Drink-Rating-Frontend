@@ -1,8 +1,4 @@
-import {
-  BaseEvent,
-  RoomEvent,
-  RoomUser,
-} from "@/pages/cocktail/types/roomEvents";
+import { BaseEvent, RoomEvent, RoomUser } from "@/pages/drink/types/roomEvents";
 import { useEffect, useState } from "react";
 
 export type OnEventFunction = {

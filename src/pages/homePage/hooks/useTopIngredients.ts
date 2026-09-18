@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchTopIngredients } from "@/services/api";
+import { fetchTopIngredients } from "../services/homeService";
 
 export function useTopIngredients() {
   const { data, isLoading, error } = useQuery({

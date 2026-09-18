@@ -1,4 +1,4 @@
-import { useFeedback } from "@/pages/cocktail/hooks/useFeedback";
+import { useFeedback } from "@/pages/drink/hooks/useFeedback";
 import { CommentList } from "./CommentList";
 import { CreateFeedbackModal } from "../FeedbackModal/CreateFeedbackModal";
 import { UpdateFeedbackModal } from "../FeedbackModal/UpdateFeedbackModal";

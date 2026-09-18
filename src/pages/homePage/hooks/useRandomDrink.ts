@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchRandomDrink } from "@/services/api";
+import { fetchRandomDrink } from "../services/homeService";
 
 export function useRandomDrink() {
   const { data, isLoading, isFetching, error, refetch } = useQuery({

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { usePostFeedback } from "@/pages/cocktail/hooks/useFeedback";
+import { usePostFeedback } from "@/pages/drink/hooks/useFeedback";
 import { FeedbackModal } from "./FeedbackModal";
 
 export type ReviewModalProps = {

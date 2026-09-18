@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { addFavourite, removeFavourite } from "@/services/api";
 import type { Drink } from "@/types/cocktail";
+import { addFavourite, removeFavourite } from "@/services/favouritesService";
 
 /**
  * Toggles a drink's favourite flag. The star flips immediately and rolls back
@@ -29,19 +29,16 @@ export function useToggleFavourite(drinkId: string) {
         }),
       ];
 
-      queryClient.setQueriesData<Drink>(
-        { queryKey: ["cocktail"] },
-        (old) => (old && old.id === drinkId ? { ...old, favourite } : old),
+      queryClient.setQueriesData<Drink>({ queryKey: ["cocktail"] }, (old) =>
+        old && old.id === drinkId ? { ...old, favourite } : old,
       );
 
       // Flip the flag in place rather than dropping the drink, so a card on the
       // favourites page stays put and the click can be undone.
-      queryClient.setQueriesData<Drink[]>(
-        { queryKey: ["favourites"] },
-        (old) =>
-          old?.map((drink) =>
-            drink.id === drinkId ? { ...drink, favourite } : drink,
-          ),
+      queryClient.setQueriesData<Drink[]>({ queryKey: ["favourites"] }, (old) =>
+        old?.map((drink) =>
+          drink.id === drinkId ? { ...drink, favourite } : drink,
+        ),
       );
 
       return { previous };

@@ -1,4 +1,4 @@
-import { get } from "@/services/api";
+import { get } from "@/services/apiService";
 import { Drink, TopIngredient } from "@/types/cocktail";
 
 export async function getCocktailsForTopIngredients(

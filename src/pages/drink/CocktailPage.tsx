@@ -1,10 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { useCocktail } from "@/pages/cocktail/hooks/useCocktail";
+import { useCocktail } from "@/pages/drink/hooks/useCocktail";
 import { alcoholicLabel } from "@/types/cocktail";
 import { CommentSection } from "@/components/cocktail/comments/CommentSection";
-import { useRoomEvents } from "@/pages/cocktail/hooks/useEvents";
+import { useRoomEvents } from "@/pages/drink/hooks/useEvents";
 import { cocktailPageEvents } from "@/lib/paths";
 import { BackLink } from "@/components/shared/BackLink";
 import { useRouteHistoryStore } from "@/store/routeHistoryStore";

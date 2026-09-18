@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchUserFeedback } from "@/services/api";
+import { fetchUserFeedback } from "../services/profileService";
 
 export function useUserFeedback() {
   const { data, isLoading, error } = useQuery({

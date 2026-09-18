@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/shared/forms/FormInput";
 import { FormTextInput } from "@/components/shared/forms/FormTextInput";
 import { authClient } from "@/lib/auth";
-import { uploadProfileImage } from "@/services/api";
 import type { UpdateProfileFormValues } from "@/types/auth";
+import { uploadProfileImage } from "../services/profileService";
 
 interface UpdateProfileFormProps {
   name: string;

@@ -2,10 +2,10 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import userEvent from "@testing-library/user-event";
 import { FavouritesPage } from "./FavouritesPage";
 import { renderWithProviders, screen } from "@/test/utils";
-import { fetchFavourites } from "@/services/api";
+import { fetchFavourites } from "@/services/favouritesService";
 import type { Drink } from "@/types/cocktail";
 
-vi.mock("@/services/api", () => ({
+vi.mock("@/services/favouritesService", () => ({
   fetchFavourites: vi.fn(),
   addFavourite: vi.fn(),
   removeFavourite: vi.fn(),
