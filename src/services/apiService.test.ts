@@ -87,7 +87,9 @@ describe.each([
 
     // usePostFeedback reads `status` and `body.cooldown` off this to build
     // its toast, so both have to survive the throw.
-    const error = await method("/drinks/1/feedback", {}).catch((e) => e);
+    const error = await httpErrorFrom(
+      method("/drinks/1/feedback", {}).catch((e) => e),
+    );
 
     expect(error).toBeInstanceOf(HttpError);
     expect(error.status).toBe(429);
@@ -110,7 +112,9 @@ describe("post", () => {
       }),
     );
 
-    const error = await post("/drinks/1/feedback", {}).catch((e) => e);
+    const error = await httpErrorFrom(
+      post("/drinks/1/feedback", {}).catch((e) => e),
+    );
 
     expect(error).toBeInstanceOf(HttpError);
     expect(error.status).toBe(502);
@@ -136,7 +140,7 @@ describe("del", () => {
       errorResponse(401, "Unauthorized", { message: "Sign in first" }),
     );
 
-    const error = await del("/favourites/11007").catch((e) => e);
+    const error = await httpErrorFrom(del("/favourites/11007").catch((e) => e));
 
     expect(error).toBeInstanceOf(HttpError);
     expect(error.message).toBe("Sign in first");
@@ -167,11 +171,23 @@ describe("postWithFormData", () => {
       errorResponse(413, "Payload Too Large", { message: "File too big" }),
     );
 
-    const error = await postWithFormData("/profile/image", new FormData()).catch(
-      (e) => e,
+    const error = await httpErrorFrom(
+      postWithFormData("/profile/image", new FormData()).catch((e) => e),
     );
 
     expect(error).toBeInstanceOf(HttpError);
     expect(error.status).toBe(413);
   });
 });
+
+async function httpErrorFrom(promise: Promise<unknown>): Promise<HttpError> {
+  try {
+    await promise;
+  } catch (e) {
+    if (e instanceof HttpError) return e;
+
+    // eslint-disable-next-line preserve-caught-error
+    throw new Error(`Expected an HttpError, got: ${String(e)}`);
+  }
+  throw new Error("Expected the request to reject, but it resolved");
+}
