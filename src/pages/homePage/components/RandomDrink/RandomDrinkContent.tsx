@@ -11,7 +11,10 @@ interface RandomDrinkContentProps {
 export function RandomDrinkHeading({ drink }: RandomDrinkContentProps) {
   return (
     <>
-      <CardTitle className="font-serif text-2xl md:text-4xl font-normal italic leading-none">
+      <CardTitle
+        className="font-serif text-2xl md:text-4xl font-normal italic leading-none"
+        data-testid="random-drink-name"
+      >
         {drink.name}
       </CardTitle>
       <DrinkDescription
@@ -31,7 +34,10 @@ export function RandomDrinkDetails({ drink }: RandomDrinkContentProps) {
       </div>
 
       {drink.instructions && (
-        <p className="max-w-[48ch] text-sm leading-relaxed text-muted-foreground line-clamp-3">
+        <p
+          className="max-w-[48ch] text-sm leading-relaxed text-muted-foreground line-clamp-3"
+          data-testid="random-drink-instructions"
+        >
           {drink.instructions}
         </p>
       )}

@@ -12,6 +12,7 @@ export function AuthItems() {
       <div className="hidden gap-4 sm:flex items-center">
         <button
           onClick={logout}
+          data-testid="auth-logout-button"
           className="text-xs uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:text-amber"
         >
           Log out

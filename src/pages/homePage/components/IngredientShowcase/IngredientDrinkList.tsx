@@ -25,13 +25,21 @@ export function IngredientDrinkList({ picked }: CocktailListProps) {
 
   return (
     <>
-      <div id="ingredient-showcase-panel" role="tabpanel" tabIndex={0}>
+      <div
+        id="ingredient-showcase-panel"
+        role="tabpanel"
+        tabIndex={0}
+        data-testid="ingredient-drink-list"
+      >
         {error ? (
-          <p className="text-sm text-destructive">
+          <p
+            className="text-sm text-destructive"
+            data-testid="ingredient-drink-list-error"
+          >
             Failed to load the top drinks by ingredient.
           </p>
         ) : loading ? (
-          <div className={GRID}>
+          <div className={GRID} data-testid="ingredient-drink-list-loading">
             {Array.from({ length: 3 }, (_, i) => (
               <div
                 key={i}
@@ -47,7 +55,10 @@ export function IngredientDrinkList({ picked }: CocktailListProps) {
             ))}
           </div>
         ) : !drinks || drinks.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-border bg-black/15 p-11 text-center">
+          <div
+            className="rounded-lg border border-dashed border-border bg-black/15 p-11 text-center"
+            data-testid="ingredient-drink-list-empty"
+          >
             <p className="text-sm text-muted-foreground">
               No one has rated a {picked.name.toLowerCase()} drink yet.
             </p>
@@ -80,7 +91,7 @@ interface ContentShowcaseProps {
 function ShowcaseContent({ drinks }: ContentShowcaseProps) {
   return drinks.map((d) => (
     <CarouselItem className="basis-auto" key={d.id}>
-      <Link to={cocktailPath(d.id)!}>
+      <Link to={cocktailPath(d.id)!} data-testid="ingredient-drink-list-link">
         <DrinkShowcaseCard
           key={d.id}
           drink={d}

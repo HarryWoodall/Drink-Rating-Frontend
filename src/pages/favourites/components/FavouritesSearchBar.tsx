@@ -24,6 +24,7 @@ export function FavouritesSearchBar({
           placeholder="Filter your favourites…"
           autoComplete="off"
           aria-label="Filter your favourites"
+          data-testid="favourites-search-input"
           className="flex-1 bg-transparent py-2.5 text-base outline-none placeholder:text-muted-foreground/70"
         />
         {value ? (
@@ -31,6 +32,7 @@ export function FavouritesSearchBar({
             type="button"
             onClick={() => onChange("")}
             aria-label="Clear filter"
+            data-testid="favourites-search-clear"
             className="shrink-0 rounded-full p-1 text-muted-foreground transition-colors hover:text-amber"
           >
             <X className="h-4 w-4" />

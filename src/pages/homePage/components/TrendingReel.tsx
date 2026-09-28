@@ -11,7 +11,7 @@ interface TrendingReelProps {
 
 export function TrendingReel({ cocktails, loading, error }: TrendingReelProps) {
   return (
-    <section id="trending" className="scroll-mt-24 py-8">
+    <section id="trending" className="scroll-mt-24 py-8" data-testid="trending-section">
       <SectionHeading
         num="03"
         title="Trending at the Bar"
@@ -19,17 +19,21 @@ export function TrendingReel({ cocktails, loading, error }: TrendingReelProps) {
       />
 
       {error && (
-        <p className="text-sm text-destructive">
+        <p className="text-sm text-destructive" data-testid="trending-error">
           Failed to load trending pours.
         </p>
       )}
 
-      <div className="reel-scroll flex gap-4 overflow-x-auto pb-4 pt-1">
+      <div
+        className="reel-scroll flex gap-4 overflow-x-auto pb-4 pt-1"
+        data-testid="trending-reel"
+      >
         {loading ? (
           Array.from({ length: 5 }, (_, i) => (
             <div
               key={i}
               className="w-[200px] shrink-0 overflow-hidden rounded-2xl border border-border bg-card"
+              data-testid="trending-skeleton"
             >
               <Skeleton className="h-28 w-full" />
               <div className="space-y-2 p-4">
@@ -39,7 +43,10 @@ export function TrendingReel({ cocktails, loading, error }: TrendingReelProps) {
             </div>
           ))
         ) : cocktails.length === 0 ? (
-          <div className="w-full rounded-2xl border border-dashed border-border bg-black/15 p-10 text-center text-sm text-muted-foreground">
+          <div
+            className="w-full rounded-2xl border border-dashed border-border bg-black/15 p-10 text-center text-sm text-muted-foreground"
+            data-testid="trending-empty"
+          >
             Nothing trending yet — be the first to pour one.
           </div>
         ) : (

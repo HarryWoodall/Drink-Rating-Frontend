@@ -17,7 +17,10 @@ export function FavouritesSection({
 }) {
   if (loading) {
     return (
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      <div
+        className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+        data-testid="favourites-loading"
+      >
         {Array.from({ length: 8 }).map((_, i) => (
           <div
             key={i}
@@ -37,20 +40,37 @@ export function FavouritesSection({
 
   if (error) {
     return (
-      <div className="rounded-[1.6rem] border border-destructive/40 bg-destructive/10 p-8 text-center">
+      <div
+        className="rounded-[1.6rem] border border-destructive/40 bg-destructive/10 p-8 text-center"
+        data-testid="favourites-error"
+      >
         <p className="font-serif text-xl italic">Something went wrong</p>
-        <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
+        <p
+          className="mt-2 text-sm text-muted-foreground"
+          data-testid="favourites-error-message"
+        >
+          {error.message}
+        </p>
       </div>
     );
   }
 
   if (favourites.length === 0) {
     return (
-      <div className="rounded-[1.6rem] border border-dashed border-border bg-black/15 py-20 text-center">
-        <p className="font-serif text-2xl italic">
+      <div
+        className="rounded-[1.6rem] border border-dashed border-border bg-black/15 py-20 text-center"
+        data-testid="favourites-empty"
+      >
+        <p
+          className="font-serif text-2xl italic"
+          data-testid="favourites-empty-title"
+        >
           {query ? "Nothing on the shelf" : "Nothing saved yet"}
         </p>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <p
+          className="mt-2 text-sm text-muted-foreground"
+          data-testid="favourites-empty-message"
+        >
           {query ? (
             <>No favourites match &ldquo;{query}&rdquo;</>
           ) : (
@@ -62,7 +82,10 @@ export function FavouritesSection({
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+    <div
+      className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+      data-testid="favourites-grid"
+    >
       {favourites.map((drink) => (
         <CocktailCard
           key={drink.id}

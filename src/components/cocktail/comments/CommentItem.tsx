@@ -24,12 +24,20 @@ export function CommentItem({ feedback }: { feedback: Feedback }) {
         "flex gap-3",
         isUserComment ? "bg-accent p-2 rounded-md" : null,
       )}
+      data-testid="comment-item"
     >
       <UserAvatar user={feedback.user} size="xs" />
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline gap-2 relative w-fit">
-          <span className="text-sm font-medium">{name}</span>
-          <span className="text-xs text-muted-foreground">{date}</span>
+          <span className="text-sm font-medium" data-testid="comment-item-name">
+            {name}
+          </span>
+          <span
+            className="text-xs text-muted-foreground"
+            data-testid="comment-item-date"
+          >
+            {date}
+          </span>
           {isUserComment ? (
             <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2">
               <UpdateFeedbackModal
@@ -45,10 +53,15 @@ export function CommentItem({ feedback }: { feedback: Feedback }) {
           ) : null}
         </div>
         {feedback.rating !== null && (
-          <div className="mt-1 flex gap-0.5">
+          <div className="mt-1 flex gap-0.5" data-testid="comment-item-rating">
             {[1, 2, 3, 4, 5].map((s) => (
               <Star
                 key={s}
+                data-testid={
+                  s <= feedback.rating!
+                    ? "comment-item-star-filled"
+                    : "comment-item-star-empty"
+                }
                 className={cn(
                   "h-3.5 w-3.5",
                   s <= feedback.rating!
@@ -59,7 +72,10 @@ export function CommentItem({ feedback }: { feedback: Feedback }) {
             ))}
           </div>
         )}
-        <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
+        <p
+          className="mt-0.5 text-sm leading-relaxed text-muted-foreground"
+          data-testid="comment-item-comment"
+        >
           {feedback.comment}
         </p>
       </div>

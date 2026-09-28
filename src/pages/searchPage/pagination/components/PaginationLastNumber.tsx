@@ -25,13 +25,14 @@ export function PaginationLastNumber({
     <div className="hidden md:flex">
       {currentPageNumber < totalPages - offsetAmount - 1 && (
         <PaginationItem>
-          <PaginationEllipsis />
+          <PaginationEllipsis data-testid="pagination-ellipsis" />
         </PaginationItem>
       )}
 
       <PaginationItem>
         <PaginationLink
           href="#"
+          data-testid="pagination-last"
           onClick={(e) => {
             e.preventDefault();
             onClick(totalPages);

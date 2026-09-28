@@ -10,6 +10,7 @@ export function ThemeToggle() {
       size="icon"
       onClick={toggleTheme}
       aria-label="Toggle theme"
+      data-testid="theme-toggle"
     >
       {theme === 'dark' ? <Sun /> : <Moon />}
     </Button>

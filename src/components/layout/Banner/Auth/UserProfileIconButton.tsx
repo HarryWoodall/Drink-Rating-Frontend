@@ -12,7 +12,7 @@ export function UserProfileIconButton() {
   }
 
   return (
-    <Link to={profilePath()}>
+    <Link to={profilePath()} data-testid="auth-profile-link">
       <UserAvatar user={session.user as User} size="lg" />
     </Link>
   );

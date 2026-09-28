@@ -64,25 +64,27 @@ describe("App routing", () => {
 
   it("renders the home page at /", () => {
     renderWithProviders(<App />, { route: "/" });
-    expect(
-      screen.getByRole("heading", { name: /Every great night starts with/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("hero-heading")).toHaveTextContent(
+      /Every great night starts with/i,
+    );
   });
 
   it("renders an individual cocktail page (not a modal)", async () => {
     renderWithProviders(<App />, { route: "/cocktail/Margarita" });
-    expect(
-      await screen.findByRole("heading", { name: "Margarita", level: 1 }),
-    ).toBeInTheDocument();
+    expect(await screen.findByTestId("cocktail-page-name")).toHaveTextContent(
+      "Margarita",
+    );
   });
 
   it("renders the about page at /about", () => {
     renderWithProviders(<App />, { route: "/about" });
-    expect(screen.getByRole("heading", { name: "About" })).toBeInTheDocument();
+    expect(screen.getByTestId("about-page-heading")).toHaveTextContent("About");
   });
 
   it("renders the 404 page for unknown routes", () => {
     renderWithProviders(<App />, { route: "/does-not-exist" });
-    expect(screen.getByRole("heading", { name: "404" })).toBeInTheDocument();
+    expect(screen.getByTestId("not-found-page-heading")).toHaveTextContent(
+      "404",
+    );
   });
 });

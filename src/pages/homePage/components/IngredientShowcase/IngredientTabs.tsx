@@ -29,6 +29,7 @@ export function IngredientTabs({
       <div
         role="tablist"
         aria-label="Popular ingredients"
+        data-testid="ingredient-tabs"
         className="reel-scroll flex gap-2 overflow-x-auto pb-2.5"
       >
         {ingredients.map((ingredient, i) => {
@@ -43,6 +44,7 @@ export function IngredientTabs({
               id={`ingredient-tab-${i}`}
               aria-selected={isSelected}
               aria-controls="ingredient-showcase-panel"
+              data-testid="ingredient-tab"
               tabIndex={isSelected ? 0 : -1}
               onClick={() => onSelect(ingredient)}
               className={cn(
@@ -54,7 +56,10 @@ export function IngredientTabs({
             >
               {ingredient.name}
               {ingredient.count !== undefined && (
-                <span className="ml-2 text-[11px] tabular-nums tracking-[0.06em] opacity-60">
+                <span
+                  className="ml-2 text-[11px] tabular-nums tracking-[0.06em] opacity-60"
+                  data-testid="ingredient-tab-count"
+                >
                   {ingredient.count}
                 </span>
               )}

@@ -32,14 +32,25 @@ export function UserInfoCard({ user }: UserInfoCardProps) {
             <div className="flex items-center gap-4">
               <UserAvatar user={user} size="xl" />
               <div>
-                <p className="font-serif text-xl italic">{user.name}</p>
-                <p className="text-sm text-muted-foreground">{user.email}</p>
+                <p
+                  className="font-serif text-xl italic"
+                  data-testid="user-info-name"
+                >
+                  {user.name}
+                </p>
+                <p
+                  className="text-sm text-muted-foreground"
+                  data-testid="user-info-email"
+                >
+                  {user.email}
+                </p>
               </div>
             </div>
             <Button
               variant="outline"
               className="rounded-full"
               onClick={() => setIsEditing(true)}
+              data-testid="user-info-edit-button"
             >
               Edit profile
             </Button>

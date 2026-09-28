@@ -71,6 +71,8 @@ export function ResetPasswordPage() {
             errors={errors.password}
           >
             <PasswordInput
+              id="reset-password-input"
+              data-testid="reset-password-input"
               {...register("password", {
                 required: "Password is required",
                 minLength: {
@@ -88,6 +90,8 @@ export function ResetPasswordPage() {
             errors={errors.confirmPassword}
           >
             <PasswordInput
+              id="reset-password-confirm-input"
+              data-testid="reset-password-confirm-input"
               {...register("confirmPassword", {
                 required: "Please confirm your password",
                 validate: (value) =>
@@ -98,13 +102,19 @@ export function ResetPasswordPage() {
           </FormTextInput>
 
           {serverError && (
-            <p className="text-sm text-red-400 text-center">{serverError}</p>
+            <p
+              className="text-sm text-red-400 text-center"
+              data-testid="reset-password-server-error"
+            >
+              {serverError}
+            </p>
           )}
 
           <Button
             type="submit"
             disabled={isSubmitting}
             className="w-full rounded-full"
+            data-testid="reset-password-submit"
           >
             {isSubmitting && (
               <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />

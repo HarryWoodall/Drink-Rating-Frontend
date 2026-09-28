@@ -51,3 +51,34 @@ class EventSourceStub {
 }
 
 vi.stubGlobal("EventSource", EventSourceStub);
+
+// jsdom implements neither observer; embla-carousel (the ingredient showcase)
+// constructs both on mount. Inert stubs — nothing is ever observed.
+class ObserverStub {
+  observe = vi.fn();
+  unobserve = vi.fn();
+  disconnect = vi.fn();
+  takeRecords = vi.fn(() => []);
+}
+
+vi.stubGlobal("ResizeObserver", ObserverStub);
+vi.stubGlobal("IntersectionObserver", ObserverStub);
+
+// jsdom implements neither pointer capture nor the CSS `transform` property.
+// vaul (the shadcn Drawer) treats any pointerdown/up inside the drawer as a
+// swipe: it captures the pointer on press and reads the computed transform on
+// release, so a plain userEvent.click inside an open drawer would throw.
+Element.prototype.setPointerCapture = vi.fn();
+Element.prototype.releasePointerCapture = vi.fn();
+Element.prototype.hasPointerCapture = vi.fn(() => false);
+
+const getComputedStyle = window.getComputedStyle.bind(window);
+window.getComputedStyle = (element, pseudoElement) => {
+  const style = getComputedStyle(element, pseudoElement);
+  // jsdom reports "" (falsy), so vaul's `transform || webkitTransform || ...`
+  // falls through to undefined.
+  if (!style.transform) {
+    Object.defineProperty(style, "transform", { value: "none" });
+  }
+  return style;
+};

@@ -7,10 +7,16 @@ import {
 } from "@/components/ui/input-group";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 
-type InputProps = InputHTMLAttributes<HTMLInputElement>;
+type InputProps = InputHTMLAttributes<HTMLInputElement> & {
+  /** Also prefixes the visibility toggle's test id, so two fields don't clash. */
+  "data-testid"?: string;
+};
 
 export const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
-  function PasswordInput({ className, ...props }, ref) {
+  function PasswordInput(
+    { className, "data-testid": testId = "password-input", ...props },
+    ref,
+  ) {
     const [visible, setVisible] = useState(false);
 
     return (
@@ -24,6 +30,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
             "px-2 py-3 text-sm placeholder:text-muted-foreground",
             className,
           )}
+          data-testid={testId}
           {...props}
         />
         <InputGroupAddon align="inline-end">
@@ -32,6 +39,7 @@ export const PasswordInput = forwardRef<HTMLInputElement, InputProps>(
             onClick={() => setVisible((v) => !v)}
             aria-label={visible ? "Hide password" : "Show password"}
             className="text-muted-foreground"
+            data-testid={`${testId}-toggle`}
           >
             {visible ? (
               <EyeOffIcon className="h-4 w-4" />

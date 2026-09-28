@@ -38,6 +38,7 @@ export function SearchBarDropdown({
           variant="ghost"
           className="m-1 rounded-full px-3 py-0 h-8 md:h-10 md:my-0 pl-3"
           onClick={onSearch}
+          data-testid="search-bar-submit"
         >
           {/* <Search className="!size-4 md:!size-5 transition-transform duration-200" /> */}
           <span className="text-xs md:text-sm">{activeLabel}</span>
@@ -47,6 +48,7 @@ export function SearchBarDropdown({
           type="button"
           aria-label={`Search ${activeLabel.toLowerCase()}, change search mode`}
           className="flex shrink-0 items-center gap-1 h-8 w-5"
+          data-testid="search-bar-type-trigger"
         >
           <ChevronDown className="size-3 md:size-4 transition-transform duration-200" />
         </DropdownMenuTrigger>
@@ -68,6 +70,7 @@ export function SearchBarDropdown({
               <DropdownMenuRadioItem
                 key={opt.value}
                 value={opt.value}
+                data-testid={`search-bar-type-option-${opt.value}`}
                 className={cn(
                   "cursor-pointer gap-3 rounded-[1rem] px-3.5 py-2.5 pl-3.5 text-sm transition-colors focus:bg-amber/10 focus:text-foreground [&>span:first-child]:hidden m-0.5",
                   selected && "bg-amber/15 focus:bg-amber/20",

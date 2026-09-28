@@ -19,7 +19,11 @@ export function IngredientShowcaseSection() {
   }
 
   return (
-    <section id="by-ingredient" className="scroll-mt-24 py-8">
+    <section
+      id="by-ingredient"
+      className="scroll-mt-24 py-8"
+      data-testid="ingredient-showcase-section"
+    >
       <SectionHeading
         num="04"
         title="Top Drink by Ingredient"

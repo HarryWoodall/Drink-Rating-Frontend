@@ -19,7 +19,10 @@ export function StarRating({
   if (numRatings === 0) {
     return (
       <div className="flex items-center gap-0.5">
-        <p className="ml-1.5 text-sm italic tabular-nums text-muted-foreground">
+        <p
+          className="ml-1.5 text-sm italic tabular-nums text-muted-foreground"
+          data-testid="star-rating-unrated"
+        >
           Not yet rated
         </p>
       </div>
@@ -27,12 +30,15 @@ export function StarRating({
   }
 
   return (
-    <div className="flex items-center gap-0.5">
+    <div className="flex items-center gap-0.5" data-testid="star-rating">
       {Array.from({ length: 5 }, (_, i) => {
         const filled = rating >= i + 0.5;
         return (
           <Star
             key={i}
+            data-testid={
+              filled ? "star-rating-star-filled" : "star-rating-star-empty"
+            }
             className={cn(
               iconSize,
               filled ? "fill-amber text-amber" : "fill-none text-amber/25",
@@ -46,6 +52,7 @@ export function StarRating({
             "ml-1.5 tabular-nums text-muted-foreground",
             size === "sm" ? "text-xs" : "text-sm",
           )}
+          data-testid="star-rating-value"
         >
           {rating.toFixed(1)}
         </span>
@@ -57,6 +64,7 @@ export function StarRating({
             "ml-1.5 tabular-nums",
             size === "sm" ? "text-xs" : "text-sm",
           )}
+          data-testid="star-rating-count"
         >
           ({numRatings})
         </span>

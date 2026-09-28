@@ -34,7 +34,11 @@ export function RandomDrink({
   const showDetails = !error && !loading;
 
   return (
-    <section id="random" className="scroll-mt-24 py-8">
+    <section
+      id="random"
+      className="scroll-mt-24 py-8"
+      data-testid="random-drink-section"
+    >
       <SectionHeading
         num="01"
         title="Pour Me Something"
@@ -54,7 +58,10 @@ export function RandomDrink({
               </span>
 
               {error ? (
-                <p className="text-sm text-destructive">
+                <p
+                  className="text-sm text-destructive"
+                  data-testid="random-drink-error"
+                >
                   Couldn't pour a wildcard right now. Try shuffling again.
                 </p>
               ) : loading ? (
@@ -81,7 +88,10 @@ export function RandomDrink({
 
           <div className="flex items-center justify-center">
             {loading ? (
-              <Skeleton className="aspect-square w-full max-w-[360px] rounded-xl" />
+              <Skeleton
+                className="aspect-square w-full max-w-[360px] rounded-xl"
+                data-testid="random-drink-image-skeleton"
+              />
             ) : (
               <div className="absolute hidden md:block">
                 <CardImage drink={drink} />
@@ -105,6 +115,7 @@ function CardImage({ drink }: CardImageProps) {
       <img
         src={drink.image}
         alt={drink.name}
+        data-testid="random-drink-image"
         className="md:aspect-square w-full max-h-[200px] sm:max-h-[300px] md:max-h-full md:max-w-[360px] md:rounded-xl object-cover md:shadow-lg md:shadow-black/50"
       />
       <div className="absolute top-0 right-0 m-2">

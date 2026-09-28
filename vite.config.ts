@@ -16,6 +16,9 @@ export default defineConfig({
     },
   },
   test: {
+    // Named so the Vitest VS Code extension can filter by project; an unnamed
+    // project serialises as null and crashes its worker on startup.
+    name: 'frontend',
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',

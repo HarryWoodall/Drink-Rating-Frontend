@@ -9,7 +9,7 @@ export function FeedbackHistory() {
 
   if (loading) {
     return (
-      <div className="space-y-3">
+      <div className="space-y-3" data-testid="feedback-history-loading">
         {[...Array(3)].map((_, i) => (
           <Skeleton key={i} className="h-20 w-full rounded-lg" />
         ))}
@@ -18,28 +18,37 @@ export function FeedbackHistory() {
   }
 
   if (error) {
-    return <p className="text-sm text-red-400">{error}</p>;
+    return (
+      <p className="text-sm text-red-400" data-testid="feedback-history-error">
+        {error}
+      </p>
+    );
   }
 
   if (data.length === 0) {
     return (
-      <p className="text-sm text-muted-foreground">
+      <p
+        className="text-sm text-muted-foreground"
+        data-testid="feedback-history-empty"
+      >
         You haven't left any feedback yet.
       </p>
     );
   }
 
   return (
-    <ul className="space-y-3">
+    <ul className="space-y-3" data-testid="feedback-history-list">
       {data.map((item) => (
         <li
           key={item.id}
           className="rounded-lg border border-border p-4 space-y-1"
+          data-testid="feedback-history-item"
         >
           <div className="flex items-center justify-between gap-2">
             <Link
               to={cocktailPath(item.drinkId)}
               className="font-medium hover:text-amber transition-colors truncate"
+              data-testid="feedback-history-item-link"
             >
               {item.drink.name}
             </Link>
@@ -47,10 +56,16 @@ export function FeedbackHistory() {
               <StarRating rating={item.rating} showValue={false} />
             )}
           </div>
-          <p className="text-sm text-muted-foreground line-clamp-2">
+          <p
+            className="text-sm text-muted-foreground line-clamp-2"
+            data-testid="feedback-history-item-comment"
+          >
             {item.comment}
           </p>
-          <p className="text-xs text-muted-foreground/60">
+          <p
+            className="text-xs text-muted-foreground/60"
+            data-testid="feedback-history-item-date"
+          >
             {new Date(item.updatedAt).toLocaleDateString(undefined, {
               year: "numeric",
               month: "short",

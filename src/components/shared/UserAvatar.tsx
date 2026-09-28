@@ -32,15 +32,22 @@ export function UserAvatar({ user, size = "sm" }: UserAvatarProps) {
         "shrink-0 bg-gray-500 rounded-full flex justify-center items-center overflow-hidden",
         avatarContainerSize[size],
       )}
+      data-testid="user-avatar"
     >
       {user?.image && (
         <AvatarImage
           src={imagePath(user.image)}
           alt={name}
           className="object-cover h-full w-full"
+          data-testid="user-avatar-image"
         />
       )}
-      <AvatarFallback className={`text-${size}`}>{initials}</AvatarFallback>
+      <AvatarFallback
+        className={`text-${size}`}
+        data-testid="user-avatar-fallback"
+      >
+        {initials}
+      </AvatarFallback>
     </Avatar>
   );
 }

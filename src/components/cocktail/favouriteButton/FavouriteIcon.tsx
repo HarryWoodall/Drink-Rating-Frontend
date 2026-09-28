@@ -11,6 +11,7 @@ export function FavouriteIcon({ favourite, readOnly, size }: IconProps) {
   return (
     <Heart
       size={size}
+      data-testid="favourite-icon"
       className={cn(
         "transition-colors [filter:drop-shadow(2px_3px_3px_rgba(50,0,0,0.8))]",
         favourite && "fill-current text-rose-700",

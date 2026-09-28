@@ -15,7 +15,7 @@ export function CommentList({ feedback }: CommentListProps) {
 
   if (loading) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-4" data-testid="comment-list-loading">
         {[1, 2, 3].map((i) => (
           <div key={i} className="flex gap-3">
             <Skeleton className="h-8 w-8 shrink-0 rounded-full" />
@@ -31,14 +31,17 @@ export function CommentList({ feedback }: CommentListProps) {
 
   if (!data || data.feedback.length === 0) {
     return (
-      <p className="text-sm italic text-muted-foreground">
+      <p
+        className="text-sm italic text-muted-foreground"
+        data-testid="comment-list-empty"
+      >
         No comments yet. Be the first to pour your thoughts.
       </p>
     );
   }
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5" data-testid="comment-list">
       {data.feedback.map((c) => (
         <CommentItem key={c.id} feedback={c} />
       ))}

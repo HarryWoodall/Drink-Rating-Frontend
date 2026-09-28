@@ -17,7 +17,10 @@ export function CommentSection({ drinkId }: { drinkId: string }) {
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-between gap-5 border-t border-border bg-black/20 p-8">
+      <div
+        className="flex flex-wrap items-center justify-between gap-5 border-t border-border bg-black/20 p-8"
+        data-testid="comment-section-verdict"
+      >
         <div>
           <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
             Your verdict
@@ -39,7 +42,10 @@ export function CommentSection({ drinkId }: { drinkId: string }) {
           <CreateFeedbackModal drinkId={drinkId} />
         )}
       </div>
-      <section className="border-t border-border px-8 py-8 md:px-10">
+      <section
+        className="border-t border-border px-8 py-8 md:px-10"
+        data-testid="comment-section-comments"
+      >
         <h2 className="mb-4 text-xs uppercase tracking-[0.18em] text-muted-foreground">
           Comments
         </h2>

@@ -16,13 +16,16 @@ export function Hero() {
   }
 
   return (
-    <header className="pb-6 pt-10">
+    <header className="pb-6 pt-10" data-testid="hero">
       <div className="mb-6 flex items-center gap-3.5 text-[0.7rem] uppercase tracking-[0.46em] text-amber">
         <span className="h-px w-12 bg-amber/60" />
         Rate · Review · Rediscover
       </div>
 
-      <h1 className="max-w-[14ch] font-serif text-[clamp(2.9rem,8vw,5.5rem)] font-light leading-[0.98] tracking-tight">
+      <h1
+        className="max-w-[14ch] font-serif text-[clamp(2.9rem,8vw,5.5rem)] font-light leading-[0.98] tracking-tight"
+        data-testid="hero-heading"
+      >
         Every great night starts with the{" "}
         <em className="italic text-amber">right pour.</em>
       </h1>

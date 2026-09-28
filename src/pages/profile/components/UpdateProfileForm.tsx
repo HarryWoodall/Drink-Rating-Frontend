@@ -80,6 +80,7 @@ export function UpdateProfileForm({
       >
         <FormInput
           id="profile-name-input"
+          data-testid="profile-name-input"
           type="text"
           {...register("name", { required: "Name is required" })}
         />
@@ -94,6 +95,7 @@ export function UpdateProfileForm({
             <img
               src={imagePreview}
               alt="Profile preview"
+              data-testid="profile-image-preview"
               className="h-16 w-16 rounded-full object-cover border"
             />
           )}
@@ -104,11 +106,17 @@ export function UpdateProfileForm({
               size="sm"
               className="rounded-full"
               onClick={() => fileInputRef.current?.click()}
+              data-testid="profile-image-upload-button"
             >
               {imagePreview ? "Change image" : "Upload image"}
             </Button>
             {imageFile && (
-              <p className="text-xs text-muted-foreground">{imageFile.name}</p>
+              <p
+                className="text-xs text-muted-foreground"
+                data-testid="profile-image-file-name"
+              >
+                {imageFile.name}
+              </p>
             )}
           </div>
         </div>
@@ -118,6 +126,7 @@ export function UpdateProfileForm({
           accept="image/*"
           className="hidden"
           onChange={handleFileChange}
+          data-testid="profile-image-file-input"
         />
       </div>
 
@@ -125,6 +134,7 @@ export function UpdateProfileForm({
         <Button
           type="submit"
           disabled={isSubmitting || !isFormDirty}
+          data-testid="profile-save-button"
           className="rounded-full"
         >
           {isSubmitting && (
@@ -138,6 +148,7 @@ export function UpdateProfileForm({
             variant="outline"
             className="rounded-full"
             onClick={onCancel}
+            data-testid="profile-cancel-button"
           >
             Cancel
           </Button>

@@ -20,6 +20,7 @@ export function FormPage({ title, description, children }: FormPageProps) {
           <Link
             to="/"
             className="font-serif text-3xl italic font-semibold tracking-tight no-underline"
+            data-testid="form-page-home-link"
           >
             Night<span className="text-amber">cap</span>
           </Link>
@@ -27,11 +28,16 @@ export function FormPage({ title, description, children }: FormPageProps) {
 
         <Card>
           <CardHeader>
-            <CardTitle className="font-serif text-2xl italic">
+            <CardTitle
+              className="font-serif text-2xl italic"
+              data-testid="form-page-title"
+            >
               {title}
             </CardTitle>
             {description ? (
-              <CardDescription>{description}</CardDescription>
+              <CardDescription data-testid="form-page-description">
+                {description}
+              </CardDescription>
             ) : null}
           </CardHeader>
 

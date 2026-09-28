@@ -20,6 +20,7 @@ export function RatedCard({ topRatedResponse, number }: RatedCardProps) {
     <Link
       to={cocktailPath(topRatedResponse.drink.id)}
       className="group block"
+      data-testid="rated-card"
     >
       <Card className="flex flex-row-reverse overflow-hidden rounded-[1.2rem] border-border bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40 transition-colors group-hover:border-amber/45 md:flex-row">
         <div className="relative h-30 w-20 shrink-0 overflow-hidden md:h-auto md:w-40 relative">
@@ -28,9 +29,13 @@ export function RatedCard({ topRatedResponse, number }: RatedCardProps) {
               src={topRatedResponse.drink.image}
               alt={topRatedResponse.drink.name}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              data-testid="rated-card-image"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-black/30">
+            <div
+              className="flex h-full w-full items-center justify-center bg-black/30"
+              data-testid="rated-card-image-placeholder"
+            >
               <Wine className="h-12 w-12 text-amber/60" />
             </div>
           )}
@@ -45,8 +50,16 @@ export function RatedCard({ topRatedResponse, number }: RatedCardProps) {
 
         <CardContent className="flex flex-col justify-center gap-3 p-5 pt-5 md:p-6 md:pt-6">
           <div className="flex gap-3 items-center">
-            <span className="font-serif text-amber text-2xl">{number}.</span>
-            <h3 className="font-serif text-xl font-normal italic leading-none">
+            <span
+              className="font-serif text-amber text-2xl"
+              data-testid="rated-card-rank"
+            >
+              {number}.
+            </span>
+            <h3
+              className="font-serif text-xl font-normal italic leading-none"
+              data-testid="rated-card-name"
+            >
               {topRatedResponse.drink.name}
             </h3>
           </div>

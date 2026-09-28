@@ -33,12 +33,17 @@ export function NavDraw({ navItems }: NavDrawProps) {
   return (
     <Drawer direction="right" noBodyStyles repositionInputs={false}>
       <DrawerTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Open menu">
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label="Open menu"
+          data-testid="nav-drawer-trigger"
+        >
           <Menu className="size-5" />
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent className="max-w-full">
+      <DrawerContent className="max-w-full" data-testid="nav-drawer">
         <DrawerHeader>
           <DrawerTitle className="sr-only">Menu</DrawerTitle>
           <DrawerDescription className="sr-only">
@@ -51,6 +56,8 @@ export function NavDraw({ navItems }: NavDrawProps) {
             className="absolute top-5 right-5 rounded-full"
             variant="outline"
             size="icon"
+            aria-label="Close menu"
+            data-testid="nav-drawer-close"
           >
             <X />
           </Button>
@@ -63,6 +70,7 @@ export function NavDraw({ navItems }: NavDrawProps) {
               <DrawerClose asChild key={item.to}>
                 <NavLink
                   to={item.to}
+                  data-testid={`nav-drawer-link-${item.label.toLowerCase()}`}
                   className="border-b border-border/40 py-4 text-xs uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-amber pr-32"
                 >
                   {item.label}
@@ -74,6 +82,7 @@ export function NavDraw({ navItems }: NavDrawProps) {
             <DrawerClose asChild key="logout">
               <button
                 onClick={logout}
+                data-testid="nav-drawer-logout"
                 className="border-b border-border/40 py-4 text-left text-xs uppercase tracking-[0.16em] text-faded-foreground transition-colors hover:text-amber pr-32"
               >
                 Log out
@@ -83,6 +92,7 @@ export function NavDraw({ navItems }: NavDrawProps) {
             <DrawerClose asChild key="login">
               <NavLink
                 to={loginPath()}
+                data-testid="nav-drawer-login"
                 className="border-b border-border/40 py-4 text-xs uppercase tracking-[0.16em] font-bold transition-colors hover:text-amber pr-32"
               >
                 Log in
@@ -97,6 +107,7 @@ export function NavDraw({ navItems }: NavDrawProps) {
               <NavLink
                 className="flex items-center gap-3 bg-muted rounded-sm p-1.5"
                 to={profilePath()}
+                data-testid="nav-drawer-profile"
               >
                 <UserAvatar user={session.user as User} size="lg" />
                 <p className="text-faded-foreground text-xs">

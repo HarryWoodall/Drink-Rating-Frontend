@@ -17,7 +17,7 @@ export function TopRatedSection({
   error,
 }: TopRatedSectionProps) {
   return (
-    <section id="top" className="scroll-mt-24 py-8">
+    <section id="top" className="scroll-mt-24 py-8" data-testid="top-rated-section">
       <SectionHeading
         num="02"
         title="The Top Shelf"
@@ -25,11 +25,14 @@ export function TopRatedSection({
       />
 
       {error ? (
-        <p className="text-sm text-destructive">
+        <p className="text-sm text-destructive" data-testid="top-rated-error">
           Failed to load the top-rated cocktail.
         </p>
       ) : loading ? (
-        <div className="overflow-hidden rounded-[1.6rem] border border-border bg-card">
+        <div
+          className="overflow-hidden rounded-[1.6rem] border border-border bg-card"
+          data-testid="top-rated-loading"
+        >
           <div className="flex flex-col md:flex-row">
             <Skeleton className="h-60 w-full md:h-auto md:w-80 shrink-0" />
             <div className="flex flex-1 flex-col gap-3 p-8">
@@ -41,7 +44,10 @@ export function TopRatedSection({
           </div>
         </div>
       ) : !topRatedResponseList || topRatedResponseList.length == 0 ? (
-        <div className="rounded-[1.6rem] border border-dashed border-border bg-black/15 py-16 text-center">
+        <div
+          className="rounded-[1.6rem] border border-dashed border-border bg-black/15 py-16 text-center"
+          data-testid="top-rated-empty"
+        >
           <Wine className="mx-auto mb-3 h-9 w-9 text-amber/60" />
           <p className="font-medium">No cocktails rated yet</p>
           <p className="mt-1 text-sm text-muted-foreground">

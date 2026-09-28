@@ -29,7 +29,10 @@ export function ProfilePage() {
   const user = session.user as User & { email: string };
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-10 space-y-8">
+    <div
+      className="mx-auto max-w-2xl px-4 py-10 space-y-8"
+      data-testid="profile-page"
+    >
       <UserInfoCard user={user} />
 
       <Card>
@@ -38,6 +41,7 @@ export function ProfilePage() {
         </CardHeader>
         <CardContent>
           <Button
+            data-testid="profile-reset-password-button"
             onClick={() =>
               navigate("/reset-password-request", { replace: true })
             }

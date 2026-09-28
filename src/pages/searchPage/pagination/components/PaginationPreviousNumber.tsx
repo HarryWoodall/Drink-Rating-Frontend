@@ -23,6 +23,7 @@ export function PaginationPreviousNumber({
     <PaginationItem className={cn(offset > 0 ? "hidden md:flex" : "")}>
       <PaginationLink
         href="#"
+        data-testid={`pagination-page-${value}`}
         onClick={(e) => {
           e.preventDefault();
           onClick(value);

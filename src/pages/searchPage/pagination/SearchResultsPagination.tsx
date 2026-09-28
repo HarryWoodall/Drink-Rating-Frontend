@@ -24,7 +24,7 @@ export function SearchResultsPagination({
   onClick,
 }: SearchResultsPaginationProps) {
   return (
-    <Pagination className="mt-5">
+    <Pagination className="mt-5" data-testid="pagination">
       <PaginationContent>
         <PaginationPreviousButton
           currentPageNumber={currentPageNumber}
@@ -39,7 +39,7 @@ export function SearchResultsPagination({
           />
         ))}
         <PaginationItem>
-          <PaginationLink href="#" isActive>
+          <PaginationLink href="#" isActive data-testid="pagination-current">
             {currentPageNumber}
           </PaginationLink>
         </PaginationItem>

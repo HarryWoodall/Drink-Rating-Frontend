@@ -7,14 +7,23 @@ interface SectionHeadingProps {
 export function SectionHeading({ num, title, blurb }: SectionHeadingProps) {
   return (
     <div className="mb-4 md:mb-7 flex flex-wrap items-end justify-between gap-3">
-      <h2 className="flex items-baseline gap-3.5 font-serif text-xl md:text-3xl font-normal tracking-tight">
-        <span className="font-sans text-xs font-bold tracking-[0.2em] text-amber">
+      <h2
+        className="flex items-baseline gap-3.5 font-serif text-xl md:text-3xl font-normal tracking-tight"
+        data-testid="section-heading-title"
+      >
+        <span
+          className="font-sans text-xs font-bold tracking-[0.2em] text-amber"
+          data-testid="section-heading-number"
+        >
           {num} /
         </span>
         {title}
       </h2>
       {blurb && (
-        <p className="max-w-[34ch] text-xs md:text-sm text-muted-foreground">
+        <p
+          className="max-w-[34ch] text-xs md:text-sm text-muted-foreground"
+          data-testid="section-heading-blurb"
+        >
           {blurb}
         </p>
       )}

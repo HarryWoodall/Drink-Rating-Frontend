@@ -78,13 +78,16 @@ export function SearchPage() {
   }
 
   return (
-    <div className="py-8">
+    <div className="py-8" data-testid="search-page">
       <div className="mb-6 flex items-center gap-3.5 text-[0.7rem] uppercase tracking-[0.46em] text-amber">
         <span className="h-px w-12 bg-amber/60" />
         Search the cellar
       </div>
 
-      <h1 className="mb-8 font-serif text-4xl font-light italic leading-none">
+      <h1
+        className="mb-8 font-serif text-4xl font-light italic leading-none"
+        data-testid="search-page-heading"
+      >
         Find your next pour.
       </h1>
 
@@ -132,7 +135,10 @@ function ResultsSection({
 }) {
   if (loading) {
     return (
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      <div
+        className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+        data-testid="search-results-loading"
+      >
         {Array.from({ length: 8 }).map((_, i) => (
           <div
             key={i}
@@ -152,7 +158,10 @@ function ResultsSection({
 
   if (error) {
     return (
-      <div className="rounded-[1.6rem] border border-destructive/40 bg-destructive/10 p-8 text-center">
+      <div
+        className="rounded-[1.6rem] border border-destructive/40 bg-destructive/10 p-8 text-center"
+        data-testid="search-results-error"
+      >
         <p className="font-serif text-xl italic">Something went wrong</p>
         <p className="mt-2 text-sm text-muted-foreground">{error}</p>
       </div>
@@ -161,7 +170,10 @@ function ResultsSection({
 
   if (query && results.drinks.length === 0) {
     return (
-      <div className="rounded-[1.6rem] border border-dashed border-border bg-black/15 py-20 text-center">
+      <div
+        className="rounded-[1.6rem] border border-dashed border-border bg-black/15 py-20 text-center"
+        data-testid="search-results-empty"
+      >
         <p className="font-serif text-2xl italic">Nothing on the shelf</p>
         <p className="mt-2 text-sm text-muted-foreground">
           No results for &ldquo;{query}&rdquo;
@@ -171,7 +183,10 @@ function ResultsSection({
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+    <div
+      className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+      data-testid="search-results"
+    >
       {results.drinks.map((drink) => (
         <CocktailCard key={drink.id} drink={drink} />
       ))}

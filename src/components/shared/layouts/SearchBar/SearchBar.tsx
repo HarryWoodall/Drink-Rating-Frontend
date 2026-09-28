@@ -26,7 +26,7 @@ export function SearchBar({
   }, [defaultValue]);
 
   return (
-    <form onSubmit={onSubmit} className="max-w-xl">
+    <form onSubmit={onSubmit} className="max-w-xl" data-testid="search-bar">
       <div className="flex items-center gap-3 rounded-full border border-border bg-gradient-to-b from-card to-background md:py-2 pl-4 md:pl-6 pr-2 shadow-2xl shadow-black/40 transition-colors focus-within:border-amber/55">
         <Search className="h-5 w-5 shrink-0 text-amber" />
         <input
@@ -44,6 +44,7 @@ export function SearchBar({
           }
           autoComplete="off"
           aria-label="Search cocktails"
+          data-testid="search-bar-input"
           className="flex-1 min-w-0 bg-transparent py-2.5 text-sm md:text-base outline-none placeholder:text-muted-foreground/70"
         />
 

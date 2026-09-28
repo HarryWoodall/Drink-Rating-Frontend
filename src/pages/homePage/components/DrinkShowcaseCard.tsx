@@ -22,12 +22,17 @@ export function DrinkShowcaseCard({
   numRatings,
 }: DrinkShowcaseCardProps) {
   return (
-    <Card className="relative w-[200px] h-[300px] md:w-[300px] md:h-[350px] shrink-0 overflow-hidden rounded-lg bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40">
+    <Card
+      data-testid="drink-showcase-card"
+      className="relative w-[200px] h-[300px] md:w-[300px] md:h-[350px] shrink-0 overflow-hidden rounded-lg bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40">
       <div>
         <CardImage drink={drink} />
         <div className="flex flex-col p-3 md:p-4 justify-center gap-3">
           <CardHeader className="flex flex-col gap-1 md:gap-3 space-y-0 p-1 pb-2 md:p-0">
-            <h3 className="font-serif text-xl font-normal italic leading-none">
+            <h3
+              className="font-serif text-xl font-normal italic leading-none"
+              data-testid="drink-showcase-card-name"
+            >
               {drink.name}
             </h3>
           </CardHeader>
@@ -57,6 +62,7 @@ function CardImage({ drink }: CardImageProps) {
         src={drink.image}
         alt={drink.name}
         className="w-full max-h-32 md:max-h-48 object-cover"
+        data-testid="drink-showcase-card-image"
       />
       <div className="absolute top-0 right-0 m-2">
         <FavouriteButton cocktail={drink} readonly />
@@ -72,6 +78,7 @@ interface DrinkIngredientsProps {
 export function DrinkIngredients({ drink }: DrinkIngredientsProps) {
   return (
     <p
+      data-testid="drink-showcase-card-ingredients"
       className={cn(
         "text-[0.8em] italic uppercase tracking-[0.16em] text-faded-foreground",
       )}
@@ -81,7 +88,10 @@ export function DrinkIngredients({ drink }: DrinkIngredientsProps) {
         .map((x, index) => (
           <Fragment key={x.name}>
             {index > 0 && <span className="font-extrabold"> · </span>}
-            <span className={cn(index === 0 && "font-bold text-amber-bright")}>
+            <span
+              className={cn(index === 0 && "font-bold text-amber-bright")}
+              data-testid="drink-showcase-card-ingredient"
+            >
               {x.name}
             </span>
           </Fragment>

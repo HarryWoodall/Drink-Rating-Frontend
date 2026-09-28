@@ -15,6 +15,8 @@ export function Banner() {
         scrolled &&
           "bg-background/85 backdrop-blur border-b border-border md:bg-transparent md:backdrop-blur-none md:border-0",
       )}
+      data-testid="banner"
+      data-scrolled={scrolled}
     >
       <nav className="flex items-center justify-between py-4">
         <Header />

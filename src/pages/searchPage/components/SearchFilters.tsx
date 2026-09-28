@@ -37,6 +37,11 @@ const CATEGORY_FILTER_OPTIONS: { value: string; label: DrinkCategory }[] =
     };
   });
 
+/** "Coffee / Tea" -> "coffee-tea", for test ids. */
+function slug(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+}
+
 export function SearchFilters({
   filter,
   category,
@@ -51,7 +56,10 @@ export function SearchFilters({
           category={category}
           onCategoryChange={onCategoryChange}
         />
-        <span className="text-xs text-muted-foreground">
+        <span
+          className="text-xs text-muted-foreground"
+          data-testid="search-filters-result-count"
+        >
           {resultCount} {resultCount === 1 ? "result" : "results"}
         </span>
       </div>
@@ -80,9 +88,13 @@ function CategoryFilter({ category, onCategoryChange }: CategoryFilterProps) {
         type="button"
         aria-label={`Category: ${activeLabel}. Change category filter`}
         className="flex items-center gap-2 rounded-full border border-border bg-card/60 px-4 py-1.5 md:py-2.5 text-xs md:text-sm font-medium outline-none transition-colors hover:border-amber/40 focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        data-testid="category-filter-trigger"
       >
         <span className="text-muted-foreground">Category</span>
-        <span className={cn(category !== "all" && "text-amber")}>
+        <span
+          className={cn(category !== "all" && "text-amber")}
+          data-testid="category-filter-active"
+        >
           {activeLabel}
         </span>
         <ChevronDown className="size-3.5 md:size-4 text-muted-foreground transition-transform duration-200 [[data-state=open]>&]:rotate-180" />
@@ -103,6 +115,7 @@ function CategoryFilter({ category, onCategoryChange }: CategoryFilterProps) {
               <DropdownMenuRadioItem
                 key={opt.value}
                 value={opt.value}
+                data-testid={`category-filter-option-${slug(opt.value)}`}
                 className={cn(
                   "cursor-pointer rounded-[1rem] px-3.5 py-2 pl-3.5 text-sm transition-colors focus:bg-amber/10 focus:text-foreground [&>span:first-child]:hidden",
                   selected && "bg-amber/15 focus:bg-amber/20",
@@ -145,6 +158,8 @@ function ToggleFilter({
           key={opt.value}
           type="button"
           onClick={() => onFilterChange(opt.value)}
+          aria-pressed={filter === opt.value}
+          data-testid={`alcohol-filter-${opt.value}`}
           className={cn(
             "rounded-full px-4 py-0.5 md:py-1.5 text-xs md:text-sm font-medium transition-all",
             filter === opt.value

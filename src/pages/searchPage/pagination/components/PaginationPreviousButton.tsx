@@ -17,6 +17,7 @@ export function PaginationPreviousButton({
     <PaginationItem>
       <PaginationPrevious
         href="#"
+        data-testid="pagination-previous"
         onClick={(e) => {
           e.preventDefault();
           onClick(currentPageNumber - 1);

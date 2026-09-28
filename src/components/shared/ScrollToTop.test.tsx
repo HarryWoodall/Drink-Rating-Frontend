@@ -6,7 +6,11 @@ import { renderWithProviders, screen } from "@/test/utils";
 
 function BackButton() {
   const navigate = useNavigate();
-  return <button onClick={() => navigate(-1)}>Back</button>;
+  return (
+    <button onClick={() => navigate(-1)} data-testid="back-button">
+      Back
+    </button>
+  );
 }
 
 function TestApp() {
@@ -18,8 +22,12 @@ function TestApp() {
           path="/"
           element={
             <>
-              <Link to="/second">Go to second</Link>
-              <Link to="/second#anchor">Go to second anchor</Link>
+              <Link to="/second" data-testid="second-link">
+                Go to second
+              </Link>
+              <Link to="/second#anchor" data-testid="second-anchor-link">
+                Go to second anchor
+              </Link>
             </>
           }
         />
@@ -49,7 +57,7 @@ describe("ScrollToTop", () => {
     renderWithProviders(<TestApp />, { route: "/" });
     vi.mocked(window.scrollTo).mockClear();
 
-    await user.click(screen.getByRole("link", { name: "Go to second" }));
+    await user.click(screen.getByTestId("second-link"));
 
     expect(window.scrollTo).toHaveBeenCalledWith({
       top: 0,
@@ -63,7 +71,7 @@ describe("ScrollToTop", () => {
     renderWithProviders(<TestApp />, { route: "/" });
     vi.mocked(window.scrollTo).mockClear();
 
-    await user.click(screen.getByRole("link", { name: "Go to second anchor" }));
+    await user.click(screen.getByTestId("second-anchor-link"));
 
     expect(Element.prototype.scrollIntoView).toHaveBeenCalled();
     expect(window.scrollTo).not.toHaveBeenCalled();
@@ -72,11 +80,11 @@ describe("ScrollToTop", () => {
   it("leaves the scroll position alone on back/forward", async () => {
     const user = userEvent.setup();
     renderWithProviders(<TestApp />, { route: "/" });
-    await user.click(screen.getByRole("link", { name: "Go to second" }));
+    await user.click(screen.getByTestId("second-link"));
     vi.mocked(window.scrollTo).mockClear();
 
-    await user.click(screen.getByRole("button", { name: "Back" }));
-    await screen.findByRole("link", { name: "Go to second" });
+    await user.click(screen.getByTestId("back-button"));
+    await screen.findByTestId("second-link");
 
     expect(window.scrollTo).not.toHaveBeenCalled();
   });

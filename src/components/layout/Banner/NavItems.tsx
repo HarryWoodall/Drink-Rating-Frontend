@@ -29,6 +29,7 @@ export function NavItems() {
                 key={item.to}
                 to={item.to}
                 className="transition-colors hover:text-amber"
+                data-testid={`nav-link-${item.label.toLowerCase()}`}
               >
                 {item.label}
               </NavLink>

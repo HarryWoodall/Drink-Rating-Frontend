@@ -6,7 +6,10 @@ interface DrinkIngredientsProps {
 
 export function DrinkIngredients({ cocktail }: DrinkIngredientsProps) {
   return (
-    <p className="text-[0.8em] font-bold italic uppercase tracking-[0.16em] text-amber-bright">
+    <p
+      className="text-[0.8em] font-bold italic uppercase tracking-[0.16em] text-amber-bright"
+      data-testid="drink-ingredients"
+    >
       {cocktail.ingredients.map((x) => x.name).join(", ")}
     </p>
   );

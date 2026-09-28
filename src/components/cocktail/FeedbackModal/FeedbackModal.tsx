@@ -37,9 +37,12 @@ export function FeedbackModal({
   const commentValue = watch("comment") ?? "";
 
   return (
-    <DialogContent className="sm:max-w-md">
+    <DialogContent className="sm:max-w-md" data-testid="feedback-modal">
       <DialogHeader>
-        <DialogTitle className="font-serif text-xl font-normal italic">
+        <DialogTitle
+          className="font-serif text-xl font-normal italic"
+          data-testid="feedback-modal-title"
+        >
           Leave your verdict
         </DialogTitle>
       </DialogHeader>
@@ -50,28 +53,39 @@ export function FeedbackModal({
             Rating
           </p>
           <div className="flex gap-1.5" onMouseLeave={() => setHover(0)}>
-            {[1, 2, 3, 4, 5].map((s) => (
-              <button
-                key={s}
-                type="button"
-                aria-label={`Rate ${s} star${s > 1 ? "s" : ""}`}
-                onMouseEnter={() => setHover(s)}
-                onClick={() => form.setValue("rating", s)}
-                className="transition-transform hover:scale-110"
-              >
-                <Star
-                  className={cn(
-                    "h-7 w-7",
-                    (hover || form.getValues("rating")) >= s
-                      ? "fill-amber text-amber"
-                      : "fill-none text-amber/25",
-                  )}
-                />
-              </button>
-            ))}
+            {[1, 2, 3, 4, 5].map((s) => {
+              const filled = (hover || form.getValues("rating")) >= s;
+
+              return (
+                <button
+                  key={s}
+                  type="button"
+                  aria-label={`Rate ${s} star${s > 1 ? "s" : ""}`}
+                  onMouseEnter={() => setHover(s)}
+                  onClick={() => form.setValue("rating", s)}
+                  className="transition-transform hover:scale-110"
+                  data-testid={`feedback-modal-star-${s}`}
+                  data-filled={filled}
+                >
+                  <Star
+                    className={cn(
+                      "h-7 w-7",
+                      filled
+                        ? "fill-amber text-amber"
+                        : "fill-none text-amber/25",
+                    )}
+                  />
+                </button>
+              );
+            })}
           </div>
           {!form.getValues("rating") && errors.comment && (
-            <p className="mt-1 text-xs text-red-400">Please select a rating</p>
+            <p
+              className="mt-1 text-xs text-red-400"
+              data-testid="feedback-modal-rating-error"
+            >
+              Please select a rating
+            </p>
           )}
         </div>
 
@@ -93,24 +107,41 @@ export function FeedbackModal({
             placeholder="Leave a note about this drink…"
             rows={4}
             className="w-full resize-none rounded-xl border border-border bg-black/20 px-4 py-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-amber"
+            data-testid="feedback-modal-comment"
           />
           <div className="mt-1 flex items-center justify-between">
             {errors.comment ? (
-              <p className="text-xs text-red-400">{errors.comment.message}</p>
+              <p
+                className="text-xs text-red-400"
+                data-testid="feedback-modal-comment-error"
+              >
+                {errors.comment.message}
+              </p>
             ) : (
               <span />
             )}
-            <span className="text-xs text-muted-foreground">
+            <span
+              className="text-xs text-muted-foreground"
+              data-testid="feedback-modal-char-count"
+            >
               {commentValue.length}/500
             </span>
           </div>
-          {error && <p className="text-xs text-red-400">{error.message}</p>}
+          {error && (
+            <p
+              className="text-xs text-red-400"
+              data-testid="feedback-modal-server-error"
+            >
+              {error.message}
+            </p>
+          )}
         </div>
 
         <Button
           type="submit"
           disabled={isPending}
           className="w-full rounded-full"
+          data-testid="feedback-modal-submit"
         >
           {isPending && <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />}
           Submit review

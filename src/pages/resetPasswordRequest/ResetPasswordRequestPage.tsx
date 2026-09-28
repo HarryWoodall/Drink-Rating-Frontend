@@ -59,6 +59,7 @@ export function ResetPasswordRequestPage() {
           >
             <FormInput
               id="reset-password-email-input"
+              data-testid="reset-password-email-input"
               placeholder="you@email.com"
               type="email"
               {...register("email", {
@@ -72,11 +73,19 @@ export function ResetPasswordRequestPage() {
           </FormTextInput>
 
           {serverError && (
-            <p className="text-sm text-red-400 text-center">{serverError}</p>
+            <p
+              className="text-sm text-red-400 text-center"
+              data-testid="reset-password-request-error"
+            >
+              {serverError}
+            </p>
           )}
 
           {successState && (
-            <p className="text-sm text-emerald-400 text-center">
+            <p
+              className="text-sm text-emerald-400 text-center"
+              data-testid="reset-password-request-success"
+            >
               {successState}
             </p>
           )}
@@ -85,6 +94,7 @@ export function ResetPasswordRequestPage() {
             type="submit"
             disabled={isSubmitting}
             className="w-full rounded-full"
+            data-testid="reset-password-request-submit"
           >
             {isSubmitting && (
               <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />

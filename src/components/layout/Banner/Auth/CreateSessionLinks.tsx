@@ -7,12 +7,14 @@ export function CreateSessionLinks() {
       <Link
         to={loginPath()}
         className="text-xs uppercase tracking-[0.12em] text-muted-foreground transition-colors hover:text-amber"
+        data-testid="auth-login-link"
       >
         Log in
       </Link>
       <Link
         to={registerPath()}
         className="rounded-full bg-amber px-4 py-2 text-xs font-semibold text-background transition-opacity hover:opacity-80"
+        data-testid="auth-signup-link"
       >
         Sign up
       </Link>

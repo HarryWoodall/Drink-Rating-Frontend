@@ -41,13 +41,16 @@ export function FavouritesPage() {
   if (isPending || !session) return null;
 
   return (
-    <div className="py-8">
+    <div className="py-8" data-testid="favourites-page">
       <div className="mb-6 flex items-center gap-3.5 text-[0.7rem] uppercase tracking-[0.46em] text-amber">
         <span className="h-px w-12 bg-amber/60" />
         Your collection
       </div>
 
-      <h1 className="mb-8 font-serif text-4xl font-light italic leading-none">
+      <h1
+        className="mb-8 font-serif text-4xl font-light italic leading-none"
+        data-testid="favourites-page-heading"
+      >
         Saved for later.
       </h1>
 

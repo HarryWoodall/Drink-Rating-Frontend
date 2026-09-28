@@ -15,10 +15,10 @@ describe('ThemeToggle', () => {
 
     const before = document.documentElement.classList.contains('dark');
 
-    await user.click(screen.getByRole('button', { name: /toggle theme/i }));
+    await user.click(screen.getByTestId('theme-toggle'));
     expect(document.documentElement.classList.contains('dark')).toBe(!before);
 
-    await user.click(screen.getByRole('button', { name: /toggle theme/i }));
+    await user.click(screen.getByTestId('theme-toggle'));
     expect(document.documentElement.classList.contains('dark')).toBe(before);
   });
 });

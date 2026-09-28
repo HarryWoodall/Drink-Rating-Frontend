@@ -7,15 +7,14 @@ export function BackLink() {
     (state) => state,
   );
 
-  console.log(fullPreviousPath());
-
   return (
     <Link
       to={fullPreviousPath()}
       className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-amber"
+      data-testid="back-link"
     >
       <ArrowLeft className="h-4 w-4" />
-      {previousBackText}
+      {previousBackText ?? "Home"}
     </Link>
   );
 }

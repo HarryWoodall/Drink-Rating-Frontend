@@ -63,6 +63,7 @@ export function RegisterPage() {
           >
             <FormInput
               id="register-name-input"
+              data-testid="register-name-input"
               type="text"
               {...register("name", {
                 required: "Name is required",
@@ -77,6 +78,7 @@ export function RegisterPage() {
           >
             <FormInput
               id="register-email-input"
+              data-testid="register-email-input"
               placeholder="you@email.com"
               type="email"
               {...register("email", {
@@ -95,6 +97,8 @@ export function RegisterPage() {
             errors={errors.password}
           >
             <PasswordInput
+              id="register-password-input"
+              data-testid="register-password-input"
               {...register("password", {
                 required: "Password is required",
                 minLength: {
@@ -112,6 +116,8 @@ export function RegisterPage() {
             errors={errors.confirmPassword}
           >
             <PasswordInput
+              id="register-password-confirm-input"
+              data-testid="register-password-confirm-input"
               {...register("confirmPassword", {
                 required: "Please confirm your password",
                 validate: (value) =>
@@ -122,13 +128,19 @@ export function RegisterPage() {
           </FormTextInput>
 
           {serverError && (
-            <p className="text-sm text-red-400 text-center">{serverError}</p>
+            <p
+              className="text-sm text-red-400 text-center"
+              data-testid="register-server-error"
+            >
+              {serverError}
+            </p>
           )}
 
           <Button
             type="submit"
             disabled={isSubmitting}
             className="w-full rounded-full"
+            data-testid="register-submit"
           >
             {isSubmitting && (
               <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
@@ -141,7 +153,11 @@ export function RegisterPage() {
       <CardFooter className="justify-center">
         <p className="text-xs text-muted-foreground">
           Already have an account?{" "}
-          <Link to={loginPath()} className="text-amber hover:underline">
+          <Link
+            to={loginPath()}
+            className="text-amber hover:underline"
+            data-testid="register-login-link"
+          >
             Log in
           </Link>
         </p>

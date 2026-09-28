@@ -65,6 +65,7 @@ export function FavouriteButton({
             favourite ? "Remove from favourites" : "Add to favourites"
           }
           onClick={() => mutate(!favourite)}
+          data-testid="favourite-button"
           className={cn("group", sizeMap[size].button)}
         >
           <FavouriteIcon
@@ -74,7 +75,7 @@ export function FavouriteButton({
           />
         </Button>
       </TooltipTrigger>
-      <TooltipContent>
+      <TooltipContent data-testid="favourite-button-tooltip">
         {!favourite ? <p>Add to favourites</p> : <p>Remove from favourites</p>}
       </TooltipContent>
     </Tooltip>

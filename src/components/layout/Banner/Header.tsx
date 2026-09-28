@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 
 export function Header() {
   return (
-    <Link to="/" className="flex items-baseline gap-3 no-underline">
+    <Link
+      to="/"
+      className="flex items-baseline gap-3 no-underline"
+      data-testid="header-home-link"
+    >
       <span className="font-serif text-3xl md:text-xl lg:text-3xl italic font-semibold tracking-tight">
         Night<span className="text-amber">cap</span>
       </span>

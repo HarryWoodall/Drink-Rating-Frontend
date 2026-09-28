@@ -14,7 +14,11 @@ interface TopRatedCardProps {
 
 export function TopRatedCard({ cocktail }: TopRatedCardProps) {
   return (
-    <Link to={cocktailPath(cocktail.drink.id)} className="group block">
+    <Link
+      to={cocktailPath(cocktail.drink.id)}
+      className="group block"
+      data-testid="top-rated-card"
+    >
       <Card className="flex flex-col overflow-hidden rounded-[1.6rem] border-border bg-gradient-to-br from-card to-background shadow-2xl shadow-black/40 transition-colors group-hover:border-amber/45 md:flex-row">
         <div className="relative h-60 w-full shrink-0 overflow-hidden md:h-auto md:w-80 relative">
           {cocktail.drink.image ? (
@@ -22,9 +26,13 @@ export function TopRatedCard({ cocktail }: TopRatedCardProps) {
               src={cocktail.drink.image}
               alt={cocktail.drink.name}
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+              data-testid="top-rated-card-image"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-black/30">
+            <div
+              className="flex h-full w-full items-center justify-center bg-black/30"
+              data-testid="top-rated-card-image-placeholder"
+            >
               <Wine className="h-12 w-12 text-amber/60" />
             </div>
           )}
@@ -38,7 +46,10 @@ export function TopRatedCard({ cocktail }: TopRatedCardProps) {
             Best in the house
           </span>
 
-          <h3 className="font-serif text-2xl md:text-4xl font-normal italic leading-none">
+          <h3
+            className="font-serif text-2xl md:text-4xl font-normal italic leading-none"
+            data-testid="top-rated-card-name"
+          >
             {cocktail.drink.name}
           </h3>
 
@@ -56,7 +67,10 @@ export function TopRatedCard({ cocktail }: TopRatedCardProps) {
 
           <DrinkIngredients cocktail={cocktail.drink} />
           {cocktail.drink.instructions && (
-            <p className="max-w-[48ch] text-sm leading-relaxed text-muted-foreground line-clamp-3">
+            <p
+              className="max-w-[48ch] text-sm leading-relaxed text-muted-foreground line-clamp-3"
+              data-testid="top-rated-card-instructions"
+            >
               {cocktail.drink.instructions}
             </p>
           )}

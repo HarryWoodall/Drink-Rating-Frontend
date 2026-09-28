@@ -41,7 +41,11 @@ export function CreateFeedbackModal({ drinkId }: ReviewModalProps) {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="rounded-full">
+        <Button
+          variant="outline"
+          className="rounded-full"
+          data-testid="create-feedback-trigger"
+        >
           Rate &amp; Review
         </Button>
       </DialogTrigger>

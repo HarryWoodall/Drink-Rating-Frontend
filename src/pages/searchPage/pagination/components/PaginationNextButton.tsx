@@ -19,6 +19,7 @@ export function PaginationNextButton({
     <PaginationItem>
       <PaginationNext
         href="#"
+        data-testid="pagination-next"
         onClick={(e) => {
           e.preventDefault();
           onClick(currentPageNumber + 1);

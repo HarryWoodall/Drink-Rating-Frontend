@@ -60,6 +60,7 @@ export function LoginPage() {
             </FieldLabel>
             <FormInput
               id="login-email-input"
+              data-testid="login-email-input"
               {...register("email", {
                 required: "Email is required",
                 pattern: {
@@ -79,6 +80,7 @@ export function LoginPage() {
             </FieldLabel>
             <PasswordInput
               id="login-password-input"
+              data-testid="login-password-input"
               {...register("password", {
                 required: "Password is required",
                 minLength: {
@@ -91,13 +93,19 @@ export function LoginPage() {
           </Field>
 
           {serverError && (
-            <p className="text-sm text-red-400 text-center">{serverError}</p>
+            <p
+              className="text-sm text-red-400 text-center"
+              data-testid="login-server-error"
+            >
+              {serverError}
+            </p>
           )}
 
           <Button
             type="submit"
             disabled={isSubmitting}
             className="w-full rounded-full"
+            data-testid="login-submit"
           >
             {isSubmitting && (
               <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
@@ -110,7 +118,11 @@ export function LoginPage() {
       <CardFooter className="justify-center flex-col gap-2">
         <p className="text-xs text-muted-foreground">
           Don&apos;t have an account?{" "}
-          <Link to={registerPath()} className="text-amber hover:underline">
+          <Link
+            to={registerPath()}
+            className="text-amber hover:underline"
+            data-testid="login-register-link"
+          >
             Sign up
           </Link>
         </p>
@@ -119,6 +131,7 @@ export function LoginPage() {
           Forgot Password?{" "}
           <Link
             to={resetPasswordRequest()}
+            data-testid="login-reset-link"
             className="text-amber hover:underline"
           >
             Reset password

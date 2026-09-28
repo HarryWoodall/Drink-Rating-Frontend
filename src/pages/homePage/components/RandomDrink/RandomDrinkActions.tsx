@@ -21,6 +21,7 @@ export function RandomDrinkActions({
         onClick={onShuffle}
         disabled={fetching}
         className="group rounded-full"
+        data-testid="random-drink-shuffle"
       >
         <Shuffle
           className={
@@ -33,7 +34,7 @@ export function RandomDrinkActions({
       </Button>
       {drink && (
         <Button asChild variant="outline" className="rounded-full">
-          <Link to={cocktailPath(drink.id)}>
+          <Link to={cocktailPath(drink.id)} data-testid="random-drink-view-link">
             View &amp; Rate
             <ArrowUpRight />
           </Link>

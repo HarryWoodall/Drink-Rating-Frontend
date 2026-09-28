@@ -55,11 +55,21 @@ export function UpdateFeedbackModal({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         {variant === "full" ? (
-          <Button variant="outline" className="rounded-full">
+          <Button
+            variant="outline"
+            className="rounded-full"
+            data-testid="update-feedback-trigger"
+          >
             Update Review
           </Button>
         ) : (
-          <Button size="sm" variant="ghost" className="ml-1 rounded-full">
+          <Button
+            size="sm"
+            variant="ghost"
+            className="ml-1 rounded-full"
+            aria-label="Edit your review"
+            data-testid="update-feedback-trigger-inline"
+          >
             <PencilIcon />
           </Button>
         )}

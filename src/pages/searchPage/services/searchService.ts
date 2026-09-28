@@ -99,7 +99,7 @@ function paginationQueryParams(
   }
 
   if (limit) {
-    currentSearchParams.append("page", limit.toString());
+    currentSearchParams.append("limit", limit.toString());
   }
 
   return currentSearchParams;
