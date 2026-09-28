@@ -87,13 +87,11 @@ describe.each([
 
     // usePostFeedback reads `status` and `body.cooldown` off this to build
     // its toast, so both have to survive the throw.
-    const error = await httpErrorFrom(
-      method("/drinks/1/feedback", {}).catch((e) => e),
-    );
+    const error = await httpErrorFrom(method("/drinks/1/feedback", {}));
 
     expect(error).toBeInstanceOf(HttpError);
-    expect(error.status).toBe(429);
-    expect(error.body).toEqual(body);
+    expect(error?.status).toBe(429);
+    expect(error?.body).toEqual(body);
   });
 });
 
@@ -112,13 +110,11 @@ describe("post", () => {
       }),
     );
 
-    const error = await httpErrorFrom(
-      post("/drinks/1/feedback", {}).catch((e) => e),
-    );
+    const error = await httpErrorFrom(post("/drinks/1/feedback", {}));
 
     expect(error).toBeInstanceOf(HttpError);
-    expect(error.status).toBe(502);
-    expect(error.body).toBeNull();
+    expect(error?.status).toBe(502);
+    expect(error?.body).toBeNull();
   });
 });
 
@@ -140,10 +136,10 @@ describe("del", () => {
       errorResponse(401, "Unauthorized", { message: "Sign in first" }),
     );
 
-    const error = await httpErrorFrom(del("/favourites/11007").catch((e) => e));
+    const error = await httpErrorFrom(del("/favourites/11007"));
 
     expect(error).toBeInstanceOf(HttpError);
-    expect(error.message).toBe("Sign in first");
+    expect(error?.message).toBe("Sign in first");
   });
 });
 
@@ -172,15 +168,17 @@ describe("postWithFormData", () => {
     );
 
     const error = await httpErrorFrom(
-      postWithFormData("/profile/image", new FormData()).catch((e) => e),
+      postWithFormData("/profile/image", new FormData()),
     );
 
     expect(error).toBeInstanceOf(HttpError);
-    expect(error.status).toBe(413);
+    expect(error?.status).toBe(413);
   });
 });
 
-async function httpErrorFrom(promise: Promise<unknown>): Promise<HttpError> {
+async function httpErrorFrom(
+  promise: Promise<unknown>,
+): Promise<HttpError | undefined> {
   try {
     await promise;
   } catch (e) {
@@ -189,5 +187,4 @@ async function httpErrorFrom(promise: Promise<unknown>): Promise<HttpError> {
     // eslint-disable-next-line preserve-caught-error
     throw new Error(`Expected an HttpError, got: ${String(e)}`);
   }
-  throw new Error("Expected the request to reject, but it resolved");
 }

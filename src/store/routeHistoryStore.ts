@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface RouteHistoryState {
   currentPath: string | null;
@@ -12,56 +13,61 @@ interface RouteHistoryState {
   fullPreviousPath: () => string;
 }
 
-export const useRouteHistoryStore = create<RouteHistoryState>((set, get) => ({
-  currentPath: null,
-  currentQuery: null,
-  previousPath: null,
-  previousQuery: null,
-  currentBackText: null,
-  previousBackText: null,
-  setPath: (path, backText, query) => {
-    const { currentPath, currentQuery, currentBackText } = get();
-
-    if (path === currentPath) {
-      if (query === currentQuery) {
-        return;
-      }
-
-      set({
-        currentPath: path,
-        currentQuery: query,
-        currentBackText: backText,
-      });
-
-      return;
-    }
-
-    set({
-      previousPath: currentPath,
-      previousQuery: currentQuery,
-      currentPath: path,
-      currentQuery: query,
-      previousBackText: currentBackText,
-      currentBackText: backText,
-    });
-  },
-  resetPath: (path, backText, query) => {
-    set({
+export const useRouteHistoryStore = create<RouteHistoryState>()(
+  persist(
+    (set, get) => ({
+      currentPath: null,
+      currentQuery: null,
       previousPath: null,
       previousQuery: null,
-      currentPath: path,
-      currentQuery: query,
+      currentBackText: null,
       previousBackText: null,
-      currentBackText: backText,
-    });
-  },
-  fullPreviousPath: () => {
-    const { previousPath, previousQuery } = get();
+      setPath: (path, backText, query) => {
+        const { currentPath, currentQuery, currentBackText } = get();
 
-    if (!previousPath) {
-      return "";
-    }
+        if (path === currentPath) {
+          if (query === currentQuery) {
+            return;
+          }
 
-    return previousPath + (previousQuery ?? "");
-  },
-}));
+          set({
+            currentPath: path,
+            currentQuery: query,
+            currentBackText: backText,
+          });
+
+          return;
+        }
+
+        set({
+          previousPath: currentPath,
+          previousQuery: currentQuery,
+          currentPath: path,
+          currentQuery: query,
+          previousBackText: currentBackText,
+          currentBackText: backText,
+        });
+      },
+      resetPath: (path, backText, query) => {
+        set({
+          previousPath: null,
+          previousQuery: null,
+          currentPath: path,
+          currentQuery: query,
+          previousBackText: null,
+          currentBackText: backText,
+        });
+      },
+      fullPreviousPath: () => {
+        const { previousPath, previousQuery } = get();
+
+        if (!previousPath) {
+          return "";
+        }
+
+        return previousPath + (previousQuery ?? "");
+      },
+    }),
+    { name: "route-history" },
+  ),
+);
