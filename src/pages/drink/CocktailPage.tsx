@@ -10,6 +10,7 @@ import { BackLink } from "@/components/shared/BackLink";
 import { useRouteHistoryStore } from "@/store/routeHistoryStore";
 import { useEffect } from "react";
 import { FavouriteButton } from "@/components/cocktail/favouriteButton/FavouriteButton";
+import { StarRating } from "../homePage/components/StarRating";
 
 export function CocktailPage() {
   const { name } = useParams<{ name: string }>();
@@ -95,6 +96,16 @@ export function CocktailPage() {
                   {cocktail.name}
                 </h1>
                 <FavouriteButton cocktail={cocktail} />
+              </div>
+
+              <div className="mt-3">
+                {cocktail.rating ? (
+                  <StarRating rating={cocktail.rating.avgRating} size="md" />
+                ) : (
+                  <p className="font-serif italic text-muted-foreground text-md">
+                    No ratings yet
+                  </p>
+                )}
               </div>
 
               <h2 className="mt-8 mb-3 text-xs uppercase tracking-[0.18em] text-muted-foreground">

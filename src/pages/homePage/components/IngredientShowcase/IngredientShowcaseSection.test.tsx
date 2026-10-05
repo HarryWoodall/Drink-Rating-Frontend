@@ -99,6 +99,32 @@ describe("IngredientShowcaseSection", () => {
     ).toHaveAttribute("href", "/cocktail/g1");
   });
 
+  it("shows each drink's own rating", async () => {
+    vi.mocked(getCocktailsForTopIngredients).mockResolvedValue([
+      makeDrink({
+        id: "g1",
+        name: "Gimlet",
+        rating: { avgRating: 4.5, numRatings: 7 },
+      }),
+    ]);
+
+    renderWithProviders(<IngredientShowcaseSection />);
+
+    expect(await screen.findByTestId("star-rating-value")).toHaveTextContent(
+      "4.5",
+    );
+    expect(screen.getByTestId("star-rating-count")).toHaveTextContent("(7)");
+  });
+
+  it("marks a drink without ratings as not yet rated", async () => {
+    renderWithProviders(<IngredientShowcaseSection />);
+
+    expect(
+      await screen.findByTestId("star-rating-unrated"),
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId("star-rating")).not.toBeInTheDocument();
+  });
+
   it("says when no one has rated a drink with the ingredient", async () => {
     vi.mocked(getCocktailsForTopIngredients).mockResolvedValue([]);
 

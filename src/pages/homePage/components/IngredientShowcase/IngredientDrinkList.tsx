@@ -95,8 +95,8 @@ function ShowcaseContent({ drinks }: ContentShowcaseProps) {
         <DrinkShowcaseCard
           key={d.id}
           drink={d}
-          avgRating={2.5} // TODO -- fix this to use actual data
-          numRatings={3}
+          avgRating={d.rating?.avgRating ?? 0}
+          numRatings={d.rating?.numRatings ?? 0}
         />
       </Link>
     </CarouselItem>
