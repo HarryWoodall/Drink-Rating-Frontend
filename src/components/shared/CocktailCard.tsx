@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Wine } from "lucide-react";
 import { cocktailPath } from "@/lib/paths";
 import { alcoholicLabel, type Drink } from "@/types/cocktail";
+import { StarRating } from "@/pages/homePage/components/StarRating";
 
 interface CocktailCardProps {
   drink: Drink;
@@ -53,6 +54,17 @@ export function CocktailCard({ drink, action }: CocktailCardProps) {
           >
             {drink.name}
           </p>
+
+          {drink.rating ? (
+            <div className="mb-2 mt-1">
+              <StarRating
+                rating={drink.rating?.avgRating}
+                numRatings={drink.rating?.numRatings}
+                size="sm"
+              />
+            </div>
+          ) : null}
+
           <p
             className="mt-1 text-xs text-muted-foreground"
             data-testid="cocktail-card-isAlcoholic-label"
